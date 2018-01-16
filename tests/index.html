@@ -6,7 +6,22 @@
 <body>
     <div id="content">default route</div>
     
+    <div>
+        <a href="#/home">home</a>
+        <a href="#/test">test</a>
+        <a href="#/contact">contact</a>
+    </div>
+    
     <script src="../lib/router.js"></script>
+    
+    <script>
+        var router = new router();
+        console.log('Current route :' + router.getCurrentURI());
+        
+        router.setErrorCallback(function(){
+            throw new TypeError('I think there\'s a problem.');
+        });
+    </script>
     
     <script src="./routes.js"></script>
 </body>
