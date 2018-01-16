@@ -1,6 +1,6 @@
 # router.js
 
-Simple client-based JS router for a single page.
+Simple client based mono-page JS router. You don't need node, this is a entirely lightweight front based for simple html pages. You can use it on GitHub pages for documentations or a portfolio for example.
 
 ## Overview
 
