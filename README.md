@@ -46,7 +46,7 @@ The router is always listening to URI
 
 ~~~ js
 window.addEventListener('popstate', function(){
-    parent.run(); // run the router again when a paramater is push to the URI
+    parent.run(); // run the router again when a paramater is pushed to the URI
 });
 ~~~
 
