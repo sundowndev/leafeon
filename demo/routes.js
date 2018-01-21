@@ -19,8 +19,8 @@ router.add('#/hello/:id', function(id){
     console.log('hello {{ name }}');
 });
 
-router.add('#/hello/:id/test', function(id){
-    console.log('hello {{ test }}');
+router.add('#/hello/:id/test/:name', function(id, test){
+    console.log('hello ' + id);
 });
 
 router.run(function(){
