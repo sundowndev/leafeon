@@ -50,6 +50,14 @@ window.addEventListener('popstate', function(){
 });
 ~~~
 
+After router middleware
+
+~~~ js
+router.run(function(){
+    /* do something after running the router */
+});
+~~~
+
 ## Installation
 
 1. Include router.js at the end of the body
