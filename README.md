@@ -7,7 +7,6 @@ Simple client based mono-page router. You don't need node, this is a entirely li
 * Static Route Patterns
 * Dynamic Route Patterns
 * Custom 404 error handling
-* Supports GET and POST HTTP methods
 * Mono-page router listening to the URI
 * After Router Middleware (Finish Callback)
 
