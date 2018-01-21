@@ -3,24 +3,19 @@
  */
 router.add('#/home', function(){
     /* do something */
-    console.log('home!');
-});
-
-router.add('#/je/test/laroute', function(){
-    /* do something */
-    console.log('je test laroute');
+    console.log('home');
 });
 
 router.add('#/hello/world', function(){
     console.log('hello world');
 });
 
-router.add('#/hello/:id', function(id){
-    console.log('hello {{ name }}');
+router.add('#/hello/:name', function(name){
+    console.log('hello ' + name);
 });
 
-router.add('#/hello/:id/test/:name', function(id, test){
-    console.log('hello ' + id);
+router.add('#/:name/is/here', function(name){
+    console.log(name + ' is here!');
 });
 
 router.run(function(){
