@@ -7,7 +7,6 @@ Simple client based mono-page router. You don't need node, this is a entirely li
 * Static Route Patterns
 * Dynamic Route Patterns
 * Custom 404 error handling
-* Supports GET and POST HTTP methods
 * Mono-page router listening to the URI
 * After Router Middleware (Finish Callback)
 
@@ -46,8 +45,16 @@ router.setErrorCallback(function(){
 The router is always listening to URI
 
 ~~~ js
-window.addEventListener('popstate', function(){
-    parent.run(); // run the router again when a paramater is push to the URI
+window.addEventListener('hashchange', function(){
+    parent.run(); // run the router again when a paramater is pushed to the URI
+});
+~~~
+
+After router middleware
+
+~~~ js
+router.run(function(){
+    /* do something after running the router */
 });
 ~~~
 
