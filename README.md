@@ -45,7 +45,7 @@ router.setErrorCallback(function(){
 The router is always listening to URI
 
 ~~~ js
-window.addEventListener('popstate', function(){
+window.addEventListener('hashchange', function(){
     parent.run(); // run the router again when a paramater is pushed to the URI
 });
 ~~~
