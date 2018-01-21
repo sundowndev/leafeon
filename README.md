@@ -21,7 +21,7 @@ router.getCurrentURI();
 A simple route
 
 ~~~ js
-router.get('/#/mypage', function(){
+router.match('/#/mypage', function(){
   /* do something */
 });
 ~~~
@@ -29,7 +29,7 @@ router.get('/#/mypage', function(){
 A simple route using parameter
 
 ~~~ js
-router.get('/#/category/:id', function(id){
+router.match('/#/category/:id', function(id){
   console.log(id);
 });
 ~~~
