@@ -21,3 +21,5 @@ router.add('#/:name/is/here', function(name){
 router.run(function(){
     /* Optional finish callback */
 });
+
+router.goto('#/lol/is/here');
