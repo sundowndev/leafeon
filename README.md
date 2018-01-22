@@ -9,7 +9,7 @@ Simple client based mono-page router. You don't need node, this is a entirely li
 * Regex support
 * Custom 404 error handling
 * Mono-page router listening to the URI
-* After Router Middleware (Finish Callback)
+* Before and after Router Middleware
 
 ## Overview
 
@@ -59,12 +59,11 @@ router.run(function(){
 });
 ~~~
 
-#### Dynamic route patterns
+#### Dynamic route patterns
 
 - `\d+` = One or more digits (0-9)
 - `\w+` = One or more word characters (a-z 0-9 _)
 - `[a-z0-9_-]+` = One or more word characters (a-z 0-9 _) and the dash (-)
-- `.*` = Any character (including `/`), zero or more
 - `[^/]+` = Any character but `/`, one or more
 
 ## Installation
