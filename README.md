@@ -16,7 +16,7 @@ Simple client based mono-page router. You don't need node, this is a entirely li
 A simple route
 
 ~~~ js
-router.match('/#/mypage', function(){
+router.add('/#/mypage', function(){
   /* do something */
 });
 ~~~
@@ -24,7 +24,7 @@ router.match('/#/mypage', function(){
 A simple route using parameter
 
 ~~~ js
-router.match('/#/category/:id', function(id){
+router.add('/#/category/:id', function(id){
   console.log(id);
 });
 ~~~
