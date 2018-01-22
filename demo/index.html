@@ -7,8 +7,8 @@
     <div id="content"></div>
     
     <div>
-        <a href="#/home">home</a>
-        <a href="#/hello/world">test</a>
+        <a href="#/about">about</a>
+        <a href="#/hello/world">hello world</a>
         <a href="#/contact">contact</a>
     </div>
     
@@ -16,12 +16,6 @@
     
     <script>
         var router = new router();
-        
-        console.log('Current route : ' + router.getCurrentURI());
-        
-        router.setErrorCallback(function(){
-            throw new TypeError('I think there\'s a problem.');
-        });
     </script>
     
     <script src="./routes.js"></script>

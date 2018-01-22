@@ -1,28 +1,31 @@
+var content = document.querySelector('#content');
+
 /*
  * Router calls
  */
 router.add('', function(){
-    /* do something */
-    console.log('root');
+    content.textContent = 'home';
 });
 
-router.add('#/home', function(){
-    /* do something */
-    console.log('home');
+router.add('#/about', function(){
+    content.textContent = 'about section';
 });
 
 router.add('#/hello/world', function(){
-    console.log('hello world :)');
+    content.textContent = 'hello world :)';
 });
 
 router.add('#/hello/:name', function(name){
-    console.log('hello ' + name);
+    content.textContent = 'hello ' + name;
 });
 
-router.add('#/([a-zA-Z_-])', function(name){
-    console.log(name + ' ' + token);
+router.add('#/user/([a-zA-Z_-])', function(name){
+    content.textContent = 'user: ' + name;
 });
 
-router.run(function(){
-    /* Optional finish callback */
+router.setErrorCallback(function(){
+    content.textContent = '404 error!';
+    throw new TypeError('404 error');
 });
+
+router.run(function(){ /* Optional finish callback */ });
