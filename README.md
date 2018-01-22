@@ -6,6 +6,7 @@ Simple client based mono-page router. You don't need node, this is a entirely li
 
 * Static Route Patterns
 * Dynamic Route Patterns
+* Regex support
 * Custom 404 error handling
 * Mono-page router listening to the URI
 * After Router Middleware (Finish Callback)
@@ -57,6 +58,14 @@ router.run(function(){
     /* do something after running the router */
 });
 ~~~
+
+#### Dynamic route patterns
+
+- `\d+` = One or more digits (0-9)
+- `\w+` = One or more word characters (a-z 0-9 _)
+- `[a-z0-9_-]+` = One or more word characters (a-z 0-9 _) and the dash (-)
+- `.*` = Any character (including `/`), zero or more
+- `[^/]+` = Any character but `/`, one or more
 
 ## Installation
 
