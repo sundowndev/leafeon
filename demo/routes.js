@@ -19,12 +19,8 @@ router.add('#/hello/:name', function(name){
     console.log('hello ' + name);
 });
 
-router.add('#/:name/is/here', function(name){
-    console.log(name + ' is here!');
-});
-
-router.add('#/lol/:name/:token', function(name, token){
-    console.log(name + ' is here ' + token);
+router.add('#/([a-zA-Z_-])', function(name){
+    console.log(name + ' ' + token);
 });
 
 router.run(function(){

@@ -13,12 +13,6 @@ Simple client based mono-page router. You don't need node, this is a entirely li
 
 ## Overview
 
-Get the current URI
-
-~~~ js
-router.getCurrentURI();
-~~~
-
 A simple route
 
 ~~~ js
@@ -59,7 +53,7 @@ router.run(function(){
 });
 ~~~
 
-#### Dynamic route patterns
+### Dynamic route patterns
 
 - `\d+` = One or more digits (0-9)
 - `\w+` = One or more word characters (a-z 0-9 _)
