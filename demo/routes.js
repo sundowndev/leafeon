@@ -3,7 +3,7 @@ var content = document.querySelector('#content');
 /*
  * Router calls
  */
-router.add('/#/', function () {
+router.add('/', function () {
     content.textContent = 'home';
 });
 
