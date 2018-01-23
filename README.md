@@ -16,9 +16,7 @@ Simple client based mono-page router. You don't need node, this is a entirely li
 A simple route
 
 ~~~ js
-router.add('/#/mypage', function(){
-  /* do something */
-});
+router.add('/#/mypage', function(){ /* do something */ });
 ~~~
 
 A simple route using parameter
@@ -53,7 +51,13 @@ router.run(function(){
 });
 ~~~
 
-### Dynamic route patterns
+Go to a specific route
+
+~~~ js
+router.goto('#/about');
+~~~
+
+### (TODO) Dynamic route patterns
 
 - `\d+` = One or more digits (0-9)
 - `\w+` = One or more word characters (a-z 0-9 _)
@@ -70,3 +74,10 @@ router.run(function(){
 </script>
 ~~~
 3. Create and include routes.js
+~~~ js
+router.add('/#/about', function () {
+    content.textContent = 'about me';
+});
+
+router.run();
+~~~
