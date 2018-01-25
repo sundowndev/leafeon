@@ -67,7 +67,7 @@ router.before('*', function () {
 });
 
 router.before('/#/about', function () {
-    /* do something each time the URI is at "/#/about" */
+    /* do something each time the URI change to "/#/about" */
 });
 ~~~
 
@@ -97,8 +97,8 @@ router.add('/#/category/\w+', function(id){});
 ~~~
 3. Create and include routes.js
 ~~~ js
-router.add('/#/about', function () {
-    content.textContent = 'about me';
+router.add('/', function () {
+    content.textContent = 'home';
 });
 
 router.run();
