@@ -1,15 +1,17 @@
 # router.js
 
-Simple client based mono-page router. You don't need node, this is a entirely lightweight and front based for simple html pages. You can use it on GitHub pages for documentations or a portfolio.
+Simple client based mono-page router. You don't need node, this is a entirely lightweight and front based for simple html pages. You can use it on GitHub pages for documentation, portfolio...
 
 ## Features
 
-* Static Route Patterns
-* Dynamic Route Patterns
-* Regex support
-* Custom 404 error handling
-* Mono-page router listening to the URI
-* Before and after Router Middleware
+- [x] Static Route Patterns
+- [x] Dynamic Route Patterns
+- [x] Custom 404 error handling
+- [x] Mono-page router listening to the URI
+- [x] Before and after Router Middleware
+- [ ] Regex support
+- [ ] Multiple before route middleware handling
+- [ ] Support "/" and "/#/" base route at the same time
 
 ## Overview
 
@@ -57,12 +59,32 @@ Go to a specific route
 router.goto('#/about');
 ~~~
 
-### (TODO) Dynamic route patterns
+Before route middleware
+
+~~~ js
+router.before('*', function () {
+    /* do something each time the url change */
+});
+
+router.before('/#/about', function () {
+    /* do something each time the URI is at "/#/about" */
+});
+~~~
+
+### Dynamic route patterns
 
 - `\d+` = One or more digits (0-9)
 - `\w+` = One or more word characters (a-z 0-9 _)
 - `[a-z0-9_-]+` = One or more word characters (a-z 0-9 _) and the dash (-)
 - `[^/]+` = Any character but `/`, one or more
+
+~~~ js
+// good
+router.add('/#/category/(\w+)', function(id){});
+
+// bad
+router.add('/#/category/\w+', function(id){});
+~~~
 
 ## Installation
 

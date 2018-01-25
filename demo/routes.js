@@ -2,7 +2,12 @@ var content = document.querySelector('#content');
 
 /*
  * Router calls
+ * '/#/mypage' OR '*'
  */
+router.before('*', function () {
+    console.log('before');
+});
+
 router.add('/', function () {
     content.textContent = 'home';
 });
