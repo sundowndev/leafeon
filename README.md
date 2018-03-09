@@ -1,6 +1,6 @@
 # router.js
 
-Simple client based mono-page router. You don't need node, this is a entirely lightweight and front based for simple html pages. You can use it on GitHub pages for documentation, portfolio...
+Simple client based router. You don't need node, this is a entirely front based for simple html pages. You can use it on GitHub pages for documentation, portfolio ...
 
 ## Features
 
@@ -18,13 +18,13 @@ Simple client based mono-page router. You don't need node, this is a entirely li
 A simple route
 
 ~~~ js
-router.add('/#/mypage', function(){ /* do something */ });
+router.add('/#/mypage', function () { /* do something */ });
 ~~~
 
 A simple route using parameter
 
 ~~~ js
-router.add('/#/category/:id', function(id){
+router.add('/#/category/:id', function (id) {
   console.log(id);
 });
 ~~~
@@ -32,7 +32,7 @@ router.add('/#/category/:id', function(id){
 Set a callback when returning "route not found"
 
 ~~~ js
-router.setErrorCallback(function(){
+router.setErrorCallback(function () {
     throw new TypeError('I think there\'s a problem.');
 });
 ~~~
@@ -40,7 +40,7 @@ router.setErrorCallback(function(){
 The router is always listening to URI
 
 ~~~ js
-window.addEventListener('hashchange', function(){
+window.addEventListener('hashchange', function () {
     parent.run(); // run the router again when a paramater is pushed to the URI
 });
 ~~~
@@ -48,7 +48,7 @@ window.addEventListener('hashchange', function(){
 After router middleware
 
 ~~~ js
-router.run(function(){
+router.run(function () {
     /* do something after running the router */
 });
 ~~~
@@ -80,10 +80,10 @@ router.before('/#/about', function () {
 
 ~~~ js
 // good
-router.add('/#/category/(\w+)', function(id){});
+router.add('/#/category/(\w+)', function (id) {});
 
 // bad
-router.add('/#/category/\w+', function(id){});
+router.add('/#/category/\w+', function (id) {});
 ~~~
 
 ## Installation
