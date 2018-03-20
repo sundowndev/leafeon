@@ -2,23 +2,29 @@
 <head>
   <meta charset="UTF-8">
   <title>Router.js</title>
+    <style>
+        body {
+            font-family: Sans-serif;
+        }
+    </style>
 </head>
 <body>
-    <div id="content"></div>
-    
+
     <div>
-        <a href="#">home</a>
-        <a href="#/about">about</a>
-        <a href="#/hello/world">hello world</a>
-        <a href="#/contact">contact</a>
-    </div>
-    
-    <script src="../lib/router.js"></script>
-    
+        <a href="#" id="home">home</a>
+        <a href="#/about" id="about">about</a>
+        <a href="#/hello/Jerry" id="hello">hello world</a>
+        <a href="#/contact" id="contact">contact</a>
+    </div><hr>
+
+    <div id="content"></div>
+
+    <script src="../lib/router/router.js"></script>
+
     <script>
-        var router = new router();
+        var content = document.querySelector('#content');
     </script>
-    
+
     <script src="./routes.js"></script>
 </body>
 </html>
