@@ -1,31 +1,28 @@
 var content = document.querySelector('#content');
 
+var router = new router();
+
 /*
- * Router calls
- * '/#/mypage' OR '*'
+ * Routes calls
  */
 router.before('*', function () {
-    console.log('before');
+    console.log('before middleware');
 });
 
-router.add('/', function () {
+router.add('home', '/', function () {
     content.textContent = 'home';
 });
 
-router.add('/#/about', function () {
+router.add('about', '/#/about', function () {
     content.textContent = 'about me';
 });
 
-router.add('/#/hello/world', function () {
-    content.textContent = 'hello world :)';
+router.add('hello', '/#/hello/:name', function (name) {
+    content.textContent = 'hello ' + name + ' !';
 });
 
-router.add('/#/hello/:name', function (name) {
-    content.textContent = 'hello ' + name;
-});
-
-router.add('/#/user/([a-zA-Z_-])', function (name) {
-    content.textContent = 'user: ' + name;
+router.add('contact', '/#/contact', function () {
+    content.textContent = 'contact';
 });
 
 router.setErrorCallback(function () {
@@ -33,4 +30,6 @@ router.setErrorCallback(function () {
     throw new TypeError('404 error');
 });
 
-router.run(function () { /* Optional finish callback */ });
+router.run(function () {
+    document.getElementById(router.route.name).classList.toggle('active');
+});
