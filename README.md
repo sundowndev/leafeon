@@ -11,6 +11,7 @@ Simple client based router. You don't need node, this is a entirely front based 
 - [x] Before and after Router Middleware
 - [ ] Multiple before route middleware handling
 - [ ] Support "/" and "/#/" base route at the same time
+- [ ] Map function to map into a specific path
 
 ## Overview
 
@@ -80,6 +81,27 @@ This will ouput :
 
 ~~~
 {name: "home", route: "/", callback: [function], paramsEnabled: false, params: [array]}
+~~~
+
+Route mapping
+
+~~~js
+router.map('index', [
+    {
+        name: 'home',
+        route: '/',
+        callback: function () {
+            // show me home content
+        }
+    },
+    {
+        name: 'about',
+        route: '/',
+        callback: function () {
+            // show me about content
+        }
+    }
+]);
 ~~~
 
 ## Installation
