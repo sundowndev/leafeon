@@ -9,7 +9,6 @@ Simple client based router. You don't need node, this is a entirely front based 
 - [x] Custom 404 error handling
 - [x] Mono-page router listening to the URI
 - [x] Before and after Router Middleware
-- [ ] Regex support
 - [ ] Multiple before route middleware handling
 - [ ] Support "/" and "/#/" base route at the same time
 
@@ -71,31 +70,32 @@ router.before('/#/about', function () {
 });
 ~~~
 
-### Dynamic route patterns
+Access to the current route
 
-- `\d+` = One or more digits (0-9)
-- `\w+` = One or more word characters (a-z 0-9 _)
-- `[a-z0-9_-]+` = One or more word characters (a-z 0-9 _) and the dash (-)
-- `[^/]+` = Any character but `/`, one or more
+~~~js
+router.route
+~~~
 
-~~~ js
-// good
-router.add('/#/category/(\w+)', function (id) {});
+This will ouput :
 
-// bad
-router.add('/#/category/\w+', function (id) {});
+~~~
+{name: "home", route: "/", callback: [function], paramsEnabled: false, params: [array]}
 ~~~
 
 ## Installation
 
 1. Include router.js at the end of the body
+
 2. Init the router
+
 ~~~ html
 <script>
     var router = new router();
 </script>
 ~~~
+
 3. Create and include routes.js
+
 ~~~ js
 router.add('/', function () {
     content.textContent = 'home';
