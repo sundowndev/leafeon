@@ -58,10 +58,10 @@ router.run(function () {
 });
 ~~~
 
-Go to a specific route
+Target a specific route by name
 
 ~~~ js
-router.goto('#/about');
+router.goto('home');
 ~~~
 
 Before route middleware
