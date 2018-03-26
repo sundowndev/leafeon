@@ -1,35 +1,48 @@
-var content = document.querySelector('#content');
-
 var router = new router();
 
 /*
  * Routes calls
  */
 router.before('*', function () {
-    console.log('before middleware');
+    console.log('You were on ' + router.route.route + ' route');
 });
 
 router.add('home', '/', function () {
-    content.textContent = 'home';
+    content.innerHTML = '' +
+        '<h1>Welcome!</h1>' +
+        '<p>wow, such routing</p>'
+    ;
 });
 
 router.add('about', '/#/about', function () {
-    content.textContent = 'about me';
-});
-
-router.add('hello', '/#/hello/:name', function (name) {
-    content.textContent = 'hello ' + name + ' !';
+    content.innerHTML = '' +
+        '<h1>About me</h1>' +
+        '<p>I\'m french</p>'
+    ;
 });
 
 router.add('contact', '/#/contact', function () {
-    content.textContent = 'contact';
+    content.innerHTML = '' +
+        '<h1>Contact me</h1>' +
+        '<p>You contact me at <strong>raphael at crvx dot fr</strong></p>'
+    ;
 });
 
 router.setErrorCallback(function () {
-    content.textContent = '404 error!';
+    content.textContent = 'Woups, 404 error!';
     throw new TypeError('404 error');
 });
 
 router.run(function () {
-    document.getElementById(router.route.name).classList.toggle('active');
+    console.log('You are now on ' + router.route.route + ' route');
+
+    var links = document.querySelectorAll('[data-router-link]');
+
+    links.forEach(function (link) {
+        if (link.dataset.routerLink !== router.route.name) {
+            link.classList.remove('active');
+        }
+    });
+
+    document.querySelector('[data-router-link=' + router.route.name + ']').classList.toggle('active');
 });
