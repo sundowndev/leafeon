@@ -92,7 +92,7 @@ Route mapping
 
 ~~~js
 // This will create two routes under /#/page prefix
-router.map('index', '/#/page', [
+router.map('/#/page', [
     {
         name: 'home',
         route: '/',
@@ -122,7 +122,7 @@ router.map('index', '/#/page', [
 </script>
 ~~~
 
-3. Create and include routes.js
+3. Create routes and run the router
 
 ~~~ js
 router.add('home', '/', function () {
