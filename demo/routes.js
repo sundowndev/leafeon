@@ -28,6 +28,27 @@ router.add('contact', '/#/contact', function () {
     ;
 });
 
+router.map('/#/section', [
+    {
+        name: 'home',
+        route: '/',
+        callback: function () {
+            content.innerHTML = '' +
+                '<h1>index page</h1>'
+            ;
+        }
+    },
+    {
+        name: 'section',
+        route: '/:name',
+        callback: function (name) {
+            content.innerHTML = '' +
+                '<h1>' + name + ' section</h1>'
+            ;
+        }
+    }
+]);
+
 router.setErrorCallback(function () {
     content.textContent = 'Woups, 404 error!';
     throw new TypeError('404 error');
