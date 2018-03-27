@@ -26,13 +26,13 @@ Simple client based router. You don't need node, this is a entirely front based 
 A simple route
 
 ~~~ js
-router.add('mypage', '/#/mypage', function () { /* do something */ });
+router.add('mypage', '/mypage', function () { /* do something */ });
 ~~~
 
 A simple route using parameter
 
 ~~~ js
-router.add('single_category', '/#/category/:id', function (id) {
+router.add('single_category', '/category/:id', function (id) {
   console.log(id);
 });
 ~~~
