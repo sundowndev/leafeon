@@ -21,14 +21,14 @@ router.add('about', '/#/about', function () {
     ;
 });
 
-router.add('contact', '/#/contact', function () {
+router.add('contact', '/contact', function () {
     content.innerHTML = '' +
         '<h1>Contact me</h1>' +
         '<p>You contact me at <strong>raphael at crvx dot fr</strong></p>'
     ;
 });
 
-router.map('/#/section', [
+router.map('/section', [
     {
         name: 'home',
         route: '/',
@@ -39,8 +39,8 @@ router.map('/#/section', [
         }
     },
     {
-        name: 'section',
-        route: '/:name',
+        name: 'hello_world',
+        route: '/hello/:name',
         callback: function (name) {
             content.innerHTML = '' +
                 '<h1>' + name + ' section</h1>'
