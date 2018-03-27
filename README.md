@@ -122,7 +122,7 @@ router.map('/#/page', [
 ~~~ html
 <script>
     var router = new router();
-</script>Notifications @SundownDEV
+</script>
 
 ~~~
 
