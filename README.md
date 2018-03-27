@@ -64,7 +64,7 @@ router.run(function () {
 Target a specific route by name
 
 ~~~ js
-router.setRoute('home');
+router.fetchRoute('home');
 ~~~
 
 Before route middleware
