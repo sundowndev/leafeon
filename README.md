@@ -3,6 +3,9 @@
 <p>
   <a href="http://travis-ci.org/SundownDEV/router.js"><img src="https://api.travis-ci.org/SundownDEV/router.js.svg?branch=master" alt="Build Status"></a>
   <a href="#"><img src="https://img.shields.io/badge/version-1.2.0-lightgrey.svg?style=flat" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat" alt="License"></a>
+  <a href="#"><img src="https://img.shields.io/badge/size-8.0kb-brightgreen.svg?style=flat" alt="Size"></a>
+  <a href="#"><img src="https://img.shields.io/badge/size%20minified-4.0kb-brightgreen.svg?style=flat" alt="Size minified"></a>
 </p>
 
 Simple client based router. You don't need node, this is a entirely front based for simple html pages. You can use it on GitHub pages for documentation, portfolio ...
@@ -16,7 +19,7 @@ Simple client based router. You don't need node, this is a entirely front based 
 - [x] Before and after Router Middleware
 - [ ] Multiple before route middleware handling
 - [ ] Support "/" and "/#/" base route at the same time
-- [ ] Map function to map into a specific path
+- [x] Mapping routes into a specific path
 
 ## Overview
 
@@ -61,7 +64,7 @@ router.run(function () {
 Target a specific route by name
 
 ~~~ js
-router.goto('home');
+router.setRoute('home');
 ~~~
 
 Before route middleware
@@ -119,7 +122,8 @@ router.map('/#/page', [
 ~~~ html
 <script>
     var router = new router();
-</script>
+</script>Notifications @SundownDEV
+
 ~~~
 
 3. Create routes and run the router
