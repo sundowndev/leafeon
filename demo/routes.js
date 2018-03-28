@@ -43,7 +43,7 @@ router.map('/section', [
         route: '/hello/:name',
         callback: function (name) {
             content.innerHTML = '' +
-                '<h1>' + name + ' section</h1>'
+                '<h1>Hello, ' + name + ' !</h1>'
             ;
         }
     }
