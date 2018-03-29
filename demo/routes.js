@@ -60,10 +60,10 @@ router.run(function () {
     var links = document.querySelectorAll('[data-router-link]');
 
     links.forEach(function (link) {
-        if (link.dataset.routerLink !== router.route.name) {
+        if (link.dataset.routerLink === router.route.name) {
+            link.classList.toggle('active');
+        } else {
             link.classList.remove('active');
         }
     });
-
-    document.querySelector('[data-router-link=' + router.route.name + ']').classList.toggle('active');
 });
