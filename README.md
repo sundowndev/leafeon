@@ -17,7 +17,6 @@ Simple client based router. You don't need node, this is a entirely front based 
 - [x] Custom 404 error handling
 - [x] Mono-page router listening to the URI
 - [x] Before and after Router Middleware
-- [ ] Multiple before route middleware handling
 - [x] Support "/" and "/#/" base route at the same time
 - [x] Mapping routes into a specific path
 
