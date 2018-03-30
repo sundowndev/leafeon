@@ -2,7 +2,7 @@
 
 <p>
   <a href="http://travis-ci.org/SundownDEV/router.js"><img src="https://api.travis-ci.org/SundownDEV/router.js.svg?branch=master" alt="Build Status"></a>
-  <a href="#"><img src="https://img.shields.io/badge/version-1.4.2-lightgrey.svg?style=flat" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-1.4.3-ff69b4.svg?style=flat" alt="Version"></a>
   <a href="#"><img src="https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat" alt="License"></a>
   <a href="#"><img src="https://img.shields.io/badge/size-8.0kb-brightgreen.svg?style=flat" alt="Size"></a>
   <a href="#"><img src="https://img.shields.io/badge/size%20minified-4.0kb-brightgreen.svg?style=flat" alt="Size minified"></a>
@@ -74,7 +74,7 @@ router.before('*', function () {
     /* do something each time the url change */
 });
 
-router.before('/#/about', function () {
+router.before('/about', function () {
     /* do something each time the URI change to "/#/about" */
 });
 ~~~
@@ -98,16 +98,16 @@ Route mapping
 router.map('/#/page', [
     {
         name: 'home',
-        route: '/',
+        route: '/home',
         callback: function () {
-            // show me home content
+            // home content
         }
     },
     {
         name: 'about',
-        route: '/',
+        route: '/about',
         callback: function () {
-            // show me about content
+            // about content
         }
     }
 ]);
