@@ -1,5 +1,13 @@
 # router.js
 
+<p>
+  <a href="http://travis-ci.org/SundownDEV/router.js"><img src="https://api.travis-ci.org/SundownDEV/router.js.svg?branch=master" alt="Build Status"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-1.4.4-ff69b4.svg?style=flat" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat" alt="License"></a>
+  <a href="#"><img src="https://img.shields.io/badge/size-8.0kb-brightgreen.svg?style=flat" alt="Size"></a>
+  <a href="#"><img src="https://img.shields.io/badge/size%20minified-4.0kb-brightgreen.svg?style=flat" alt="Size minified"></a>
+</p>
+
 Simple client based router. You don't need node, this is a entirely front based for simple html pages. You can use it on GitHub pages for documentation, portfolio ...
 
 ## Features
@@ -9,22 +17,21 @@ Simple client based router. You don't need node, this is a entirely front based 
 - [x] Custom 404 error handling
 - [x] Mono-page router listening to the URI
 - [x] Before and after Router Middleware
-- [ ] Regex support
-- [ ] Multiple before route middleware handling
-- [ ] Support "/" and "/#/" base route at the same time
+- [x] Support "/" and "/#/" base route at the same time
+- [x] Mapping routes into a specific path
 
 ## Overview
 
 A simple route
 
 ~~~ js
-router.add('/#/mypage', function () { /* do something */ });
+router.add('mypage', '/mypage', function () { /* do something */ });
 ~~~
 
 A simple route using parameter
 
 ~~~ js
-router.add('/#/category/:id', function (id) {
+router.add('single_category', '/category/:id', function (id) {
   console.log(id);
 });
 ~~~
@@ -53,10 +60,10 @@ router.run(function () {
 });
 ~~~
 
-Go to a specific route
+Target a specific route by name
 
 ~~~ js
-router.goto('#/about');
+router.fetchRoute('home');
 ~~~
 
 Before route middleware
@@ -66,39 +73,76 @@ router.before('*', function () {
     /* do something each time the url change */
 });
 
-router.before('/#/about', function () {
+router.before('/about', function () {
     /* do something each time the URI change to "/#/about" */
 });
 ~~~
 
-### Dynamic route patterns
+Access to the current route
 
-- `\d+` = One or more digits (0-9)
-- `\w+` = One or more word characters (a-z 0-9 _)
-- `[a-z0-9_-]+` = One or more word characters (a-z 0-9 _) and the dash (-)
-- `[^/]+` = Any character but `/`, one or more
+~~~js
+router.route
+~~~
 
-~~~ js
-// good
-router.add('/#/category/(\w+)', function (id) {});
+This will ouput :
 
-// bad
-router.add('/#/category/\w+', function (id) {});
+~~~
+{name: "home", route: "/", callback: [function], paramsEnabled: false, params: [array]}
+~~~
+
+Route mapping
+
+~~~js
+// This will create two routes under /#/page prefix
+router.map('/#/page', [
+    {
+        name: 'home',
+        route: '/home',
+        callback: function () {
+            // home content
+        }
+    },
+    {
+        name: 'about',
+        route: '/about',
+        callback: function () {
+            // about content
+        }
+    }
+]);
 ~~~
 
 ## Installation
 
 1. Include router.js at the end of the body
+
+~~~ html
+<script src="router.js"></script>
+~~~
+
+or via jsdelivr's CDN
+
+~~~ html
+<script src="https://cdn.jsdelivr.net/gh/sundowndev/router.js@<VERSION>/lib/router/router.js"></script>
+~~~
+
 2. Init the router
+
 ~~~ html
 <script>
     var router = new router();
 </script>
+
 ~~~
-3. Create and include routes.js
+
+3. Create routes and run the router
+
 ~~~ js
-router.add('/', function () {
-    content.textContent = 'home';
+router.add('home', '/', function () {
+    content.innerHTML = '' +
+        '<h1>Welcome!</h1>' +
+        '<p>wow, such routing</p>'
+    ;
 });
 
 router.run();

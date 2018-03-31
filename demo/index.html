@@ -1,24 +1,61 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Router.js</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Router.js demo</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.0/examples/cover/cover.css" rel="stylesheet">
 </head>
-<body>
-    <div id="content"></div>
-    
-    <div>
-        <a href="#">home</a>
-        <a href="#/about">about</a>
-        <a href="#/hello/world">hello world</a>
-        <a href="#/contact">contact</a>
-    </div>
-    
-    <script src="../lib/router.js"></script>
-    
-    <script>
-        var router = new router();
-    </script>
-    
-    <script src="./routes.js"></script>
+
+<body class="text-center">
+
+<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <h3 class="masthead-brand">Router.js</h3>
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link" href="#" data-router-link="home">Home</a>
+                <a class="nav-link" href="#/about" data-router-link="about">About</a>
+                <a class="nav-link" href="#/contact" data-router-link="contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main" class="inner cover">
+        <div id="content"></div>
+    </main>
+
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+            <p>Demo page of router.js library by <a href="https://github.com/SundownDEV/router.js" target="_blank">@SundownDEV</a></p>
+        </div>
+    </footer>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="https://getbootstrap.com/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+<script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+
+<!-- Router library -->
+<script src="../lib/router/router.js"></script>
+
+<script>
+    var content = document.querySelector('#content');
+</script>
+
+<script src="routes.js"></script>
 </body>
 </html>
