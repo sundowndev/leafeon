@@ -116,6 +116,16 @@ router.map('/#/page', [
 
 1. Include router.js at the end of the body
 
+~~~ html
+<script src="router.js"></script>
+~~~
+
+or via jsdelivr's CDN
+
+~~~ html
+<script src="https://cdn.jsdelivr.net/gh/sundowndev/router.js@<VERSION>/lib/router/router.js"></script>
+~~~
+
 2. Init the router
 
 ~~~ html
