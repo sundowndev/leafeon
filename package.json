@@ -1,0 +1,24 @@
+{
+  "name": "@sundowndev/router.js",
+  "version": "1.5.4",
+  "description": "Simple client sided Javascript routing library.",
+  "main": "lib/router/router.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SundownDEV/router.js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SundownDEV/router.js/issues"
+  },
+  "homepage": "https://github.com/SundownDEV/router.js#readme"
+}
