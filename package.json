@@ -1,6 +1,6 @@
 {
   "name": "@sundowndev/router.js",
-  "version": "1.5.4",
+  "version": "1.5.6",
   "description": "Simple client sided Javascript routing library.",
   "main": "lib/router/router.js",
   "directories": {

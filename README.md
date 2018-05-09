@@ -116,6 +116,12 @@ router.map('page_', '/#/page', [
 ]);
 ~~~
 
+## Installation (npm)
+
+~~~
+npm i @sundowndev/router.js
+~~~
+
 ## Installation
 
 1. Include router.js at the end of the body
