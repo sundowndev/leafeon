@@ -2,7 +2,7 @@
 
 <p>
   <a href="http://travis-ci.org/SundownDEV/router.js"><img src="https://api.travis-ci.org/SundownDEV/router.js.svg?branch=master" alt="Build Status"></a>
-  <a href="#"><img src="https://img.shields.io/badge/version-1.4.4-ff69b4.svg?style=flat" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-1.5.4-ff69b4.svg?style=flat" alt="Version"></a>
   <a href="#"><img src="https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat" alt="License"></a>
   <a href="#"><img src="https://img.shields.io/badge/size-8.0kb-brightgreen.svg?style=flat" alt="Size"></a>
   <a href="#"><img src="https://img.shields.io/badge/size%20minified-4.0kb-brightgreen.svg?style=flat" alt="Size minified"></a>
@@ -18,7 +18,7 @@ Simple client based router. You don't need node, this is a entirely front based 
 - [x] Mono-page router listening to the URI
 - [x] Before and after Router Middleware
 - [x] Support "/" and "/#/" base route at the same time
-- [x] Mapping routes into a specific path
+- [x] Mapping routes under a specific prefix path
 
 ## Overview
 
@@ -93,20 +93,24 @@ This will ouput :
 Route mapping
 
 ~~~js
-// This will create two routes under /#/page prefix
-router.map('/#/page', [
+// This will create two routes under /#/page prefix as page_ prefix name
+router.map('page_', '/#/page', [
     {
-        name: 'home',
-        route: '/home',
+        name: 'index',
+        route: '/',
         callback: function () {
-            // home content
+            content.innerHTML = '' +
+                '<h1>index page</h1>'
+            ;
         }
     },
     {
-        name: 'about',
-        route: '/about',
+        name: 'tutorial',
+        route: '/tutorial',
         callback: function () {
-            // about content
+            content.innerHTML = '' +
+                '<h1>This is a tutorial!</h1>'
+            ;
         }
     }
 ]);

@@ -28,9 +28,9 @@ router.add('contact', '/contact', function () {
     ;
 });
 
-router.map('/section', [
+router.map('doc_', '/doc', [
     {
-        name: 'home',
+        name: 'index',
         route: '/',
         callback: function () {
             content.innerHTML = '' +
@@ -39,11 +39,11 @@ router.map('/section', [
         }
     },
     {
-        name: 'hello_world',
-        route: '/hello/:name',
-        callback: function (name) {
+        name: 'tutorial',
+        route: '/tutorial',
+        callback: function () {
             content.innerHTML = '' +
-                '<h1>Hello, ' + name + ' !</h1>'
+                '<h1>This is a tutorial!</h1>'
             ;
         }
     }
