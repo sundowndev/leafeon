@@ -2,13 +2,13 @@
 
 <p>
   <a href="http://travis-ci.org/SundownDEV/router.js"><img src="https://api.travis-ci.org/SundownDEV/router.js.svg?branch=master" alt="Build Status"></a>
-  <a href="#"><img src="https://img.shields.io/badge/version-1.6.1-brightgreen.svg?style=flat" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-1.5.8-green.svg?style=flat" alt="Version"></a>
   <a href="#"><img src="https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat" alt="License"></a>
   <a href="#"><img src="https://img.shields.io/badge/size-8.0kb-brightgreen.svg?style=flat" alt="Size"></a>
   <a href="#"><img src="https://img.shields.io/badge/size%20minified-4.0kb-brightgreen.svg?style=flat" alt="Size minified"></a>
 </p>
 
-Simple client based router. You don't need node, this is a entirely front based for simple html pages. You can use it on GitHub pages for documentation, portfolio ...
+Simple client sided router. You don't need node, you can use it in static html pages for documentation, personal website etc.
 
 ## Features
 
