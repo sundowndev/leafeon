@@ -2,7 +2,7 @@
 
 <p>
   <a href="http://travis-ci.org/SundownDEV/router.js"><img src="https://api.travis-ci.org/SundownDEV/router.js.svg?branch=master" alt="Build Status"></a>
-  <a href="#"><img src="https://img.shields.io/badge/version-1.5.6-ff69b4.svg?style=flat" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-1.6.1-brightgreen.svg?style=flat" alt="Version"></a>
   <a href="#"><img src="https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat" alt="License"></a>
   <a href="#"><img src="https://img.shields.io/badge/size-8.0kb-brightgreen.svg?style=flat" alt="Size"></a>
   <a href="#"><img src="https://img.shields.io/badge/size%20minified-4.0kb-brightgreen.svg?style=flat" alt="Size minified"></a>
@@ -12,13 +12,10 @@ Simple client based router. You don't need node, this is a entirely front based 
 
 ## Features
 
-- [x] Static Route Patterns
-- [x] Dynamic Route Patterns
+- [x] Static & dynamic route patterns
 - [x] Custom 404 error handling
-- [x] Mono-page router listening to the URI
-- [x] Before and after Router Middleware
-- [x] Support "/" and "/#/" base route at the same time
-- [x] Mapping routes under a specific prefix path
+- [x] Before and after router middleware
+- [x] Mapping routes under a prefix path
 
 ## Overview
 
@@ -32,7 +29,7 @@ A simple route using parameter
 
 ~~~ js
 router.add('single_category', '/category/:id', function (id) {
-  console.log(id);
+  console.log('You requested the category : ' + id);
 });
 ~~~
 
@@ -41,14 +38,6 @@ Set a callback when returning "route not found"
 ~~~ js
 router.setErrorCallback(function () {
     throw new TypeError('I think there\'s a problem.');
-});
-~~~
-
-The router is always listening to URI
-
-~~~ js
-window.addEventListener('hashchange', function () {
-    parent.run(); // run the router again when a paramater is pushed to the URI
 });
 ~~~
 
@@ -118,27 +107,39 @@ router.map('page_', '/#/page', [
 
 ## Installation (npm)
 
+~~~bash
+$ npm i @sundowndev/router.js
 ~~~
-npm i @sundowndev/router.js
-~~~
+
+```js
+var Router = require('@sundowndev/router.js');
+
+var router = Router();
+
+router.add('home', '/', function () {
+    console.log('hello world');
+});
+
+router.run();
+```
 
 ## Installation
 
 1. Include router.js at the end of the body
 
-~~~ html
+~~~html
 <script src="router.js"></script>
 ~~~
 
 or via jsdelivr's CDN
 
-~~~ html
+~~~html
 <script src="https://cdn.jsdelivr.net/gh/sundowndev/router.js@<VERSION>/lib/router/router.js"></script>
 ~~~
 
 2. Init the router
 
-~~~ html
+~~~html
 <script>
     var router = new router();
 </script>
@@ -147,7 +148,7 @@ or via jsdelivr's CDN
 
 3. Create routes and run the router
 
-~~~ js
+~~~js
 router.add('home', '/', function () {
     content.innerHTML = '' +
         '<h1>Welcome!</h1>' +
@@ -157,3 +158,7 @@ router.add('home', '/', function () {
 
 router.run();
 ~~~
+
+## License
+
+This repository is MIT licensed.
