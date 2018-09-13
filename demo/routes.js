@@ -24,30 +24,9 @@ router.add('about', '/#/about', function () {
 router.add('contact', '/contact', function () {
     content.innerHTML = '' +
         '<h1>Contact me</h1>' +
-        '<p>You contact me at <strong>raphael at crvx dot fr</strong></p>'
+        '<p>You can contact me at <strong>raphael(at)crvx[.]fr</strong></p>'
     ;
 });
-
-router.map('doc_', '/doc', [
-    {
-        name: 'index',
-        route: '/',
-        callback: function () {
-            content.innerHTML = '' +
-                '<h1>index page</h1>'
-            ;
-        }
-    },
-    {
-        name: 'tutorial',
-        route: '/tutorial',
-        callback: function () {
-            content.innerHTML = '' +
-                '<h1>This is a tutorial!</h1>'
-            ;
-        }
-    }
-]);
 
 router.setErrorCallback(function () {
     content.textContent = 'Woups, 404 error!';
@@ -57,9 +36,14 @@ router.setErrorCallback(function () {
 router.run(function () {
     console.log('You are now on ' + router.route.route + ' route');
 
-    var links = document.querySelectorAll('[data-router-link]');
+    let links = document.querySelectorAll('[data-router-link]');
 
     links.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            router.fetchRoute(link.dataset.routerLink);
+        });
+
         if (link.dataset.routerLink === router.route.name) {
             link.classList.toggle('active');
         } else {
