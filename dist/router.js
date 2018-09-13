@@ -2,7 +2,7 @@
  * Router.js
  *
  * @author SundownDEV   https://github.com/SundownDEV
- * @version 1.5.9
+ * @version 1.5.10
  * @description Simple front based mono-page router
  * @license MIT
  */
@@ -34,6 +34,10 @@ var router = function () {
         notFoundCallback = func;
     };
 
+    this.notFoundException = function () {
+        notFoundCallback.apply();
+    };
+
     this.getCurrentURI = function () {
         return new RouterRequest().getURI();
     };
@@ -61,14 +65,14 @@ var router = function () {
      * @param callback  function
      */
     this.add = function (name, route, callback) {
-        let routeArray = route.split('/');
-        let paramsEnabled = false;
-        let params = [];
+        let routeArray = route.split('/'),
+            paramsEnabled = false,
+            params = [];
 
-        routeArray.forEach(function (e) {
-            if (e.substr(0, 1) === ':') {
+        routeArray.forEach(function (r) {
+            if (r.substr(0, 1) === ':') {
                 paramsEnabled = parent.paramsEnabled = true;
-                params.push(e.substr(1, e.length));
+                params.push(r.substr(1, r.length));
             }
         });
 
@@ -143,7 +147,6 @@ var router = function () {
         } else if (!OnlySlash && path.substr(0, 1) === '/') {
             path = path.substr(1);
         }
-        ;
 
         return path;
     };
