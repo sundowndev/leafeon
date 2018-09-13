@@ -14,7 +14,7 @@ Simple client sided router. You don't need node, you can use it in static html p
 - Static & dynamic route patterns
 - Custom 404 error handling
 - Before and after router middleware
-- Mapping routes under a prefix path
+- Prefixing route paths
 
 ## Overview
 
@@ -60,11 +60,11 @@ router.run(function () {
 });
 ~~~
 
-Mapping routes using a prefix
+Mapping routes using a route prefix
 
 ~~~js
-// This will create two routes under /#/page prefix as page_ prefix name
-router.map('page_', '/#/page', [
+// This will create two routes under /#/docs prefix
+router.map('page_', '/docs', [
     {
         name: 'index',
         route: '/',
@@ -102,13 +102,13 @@ router.run();
 
 ### API
 
-Target a specific route by name
+Fetch a route by name or path
 
 ~~~ js
 router.fetchRoute('home'); // or router.fetchRoute('/');
 ~~~
 
-Access to the current route
+Get the current route
 
 ~~~js
 router.route
