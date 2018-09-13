@@ -107,7 +107,7 @@ router.run();
 Target a specific route by name
 
 ~~~ js
-router.fetchRoute('home');
+router.fetchRoute('home'); // or router.fetchRoute('/');
 ~~~
 
 Access to the current route
@@ -119,7 +119,35 @@ router.route
 This will ouput :
 
 ~~~
-{name: "home", route: "/", callback: [function], paramsEnabled: false, params: [array]}
+{
+    name: "home",
+    route: "/",
+    callback: [function],
+    paramsEnabled: false,
+    params: []
+}
+~~~
+
+
+Set and call the not found exception **with example**
+
+~~~js
+var projects = [{title: 'routerjs', description: 'ayyyyyy'}];
+
+//overwrite the default not found exception
+router.setErrorCallback(function () {
+    document.write('Oh no! Page not found.');
+});
+
+router.add('projects', '/projects/:title', function (sProjectTitle) {
+    //search for the object in array
+    let oProject = projects.find(function (project) { sProjectTitle === project.title });
+
+    //if the project does not exist
+    if (!oProject) {
+        router.notFoundException();
+    }
+});
 ~~~
 
 ## Installation (npm)
@@ -156,8 +184,10 @@ or via jsdelivr's CDN
 ~~~js
 router.add('home', '/', function () {
     content.innerHTML = '' +
-        '<h1>Welcome!</h1>' +
-        '<p>wow, such routing</p>'
+        '<div>' +
+            '<h1>Welcome!</h1>' +
+            '<p>wow, such routing</p>' +
+        '</div>'
     ;
 });
 
