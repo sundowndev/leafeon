@@ -23,14 +23,16 @@ A simple route
 ~~~ js
 var router = new router();
 
-router.add('mypage', '/mypage', function () { /* do something */ });
+router.add('default', '/', function () {
+    /* do something */
+});
 ~~~
 
 A simple route using parameter
 
 ~~~ js
 router.add('single_category', '/category/:id', function (id) {
-  console.log('You requested the category : ' + id);
+  console.log('You requested the category #' + id);
 });
 ~~~
 
@@ -107,7 +109,7 @@ router.run();
 Target a specific route by name
 
 ~~~ js
-router.fetchRoute('home');
+router.fetchRoute('home'); // or router.fetchRoute('/');
 ~~~
 
 Access to the current route
@@ -119,7 +121,13 @@ router.route
 This will ouput :
 
 ~~~
-{name: "home", route: "/", callback: [function], paramsEnabled: false, params: [array]}
+{
+    name: "home",
+    route: "/",
+    callback: [function],
+    paramsEnabled: false,
+    params: []
+}
 ~~~
 
 ## Installation (npm)
