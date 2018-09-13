@@ -23,14 +23,16 @@ A simple route
 ~~~ js
 var router = new router();
 
-router.add('mypage', '/mypage', function () { /* do something */ });
+router.add('default', '/', function () {
+    /* do something */
+});
 ~~~
 
 A simple route using parameter
 
 ~~~ js
 router.add('single_category', '/category/:id', function (id) {
-  console.log('You requested the category : ' + id);
+  console.log('You requested the category #' + id);
 });
 ~~~
 
@@ -46,11 +48,7 @@ Before route middleware
 
 ~~~ js
 router.before('*', function () {
-    /* do something each time the url change */
-});
-
-router.before('/about', function () {
-    /* do something each time the URI change to "/#/about" */
+    /* do something each time the route change */
 });
 ~~~
 
@@ -128,11 +126,10 @@ This will ouput :
 }
 ~~~
 
-
-Set and call the not found exception **with example**
+Set and call the not found exception (with example)
 
 ~~~js
-var projects = [{title: 'routerjs', description: 'ayyyyyy'}];
+var projects = [{title: 'routerjs', description: 'ayyy'}];
 
 //overwrite the default not found exception
 router.setErrorCallback(function () {
