@@ -1,7 +1,6 @@
 # router.js
 
 <p>
-  <a href="http://travis-ci.org/SundownDEV/router.js"><img src="https://api.travis-ci.org/SundownDEV/router.js.svg?branch=master" alt="Build Status"></a>
   <a href="#"><img src="https://img.shields.io/github/tag/Sundowndev/router.js.svg" alt="Version"></a>
   <a href="#"><img src="https://img.shields.io/badge/size-8.0kb-brightgreen.svg?style=flat" alt="Size"></a>
   <a href="#"><img src="https://img.shields.io/badge/minified%20size-4.0kb-brightgreen.svg?style=flat" alt="Size minified"></a>
