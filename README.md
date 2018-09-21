@@ -1,19 +1,19 @@
 # router.js
 
 <p>
-  <a href="#"><img src="https://img.shields.io/github/tag/Sundowndev/router.js.svg" alt="Version"></a>
-  <a href="#"><img src="https://img.shields.io/badge/size-8.0kb-brightgreen.svg?style=flat" alt="Size"></a>
-  <a href="#"><img src="https://img.shields.io/badge/minified%20size-4.0kb-brightgreen.svg?style=flat" alt="Size minified"></a>
+  <a href="#"><img src="https://img.shields.io/github/tag/Sundowndev/router.js.svg?style=flat-square" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/size-8.0kb-brightgreen.svg?style=flat-square" alt="Size"></a>
+  <a href="#"><img src="https://img.shields.io/badge/minified%20size-4.0kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
 </p>
 
-Simple client sided router. You don't need node, you can use it in static html pages for documentation, personal website etc.
+Simple client sided router for static websites such as documentation, personal website etc.
 
 ## Features
 
-- Static & dynamic route patterns
+- Static & dynamic routing
 - Custom 404 error handling
 - Before and after router middleware
-- Prefixing route paths
+- Prefixed route paths
 
 ## Overview
 
@@ -63,41 +63,27 @@ Mapping routes using a route prefix
 
 ~~~js
 // This will create two routes under /#/docs prefix
-router.map('page_', '/docs', [
+router.map('docs_', '/docs', [
     {
-        name: 'index',
+        name: 'intro',
         route: '/',
         callback: function () {
             content.innerHTML = '' +
-                '<h1>index page</h1>'
+                '<h1>Introduction</h1>'
             ;
         }
     },
     {
-        name: 'tutorial',
-        route: '/tutorial',
+        name: 'get_started',
+        route: '/get-started',
         callback: function () {
             content.innerHTML = '' +
-                '<h1>This is a tutorial!</h1>'
+                '<h1>Get started</h1>'
             ;
         }
     }
 ]);
 ~~~
-
-### Using npm
-
-```js
-var Router = require('@sundowndev/router.js');
-
-var router = Router();
-
-router.add('home', '/', function () {
-    console.log('hello world');
-});
-
-router.run();
-```
 
 ### API
 
@@ -105,6 +91,9 @@ Fetch a route by name or path
 
 ~~~ js
 router.fetchRoute('home'); // or router.fetchRoute('/');
+
+// with parameters
+router.fetchRoute('hello', {name: 'Sundown'});
 ~~~
 
 Get the current route
@@ -113,15 +102,15 @@ Get the current route
 router.route
 ~~~
 
-This will ouput :
+This will return :
 
 ~~~
 {
-    name: "home",
-    route: "/",
+    name: [string],
+    route: [string],
     callback: [function],
-    paramsEnabled: false,
-    params: []
+    paramsEnabled: [boolean],
+    params: [array]
 }
 ~~~
 
@@ -152,17 +141,29 @@ router.add('projects', '/projects/:title', function (sProjectTitle) {
 $ npm i @sundowndev/router.js
 ~~~
 
+#### Usage
+
+```js
+var Router = require('@sundowndev/router.js');
+
+var router = Router();
+
+router.add('home', '/', function () {
+    document.write('hello world');
+});
+
+router.run();
+```
+
+
 ## Installation
 
-1. Include router.js at the end of the body
+1. Include router.js in **<head>** or at the end of the **<body>**
 
 ~~~html
 <script src="router.js"></script>
-~~~
 
-or via jsdelivr's CDN
-
-~~~html
+<!-- or via jsdelivr CDN (change the version) -->
 <script src="https://cdn.jsdelivr.net/gh/sundowndev/router.js@<VERSION>/dist/router.min.js"></script>
 ~~~
 
@@ -175,18 +176,17 @@ or via jsdelivr's CDN
 
 ~~~
 
-3. Create some routes and run the router
+3. Create some routes
 
 ~~~js
 router.add('home', '/', function () {
-    content.innerHTML = '' +
-        '<div>' +
-            '<h1>Welcome!</h1>' +
-            '<p>wow, such routing</p>' +
-        '</div>'
-    ;
+    document.write('Hello!');
 });
+~~~
 
+4. Run the router
+
+~~~js
 router.run();
 ~~~
 
