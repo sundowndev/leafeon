@@ -14,17 +14,25 @@ router.add('home', '/', function () {
     ;
 });
 
-router.add('about', '/#/about', function () {
+router.add('about', '/#/about', function (about) {
     content.innerHTML = '' +
         '<h1>About me</h1>' +
         '<p>I\'m french</p>'
     ;
+
+    router.fetchRoute('test', {id: 1});
 });
 
 router.add('contact', '/contact', function () {
     content.innerHTML = '' +
         '<h1>Contact me</h1>' +
         '<p>You can contact me at <strong>raphael(at)crvx[.]fr</strong></p>'
+    ;
+});
+
+router.add('test', '/projet/:id', function (id) {
+    content.innerHTML = '' +
+        '<h1>' + id + '</h1>'
     ;
 });
 
