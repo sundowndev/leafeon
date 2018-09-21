@@ -2,7 +2,7 @@
  * Router.js
  *
  * @author SundownDEV   https://github.com/SundownDEV
- * @version 1.5.10
+ * @version 1.6.1
  * @description Simple front based mono-page router
  * @license MIT
  */
@@ -19,7 +19,8 @@ var router = function () {
     this.notfound = true;
     this.routes = [];
     this.paramsEnabled = false;
-    this.routeCall = function () {};
+    this.routeCall = function () {
+    };
     this.params = [];
     this.BeforeRouteMiddleware = '*';
     this.BeforeRouteMiddlewareFunc = null;
@@ -65,8 +66,12 @@ var router = function () {
      * @param callback  function
      */
     this.add = function (name, route, callback) {
-        let routeArray = route.split('/'),
-            paramsEnabled = false,
+        if (typeof name !== 'string' || typeof route !== 'string' || typeof callback !== 'function') {
+            new Exception('Error while adding a route. Parameters "name" and "route" must be type of string. Callback must be a valid function.');
+        }
+
+        const routeArray = route.split('/');
+        let paramsEnabled = false,
             params = [];
 
         routeArray.forEach(function (r) {
@@ -104,6 +109,10 @@ var router = function () {
      * @param routes    array
      */
     this.map = function (name, mount, routes = []) {
+        if (typeof name !== 'string' || typeof mount !== 'string' || !Array.isArray(routes)) {
+            new Exception('Error while adding a route. Parameters "name" and "mount" must be type of string. Routes must be an Array.');
+        }
+
         routes.forEach(function (route) {
             parent.add(name + route.name, mount + parent.FormatPath(route.route, true), route.callback);
         });
@@ -118,19 +127,37 @@ var router = function () {
      * @param params    array
      */
     this.fetchRoute = function (routeName, params) {
-        let targetRoute = parent.routes.find(function (route) {
+        const targetRoute = parent.routes.find(function (route) {
             return route.name === routeName || route.route === routeName;
         });
 
-        if (targetRoute === undefined) {
+        if (typeof targetRoute !== 'object') {
             new Exception('Target route "' + routeName + '" does not exist');
+            return;
         }
 
         if (!targetRoute.paramsEnabled) {
             new RouterRequest().setURI(targetRoute.route);
-        } else if (targetRoute.paramsEnabled) {
-            new Exception('"' + routeName + '" route has parameter(s) and cannot be call dynamically');
+            return;
         }
+
+        if (!params) new Exception('Error: route "' + routeName + '" requires some parameters. None specified.');
+        //let callbackParameters = [];
+
+        for (let p in params) {
+            if (!params.hasOwnProperty(p)) continue;
+
+            const paramInRoute = targetRoute.route.split('/').find(function (targetParam) {
+                return targetParam === ':' + p;
+            });
+
+            targetRoute.route = targetRoute.route.replace(paramInRoute, params[p]);
+            //callbackParameters.push(params[p]);
+        }
+
+        //console.log(callbackParameters);
+        //targetRoute.callback.apply(null, callbackParameters);
+        new RouterRequest().setURI(targetRoute.route);
     };
 
     /**
@@ -159,7 +186,7 @@ var router = function () {
      * @param route string
      * @param params    array
      */
-    let setRoute = function (route, params = []) {
+    const setRoute = function (route, params = []) {
         parent.route = route;
         parent.routeCall = route.callback;
         parent.params = params;
@@ -174,25 +201,33 @@ var router = function () {
      * @param routes    array
      */
     this.handle = function (routes) {
-        let URI = parent.getCurrentURI();
+        const URI = parent.getCurrentURI();
 
         routes.forEach(function (Route) {
-            let RouteArray = Route.split('/');
+            const RouteArray = Route.split('/');
             let URIarray = URI.split('/');
 
-            if (URIarray.length === RouteArray.length) {
-                let RouteOptions = new handlingParams(Route);
-
-                URIarray = URIarray.join('');
-
-                if (RouteOptions.RouteArray === URIarray) {
-                    parent.routes.forEach(function (route) {
-                        if (route.route === Route && parent.notfound) {
-                            setRoute(route, RouteOptions.params);
-                        }
-                    });
-                }
+            if (URIarray.length !== RouteArray.length) {
+                return;
             }
+
+            const RouteOptions = new handlingParams(Route);
+
+            URIarray = URIarray.join('');
+
+            if (RouteOptions.RouteArray !== URIarray) {
+                return;
+            }
+
+            //console.log(routes);
+
+            parent.routes.forEach(function (route) {
+                if (route.route === Route && parent.notfound) {
+                    setRoute(route, RouteOptions.params);
+                }
+            });
+
+
         });
     };
 
@@ -204,8 +239,8 @@ var router = function () {
      * @param AfterRouteCallback    function
      */
     this.run = function (AfterRouteCallback = null) {
-        let URI = parent.getCurrentURI();
-        let routes = [];
+        const URI = parent.getCurrentURI();
+        const routes = [];
 
         /**
          * While a route has not match the URI, page is not found
@@ -221,23 +256,25 @@ var router = function () {
             if (route.paramsEnabled) {
                 routes.push(route.route);
                 parent.handle(routes);
+
+                console.log(routes);
             } else if (route.route === URI) {
+                //console.log(1);
                 setRoute(route);
             }
-
         });
 
         if (parent.notfound) {
-            notFoundCallback.apply();
+            notFoundCallback.apply(null, []);
         } else {
             parent.routeCall.apply(null, parent.params);
         }
 
         if (AfterRouteCallback != null) {
             parent.AfterRouteCallback = AfterRouteCallback;
-            parent.AfterRouteCallback.apply();
+            parent.AfterRouteCallback.apply(null, []);
         } else if (parent.AfterRouteCallback != null) {
-            parent.AfterRouteCallback.apply();
+            parent.AfterRouteCallback.apply(null, []);
         }
     };
 
@@ -257,7 +294,7 @@ var router = function () {
  * @function    getURI get the current URI
  * @function    setURI set the current URI
  */
-let RouterRequest = function () {
+const RouterRequest = function () {
     const parent = this;
 
     let URI = '/' + location.hash;
@@ -285,7 +322,7 @@ let RouterRequest = function () {
  * @param route string
  * @param callback  function
  */
-let BeforeMiddleware = function (route, callback) {
+const BeforeMiddleware = function (route, callback) {
     const parent = this;
 
     this.route = route;
@@ -316,12 +353,12 @@ let BeforeMiddleware = function (route, callback) {
  * @param route string
  * @returns {{ params: Array, RouteArray: string }}
  */
-let handlingParams = function (route) {
+const handlingParams = function (route) {
     const parent = this;
 
-    let URIarray = router.getCurrentURI().split('/');
-    let RouteArray = route.split('/');
-    let params = [];
+    const URIarray = router.getCurrentURI().split('/');
+    const RouteArray = route.split('/');
+    const params = [];
 
     /**
      * Handling route parameters
@@ -334,7 +371,7 @@ let handlingParams = function (route) {
         }
     };
 
-    for (var i = 0; i < RouteArray.length; i++) {
+    for (let i = 0; i < RouteArray.length; i++) {
         if (RouteArray[i].substr(0, 1) === ':') {
             parent.pushParam(URIarray[i]);
             RouteArray[i] = URIarray[i];
@@ -352,6 +389,6 @@ let handlingParams = function (route) {
  *
  * @param message   string
  */
-let Exception = function (message) {
+const Exception = function (message) {
     throw new TypeError(message);
 };
