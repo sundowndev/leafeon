@@ -6,7 +6,7 @@
   <a href="#"><img src="https://img.shields.io/badge/minified%20size-4.0kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
 </p>
 
-Simple client sided router for static websites such as documentation or personal website.
+Simple client sided Javascript routing library for static websites such as documentation or personal website.
 
 ## Features
 
@@ -117,7 +117,7 @@ This will return :
 Set and call the not found exception (with example)
 
 ~~~js
-var projects = [{title: 'routerjs', description: 'ayyy'}];
+var projects = [{title: 'routerjs', description: 'routing library'}];
 
 //overwrite the default not found exception
 router.setErrorCallback(function () {
