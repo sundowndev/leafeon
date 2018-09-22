@@ -1,7 +1,7 @@
 /**
  * Router.js
  *
- * @author SundownDEV   https://github.com/SundownDEV
+ * @package @sundowndev/router.js
  * @version 1.6.1
  * @description Simple front based mono-page router
  * @license MIT
