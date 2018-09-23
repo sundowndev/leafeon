@@ -2,8 +2,8 @@
 
 <p>
   <a href="#"><img src="https://img.shields.io/github/tag/Sundowndev/router.js.svg?style=flat-square" alt="Version"></a>
-  <a href="#"><img src="https://img.shields.io/badge/size-8.0kb-brightgreen.svg?style=flat-square" alt="Size"></a>
-  <a href="#"><img src="https://img.shields.io/badge/minified%20size-4.0kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
+  <a href="#"><img src="https://img.shields.io/badge/size-9.9kb-brightgreen.svg?style=flat-square" alt="Size"></a>
+  <a href="#"><img src="https://img.shields.io/badge/minified%20size-3.7kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
 </p>
 
 Simple client sided Javascript routing library for static websites such as documentation or personal website. See it in action [here](https://crvx.fr/)
