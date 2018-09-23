@@ -4,7 +4,7 @@ var router = new router();
  * Routes calls
  */
 router.before('*', function () {
-    console.log('You were on ' + router.route.route + ' route');
+    console.log('You were on ' + router.route.name + ' route');
 });
 
 router.add('home', '/', function () {
@@ -19,8 +19,6 @@ router.add('about', '/#/about', function (about) {
         '<h1>About me</h1>' +
         '<p>I\'m french</p>'
     ;
-
-    router.fetchRoute('test', {id: 1});
 });
 
 router.add('contact', '/contact', function () {
@@ -30,20 +28,15 @@ router.add('contact', '/contact', function () {
     ;
 });
 
-router.add('test', '/projet/:id', function (id) {
-    content.innerHTML = '' +
-        '<h1>' + id + '</h1>'
-    ;
-});
-
 router.setErrorCallback(function () {
     content.textContent = 'Woups, 404 error!';
     throw new TypeError('404 error');
 });
 
 router.run(function () {
-    console.log('You are now on ' + router.route.route + ' route');
+    console.log('You are now on ' + router.route.name + ' route');
 
+    // toggle active classes on header menu
     let links = document.querySelectorAll('[data-router-link]');
 
     links.forEach(function (link) {
