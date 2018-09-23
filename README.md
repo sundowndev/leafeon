@@ -6,7 +6,7 @@
   <a href="#"><img src="https://img.shields.io/badge/minified%20size-4.0kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
 </p>
 
-Simple client sided Javascript routing library for static websites such as documentation or personal website.
+Simple client sided Javascript routing library for static websites such as documentation or personal website. See it in action [here](https://crvx.fr/)
 
 ## Features
 
@@ -19,7 +19,7 @@ Simple client sided Javascript routing library for static websites such as docum
 
 A simple route
 
-~~~ js
+~~~js
 var router = new router();
 
 router.add('default', '/', function () {
@@ -29,7 +29,7 @@ router.add('default', '/', function () {
 
 A simple route using parameter
 
-~~~ js
+~~~js
 router.add('single_category', '/category/:id', function (id) {
   console.log('You requested the category #' + id);
 });
@@ -37,7 +37,7 @@ router.add('single_category', '/category/:id', function (id) {
 
 Set a callback when returning "route not found"
 
-~~~ js
+~~~js
 router.setErrorCallback(function () {
     throw new TypeError('I think there\'s a problem.');
 });
@@ -45,7 +45,7 @@ router.setErrorCallback(function () {
 
 Before route middleware
 
-~~~ js
+~~~js
 router.before('*', function () {
     /* do something each time the route change */
 });
@@ -53,7 +53,7 @@ router.before('*', function () {
 
 After router middleware
 
-~~~ js
+~~~js
 router.run(function () {
     /* do something after running the router */
 });
@@ -89,7 +89,7 @@ router.map('docs_', '/docs', [
 
 Fetch a route by name or path
 
-~~~ js
+~~~js
 router.fetchRoute('home'); // or router.fetchRoute('/');
 
 // with parameters
