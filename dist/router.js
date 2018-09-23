@@ -2,7 +2,7 @@
  * Router.js
  *
  * @package @sundowndev/router.js
- * @version 1.6.1
+ * @version 1.6.2
  * @description Simple front based mono-page router
  * @license MIT
  */
@@ -19,8 +19,7 @@ var router = function () {
     this.notfound = true;
     this.routes = [];
     this.paramsEnabled = false;
-    this.routeCall = function () {
-    };
+    this.routeCall = function () {};
     this.params = [];
     this.BeforeRouteMiddleware = '*';
     this.BeforeRouteMiddlewareFunc = null;
@@ -36,7 +35,7 @@ var router = function () {
     };
 
     this.notFoundException = function () {
-        notFoundCallback.apply();
+        notFoundCallback.apply(null, []);
     };
 
     this.getCurrentURI = function () {
@@ -142,22 +141,35 @@ var router = function () {
         }
 
         if (!params) new Exception('Error: route "' + routeName + '" requires some parameters. None specified.');
-        //let callbackParameters = [];
+
+        let generatedURI = this.GenerateURL(targetRoute.route, params);
+
+        new RouterRequest().setURI(generatedURI);
+    };
+
+    /**
+     * @function GenerateURL
+     *
+     * Generate URL from route and parameters
+     *
+     * @param route
+     * @param params
+     * @returns string
+     */
+    this.GenerateURL = function (route, params) {
+        let generatedURI = route;
 
         for (let p in params) {
             if (!params.hasOwnProperty(p)) continue;
 
-            const paramInRoute = targetRoute.route.split('/').find(function (targetParam) {
+            const paramInRoute = route.split('/').find(function (targetParam) {
                 return targetParam === ':' + p;
             });
 
-            targetRoute.route = targetRoute.route.replace(paramInRoute, params[p]);
-            //callbackParameters.push(params[p]);
+            generatedURI = generatedURI.replace(paramInRoute, params[p]);
         }
 
-        //console.log(callbackParameters);
-        //targetRoute.callback.apply(null, callbackParameters);
-        new RouterRequest().setURI(targetRoute.route);
+        return generatedURI;
     };
 
     /**
@@ -219,15 +231,11 @@ var router = function () {
                 return;
             }
 
-            //console.log(routes);
-
             parent.routes.forEach(function (route) {
                 if (route.route === Route && parent.notfound) {
                     setRoute(route, RouteOptions.params);
                 }
             });
-
-
         });
     };
 
@@ -256,10 +264,7 @@ var router = function () {
             if (route.paramsEnabled) {
                 routes.push(route.route);
                 parent.handle(routes);
-
-                console.log(routes);
             } else if (route.route === URI) {
-                //console.log(1);
                 setRoute(route);
             }
         });
@@ -280,7 +285,6 @@ var router = function () {
 
     /**
      * Listen to the URI
-     *
      * @event hashchange
      */
     window.addEventListener('hashchange', function () {
@@ -340,9 +344,9 @@ const BeforeMiddleware = function (route, callback) {
 
     if (this.callback != null) {
         if (this.route === '*') {
-            this.callback.apply();
+            this.callback.apply(null, []);
         } else if (this.route === this.URI) {
-            this.callback.apply();
+            this.callback.apply(null, []);
         }
     }
 };
