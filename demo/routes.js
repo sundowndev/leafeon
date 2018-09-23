@@ -4,7 +4,7 @@ var router = new router();
  * Routes calls
  */
 router.before('*', function () {
-    console.log('You were on ' + router.route.route + ' route');
+    console.log('You were on ' + router.route.name + ' route');
 });
 
 router.add('home', '/', function () {
@@ -14,7 +14,7 @@ router.add('home', '/', function () {
     ;
 });
 
-router.add('about', '/#/about', function () {
+router.add('about', '/#/about', function (about) {
     content.innerHTML = '' +
         '<h1>About me</h1>' +
         '<p>I\'m french</p>'
@@ -34,8 +34,9 @@ router.setErrorCallback(function () {
 });
 
 router.run(function () {
-    console.log('You are now on ' + router.route.route + ' route');
+    console.log('You are now on ' + router.route.name + ' route');
 
+    // toggle active classes on header menu
     let links = document.querySelectorAll('[data-router-link]');
 
     links.forEach(function (link) {
