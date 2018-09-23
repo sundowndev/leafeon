@@ -14,6 +14,7 @@ Simple client sided Javascript routing library for static websites such as docum
 - Custom 404 error handling
 - Before and after router middleware
 - Prefixed route paths
+- Route redirection with URL generator
 
 ## Overview
 
