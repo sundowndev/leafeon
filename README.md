@@ -164,8 +164,8 @@ router.run();
 ~~~html
 <script src="router.js"></script>
 
-<!-- or via jsdelivr CDN (change the version) -->
-<script src="https://cdn.jsdelivr.net/gh/sundowndev/router.js@<VERSION>/dist/router.min.js"></script>
+<!-- or via jsdelivr CDN -->
+<script src="https://cdn.jsdelivr.net/gh/sundowndev/router.js@latest/dist/router.min.js"></script>
 ~~~
 
 2. Init the router
