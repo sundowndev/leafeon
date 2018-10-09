@@ -2,20 +2,20 @@
   "name": "@sundowndev/router.js",
   "version": "1.6.2",
   "description": "Simple client sided Javascript routing library.",
+  "author":"Raphael Cerveaux <raphael@crvx.fr>",
   "main": "lib/router.js",
   "directories": {
     "doc": "docs",
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "minify": "./node_modules/babel-minify/bin/minify.js lib/router.js --out-file lib/router.min.js --mangle.keepClassName && ./node_modules/babel-minify/bin/minify.js dist/router.js --out-file dist/router.min.js --mangle.keepClassName"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SundownDEV/router.js.git"
   },
-  "keywords": [],
+  "keywords": ["router","javascript","library","front-end","route-middleware","routing","routerjs","client-side-routing"],
   "author": "Raphaël Cerveaux",
   "license": "MIT",
   "bugs": {
