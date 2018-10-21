@@ -37,27 +37,11 @@ router.add('single_category', '/category/:id', function (id) {
 });
 ~~~
 
-Set a callback when returning "route not found"
+Register a callback when route is not found
 
 ~~~js
 router.setErrorCallback(function () {
     throw new TypeError('I think there\'s a problem.');
-});
-~~~
-
-Before route middleware
-
-~~~js
-router.before('*', function () {
-    /* do something each time the route change */
-});
-~~~
-
-After router middleware
-
-~~~js
-router.run(function () {
-    /* do something after running the router */
 });
 ~~~
 
@@ -89,7 +73,25 @@ router.map('docs_', '/docs', [
 
 ### API
 
-Fetch a route by name or path
+- #### `router.add(name: string, path: string, callback: function)`
+
+  - Register a route. Use the keyword **`:`** in path to create a parameter.
+
+- #### `router.map(prefixName: string, prefixPath: string, routes: array)`
+
+  - Register several routes using a prefix name and path. Routes must be an array of object that follows this format :
+  
+~~~
+{
+  name: string,
+  route: string,
+  callback: function
+}
+~~~
+
+- #### `router.fetchRoute(name: string[, parameters: object])`
+
+  - Fetch a registered route by name or path. For dynamic routes, It'll generate the path using given parameters.
 
 ~~~js
 router.fetchRoute('home'); // or router.fetchRoute('/');
@@ -98,44 +100,56 @@ router.fetchRoute('home'); // or router.fetchRoute('/');
 router.fetchRoute('hello', {name: 'Sundown'});
 ~~~
 
-Get the current route
+- #### `router.route: object`
 
-~~~js
-router.route
-~~~
-
-This will return :
+  - Get the current route :
 
 ~~~
 {
-    name: [string],
-    route: [string],
-    callback: [function],
-    paramsEnabled: [boolean],
-    params: [array]
+    name: string,
+    path: string,
+    callback: function,
+    paramsEnabled: boolean,
+    params: array
 }
 ~~~
 
-Set and call the not found exception (with example)
+- #### `router.setErrorCallback(callback: function)`
+
+  - Set the not found exception
+
+- #### `router.notFoundException()`
+
+  - Call the not found exception callback
+
+Example :
 
 ~~~js
 var projects = [{title: 'routerjs', description: 'routing library'}];
 
-//overwrite the default not found exception
+// overwrite the default not found exception
 router.setErrorCallback(function () {
     document.write('Oh no! Page not found.');
 });
 
-router.add('projects', '/projects/:title', function (sProjectTitle) {
-    //search for the object in array
-    let oProject = projects.find(function (project) { sProjectTitle === project.title });
+router.add('projects', '/projects/:name', function (projectName) {
+    // search for the object in array
+    let project = projects.find((p) => { projectName === p.title });
 
-    //if the project does not exist
-    if (!oProject) {
+    // if the project does not exist
+    if (!project) {
         router.notFoundException();
     }
 });
 ~~~
+
+- #### `router.before(path: string, callback: function)`
+
+  - Register a middleware that will be executed before given path. Type **`*`** to target every routes.
+
+- #### `router.run([callback: function])`
+
+  - Run the router with registered routes. Optionnaly, register a middleware that will be executed after every routes callback.
 
 ## Installation (npm)
 
@@ -157,13 +171,12 @@ router.add('home', '/', function () {
 router.run();
 ```
 
-
 ## Installation
 
 1. Include router.js in **<head>** or at the end of the **<body>**
 
 ~~~html
-<script src="router.js"></script>
+<script src="router.min.js"></script>
 
 <!-- or via jsdelivr CDN -->
 <script src="https://cdn.jsdelivr.net/gh/sundowndev/router.js@latest/dist/router.min.js"></script>
