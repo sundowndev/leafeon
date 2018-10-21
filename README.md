@@ -132,9 +132,9 @@ router.setErrorCallback(function () {
     document.write('Oh no! Page not found.');
 });
 
-router.add('projects', '/projects/:name', function (projectName) {
+router.add('project', '/projects/:title', function (projectTitle) {
     // search for the object in array
-    let project = projects.find((p) => { projectName === p.title });
+    let project = projects.find((p) => { projectTitle === p.title });
 
     // if the project does not exist
     if (!project) {
