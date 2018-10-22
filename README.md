@@ -15,15 +15,13 @@ Simple client sided Javascript routing library for static websites such as docum
 - Custom 404 error handling
 - Before and after router middleware
 - Prefixed route paths
-- Route redirection with URL generator
+- URL generator
 
 ## Overview
 
 A simple route
 
 ~~~js
-var router = new router();
-
 router.add('default', '/', function () {
     /* do something */
 });
@@ -48,25 +46,17 @@ router.setErrorCallback(function () {
 Mapping routes using a route prefix
 
 ~~~js
-// This will create two routes under /#/docs prefix
+// This will create two routes under /docs prefix
 router.map('docs_', '/docs', [
     {
-        name: 'intro',
+        name: 'intro', // will be registered as docs_intro
         route: '/',
-        callback: function () {
-            content.innerHTML = '' +
-                '<h1>Introduction</h1>'
-            ;
-        }
+        callback: () => { document.write('Hey! Welcome.') }
     },
     {
         name: 'get_started',
-        route: '/get-started',
-        callback: function () {
-            content.innerHTML = '' +
-                '<h1>Get started</h1>'
-            ;
-        }
+        route: '/get-started', // will be registered as /#/docs/get-started
+        callback: getStartedAction()
     }
 ]);
 ~~~
