@@ -157,7 +157,7 @@ router.add('project', '/projects/:title', function (projectTitle) {
 $ npm i @sundowndev/router.js
 ~~~
 
-#### Usage
+#### Usage (browser)
 
 ```js
 var Router = require('@sundowndev/router.js');
@@ -171,7 +171,7 @@ router.add('home', '/', function () {
 router.run();
 ```
 
-## Installation
+## Usage
 
 1. Include router.js in **<head>** or at the end of the **<body>**
 
@@ -204,6 +204,10 @@ router.add('home', '/', function () {
 ~~~js
 router.run();
 ~~~
+
+## Development : build process
+
+*Sources files --> ESlint --> Typescript runtime --> Plain Javascript --> Minified Javascript*
 
 ## License
 
