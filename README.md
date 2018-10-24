@@ -9,9 +9,9 @@
   <a href="#"><img src="https://img.shields.io/badge/minified%20size-3.7kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
 </p>
 
-A client-side Javascript routing library that fits perfectly with client-side templating !
+<p align="center">As light as a leaf, leafeon is a Javascript routing library that fits perfectly with client-side templating.</p>
 
-See it in action [here](https://sundowndev.github.io/router.js/demo)
+#### [Try the demo](https://sundowndev.github.io/router.js/demo)
 
 ## Features
 
