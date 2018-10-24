@@ -7,7 +7,9 @@
   <a href="#"><img src="https://img.shields.io/badge/minified%20size-3.7kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
 </p>
 
-Simple client sided Javascript routing library for static websites such as documentation or personal website. See it in action [here](https://crvx.fr/)
+Client sided Javascript routing library for static websites such as documentation or personal website. It fits perfectly with client-side templating !
+
+See it in action [here](https://sundowndev.github.io/router.js/demo)
 
 ## Features
 
