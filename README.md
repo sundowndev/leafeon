@@ -1,13 +1,15 @@
-# router.js
+<p align="center">
+  <img src="https://i.imgur.com/635GXwp.png" />
+</p>
 
-<p>
+<p align="center">
   <a href="#"><img src="https://api.travis-ci.org/sundowndev/router.js.svg" alt="Build status"></a>
   <a href="#"><img src="https://img.shields.io/github/tag/Sundowndev/router.js.svg?style=flat-square" alt="Version"></a>
   <a href="#"><img src="https://img.shields.io/badge/size-9.9kb-brightgreen.svg?style=flat-square" alt="Size"></a>
   <a href="#"><img src="https://img.shields.io/badge/minified%20size-3.7kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
 </p>
 
-Client sided Javascript routing library for static websites such as documentation or personal website. It fits perfectly with client-side templating !
+A client-side Javascript routing library that fits perfectly with client-side templating !
 
 See it in action [here](https://sundowndev.github.io/router.js/demo)
 
@@ -15,7 +17,7 @@ See it in action [here](https://sundowndev.github.io/router.js/demo)
 
 - Static & dynamic routing
 - Custom 404 error handling
-- Before and after router middleware
+- Before and after router middlewares
 - Prefixed route paths
 - URL generator
 
@@ -204,3 +206,5 @@ router.run();
 ## License
 
 This repository is MIT licensed.
+
+Icon made by [Vitaly Gorbachev](https://www.flaticon.com/authors/vitaly-gorbachev) from [Flaticon](https://www.flaticon.com) under CC 3.0 BY license.
