@@ -1,16 +1,16 @@
 {
-  "name": "@sundowndev/router.js",
-  "version": "1.6.2",
-  "description": "Simple client sided Javascript routing library.",
+  "name": "leafeon",
+  "version": "2.0.1",
+  "description": "Client-sided and dependency-free Javascript routing library",
   "author": "Raphaël Cerveaux",
-  "main": "lib/router.js",
+  "main": "lib/leafeon.js",
   "directories": {
     "doc": "docs",
     "lib": "lib"
   },
   "scripts": {
-    "minify": "./node_modules/babel-minify/bin/minify.js lib/router.js --out-file lib/router.min.js --mangle.keepClassName && ./node_modules/babel-minify/bin/minify.js dist/router.js --out-file dist/router.min.js --mangle.keepClassName",
-    "test": "./node_modules/babel-minify/bin/minify.js lib/router.js --out-file lib/router.min.js --mangle.keepClassName && webpack ./test/routes.js -o ./test/bundle.js --mode=development"
+    "minify": "./node_modules/babel-minify/bin/minify.js lib/leafeon.js --out-file lib/leafeon.min.js --mangle.keepClassName && ./node_modules/babel-minify/bin/minify.js dist/leafeon.js --out-file dist/leafeon.min.js --mangle.keepClassName",
+    "build": "./node_modules/typescript/bin/tsc -p tsconfig.json --module system && ./node_modules/.bin/babel lib/leafeon.js --out-file dist/leafeon.js && npm run minify"
   },
   "repository": {
     "type": "git",
@@ -21,21 +21,23 @@
     "javascript",
     "library",
     "front-end",
-    "route-middleware",
     "routing",
     "routerjs",
     "client-side-routing"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SundownDEV/router.js/issues"
+    "url": "https://github.com/SundownDEV/leafeon/issues"
   },
-  "homepage": "https://github.com/SundownDEV/router.js#readme",
+  "homepage": "https://github.com/SundownDEV/leafeon#readme",
   "dependencies": {},
   "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "awesome-typescript-loader": "^5.2.1",
     "babel-minify": "^0.4.3",
     "eslint": "^5.7.0",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2"
+    "typescript": "^3.1.3"
   }
 }
