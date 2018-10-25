@@ -1,16 +1,16 @@
 {
   "name": "leafeon",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "description": "Client-sided and dependency-free Javascript routing library",
   "author": "Raphaël Cerveaux",
-  "main": "lib/leafeon.js",
+  "main": "src/leafeon.js",
   "directories": {
     "doc": "docs",
-    "lib": "lib"
+    "src": "src"
   },
   "scripts": {
-    "minify": "./node_modules/babel-minify/bin/minify.js lib/leafeon.js --out-file lib/leafeon.min.js --mangle.keepClassName && ./node_modules/babel-minify/bin/minify.js dist/leafeon.js --out-file dist/leafeon.min.js --mangle.keepClassName",
-    "build": "./node_modules/typescript/bin/tsc -p tsconfig.json --module system && ./node_modules/.bin/babel lib/leafeon.js --out-file dist/leafeon.js && npm run minify"
+    "minify": "./node_modules/babel-minify/bin/minify.js src/leafeon.js --out-file src/leafeon.min.js --mangle.keepClassName && ./node_modules/babel-minify/bin/minify.js dist/leafeon.js --out-file dist/leafeon.min.js --mangle.keepClassName",
+    "build": "./node_modules/typescript/bin/tsc -p tsconfig.json --module commonjs && ./node_modules/.bin/babel src/leafeon.js --out-file dist/leafeon.js && npm run minify"
   },
   "repository": {
     "type": "git",

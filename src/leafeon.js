@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class RouterRequest {
     constructor() {
         this.getURI = () => {
@@ -200,6 +202,7 @@ class leafeon extends RouterRequest {
         });
     }
 }
+exports.default = leafeon;
 window.addEventListener('hashchange', () => {
     this.run();
 });

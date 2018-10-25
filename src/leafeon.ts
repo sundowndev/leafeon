@@ -29,11 +29,11 @@ class RouterRequest {
  * leafeon class
  *
  * @package leafeon
- * @version 2.0.1
+ * @version 2.0.3
  * @description Client-sided and dependency-free Javascript routing library
  * @license MIT
  */
-class leafeon extends RouterRequest {
+export default class leafeon extends RouterRequest {
     notfound: boolean;
     routes: Array<route>;
     paramsEnabled: boolean;
@@ -348,5 +348,3 @@ interface route {
     paramsEnabled?: boolean,
     params?: Array<string>
 }
-
-//module.exports = leafeon;

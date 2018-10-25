@@ -1,6 +1,6 @@
 "use strict";
 
-var _this3 = void 0;
+var _this3 = this;
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -19,6 +19,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var RouterRequest = function RouterRequest() {
   var _this = this;
@@ -300,6 +304,8 @@ function (_RouterRequest) {
   return leafeon;
 }(RouterRequest);
 
+exports.default = leafeon;
 window.addEventListener('hashchange', function () {
   _this3.run();
 });
+module.exports = exports.default;

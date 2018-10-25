@@ -1,6 +1,7 @@
-var leafeon = require('../lib/leafeon');
+//var leafeon = require('../src/leafeon');
+import Leafeon from '../src/leafeon';
 
-var router = new leafeon();
+var router = new Leafeon();
 
 router.before('*', () => { /* do something each time the route change */ });
 
