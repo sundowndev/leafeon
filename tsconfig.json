@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "outFile": "lib/leafeon.js",
+    "sourceMap": false
+  },
+  "files": [
+    "src/leafeon.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
