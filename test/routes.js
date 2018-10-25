@@ -1,6 +1,6 @@
-var Router = require('../lib/router.min');
+var leafeon = require('../lib/leafeon');
 
-var router = Router();
+var router = new leafeon();
 
 router.before('*', () => { /* do something each time the route change */ });
 
