@@ -178,7 +178,7 @@ export default class leafeon extends RouterRequest {
         for (let p in params) {
             if (!params.hasOwnProperty(p)) continue;
 
-            const paramInRoute = route.split('/').find((targetParam): boolean => {
+            const paramInRoute = route.split('/').find((targetParam): string => {
                 return targetParam === ':' + p;
             });
 
