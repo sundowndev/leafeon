@@ -8,7 +8,7 @@ class RouterRequest {
         this.URI = '/' + location.hash;
     }
 
-    protected getURI = () => {
+    public getURI = (): string => {
         if (location.hash.substr(0, 2) === '#/') {
             this.URI = location.hash.substr(1);
         }
@@ -20,7 +20,7 @@ class RouterRequest {
      * @function    setURI set the current URI
      * @param route string
      */
-    public setURI = (route: string) => {
+    public setURI = (route: string): void => {
         location.hash = route;
     };
 }
@@ -29,7 +29,7 @@ class RouterRequest {
  * leafeon class
  *
  * @package leafeon
- * @version 2.0.3
+ * @version 2.0.4
  * @description Client-sided and dependency-free Javascript routing library
  * @license MIT
  */
@@ -60,17 +60,21 @@ export default class leafeon extends RouterRequest {
         this.notFoundCallback = () => {
             throw new TypeError('404 error.');
         };
+
+        window.addEventListener('hashchange', () => {
+            this.run();
+        });
     }
 
-    private getCurrentURI = () => {
+    private getCurrentURI = (): string => {
         return this.getURI();
     };
 
-    public setErrorCallback = (func) => {
+    public setErrorCallback = (func): void => {
         this.notFoundCallback = func;
     };
 
-    public notFoundException = () => {
+    public notFoundException = (): void => {
         this.notFoundCallback.apply(null, []);
     };
 
@@ -82,7 +86,7 @@ export default class leafeon extends RouterRequest {
      * @param route   string
      * @param func    object
      */
-    public before = (route: string, func: any) => {
+    public before = (route: string, func: any): void => {
         this.BeforeRouteMiddleware = route;
         this.BeforeRouteMiddlewareFunc = func;
     };
@@ -207,10 +211,10 @@ export default class leafeon extends RouterRequest {
      *
      * Set the route callback if it match
      *
-     * @param route string
-     * @param params    array
+     * @param route
+     * @param params
      */
-    private setRoute = (route, params = []): void => {
+    private setRoute = (route: route, params = []): void => {
         this.route = route;
         this.routeCall = route.callback;
         this.params = params;
@@ -336,10 +340,6 @@ export default class leafeon extends RouterRequest {
         throw new TypeError(message);
     };
 }
-
-window.addEventListener('hashchange', () => {
-    this.run();
-});
 
 interface route {
     name: string,
