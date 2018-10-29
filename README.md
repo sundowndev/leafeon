@@ -54,12 +54,12 @@ Mapping routes using a route prefix
 router.map('docs_', '/docs', [
     {
         name: 'intro', // will be registered as docs_intro
-        route: '/',
+        path: '/',
         callback: () => { document.write('Hey! Welcome.') }
     },
     {
         name: 'get_started',
-        route: '/get-started', // will be registered as /#/docs/get-started
+        path: '/get-started', // will be registered as /#/docs/get-started
         callback: getStartedAction()
     }
 ]);
@@ -78,7 +78,7 @@ router.map('docs_', '/docs', [
 ~~~
 {
   name: string,
-  route: string,
+  path: string,
   callback: function
 }
 ~~~
@@ -126,7 +126,7 @@ router.setErrorCallback(function () {
     document.write('Oh no! Page not found.');
 });
 
-router.add('project', '/projects/:title', function (projectTitle) {
+router.add('project', '/projects/:title', (projectTitle) => {
     // search for the object in array
     let project = projects.find((p) => { projectTitle === p.title });
 
@@ -154,9 +154,9 @@ $ npm i @sundowndev/router.js
 #### Usage
 
 ```js
-var Router = require('@sundowndev/router.js');
+import leafeon from 'leafeon';
 
-var router = Router();
+var router = leafeon();
 
 router.add('home', '/', function () {
     document.write('hello world');
