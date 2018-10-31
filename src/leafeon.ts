@@ -1,3 +1,11 @@
+interface route {
+    name: string,
+    path: string,
+    callback: void,
+    paramsEnabled?: boolean,
+    params?: Array<string>
+}
+
 /**
  * @class RouterRequest
  */
@@ -33,17 +41,17 @@ class RouterRequest {
  * @description Client-sided and dependency-free Javascript routing library
  * @license MIT
  */
-export default class leafeon extends RouterRequest {
-    notfound: boolean;
-    routes: Array<route>;
-    paramsEnabled: boolean;
-    routeCall: any;
-    params: Array<string>;
-    BeforeRouteMiddleware: string;
-    BeforeRouteMiddlewareFunc: any;
-    AfterRouteCallback: any;
-    route: object;
-    notFoundCallback: any;
+export class leafeon extends RouterRequest {
+    private notfound: boolean;
+    private routes: Array<route>;
+    private paramsEnabled: boolean;
+    private routeCall: any;
+    private params: Array<string>;
+    private BeforeRouteMiddleware: string;
+    private BeforeRouteMiddlewareFunc: any;
+    private AfterRouteCallback: any;
+    private route: object;
+    private notFoundCallback: any;
 
     constructor() {
         super();
@@ -58,7 +66,7 @@ export default class leafeon extends RouterRequest {
         this.AfterRouteCallback = () => {};
         this.route = {};
         this.notFoundCallback = () => {
-            throw new TypeError('404 error.');
+            throw new TypeError('Route not found');
         };
 
         window.addEventListener('hashchange', () => {
@@ -96,7 +104,7 @@ export default class leafeon extends RouterRequest {
         let paramsEnabled = false,
             params: Array<string> = [];
 
-        routeArray.forEach(function (r) {
+        routeArray.forEach((r) => {
             if (r.substr(0, 1) === ':') {
                 paramsEnabled = true;
                 params.push(r.substr(1, r.length));
@@ -105,14 +113,7 @@ export default class leafeon extends RouterRequest {
 
         this.paramsEnabled = paramsEnabled;
 
-        switch (path.substr(0, 2)) {
-            case '#/':
-                path = path.substr(1);
-                break;
-            case '/#':
-                path = path.substr(2);
-                break;
-        }
+        path = path.split('#')[1] || path;
 
         this.routes.push({
             name: name,
@@ -158,13 +159,13 @@ export default class leafeon extends RouterRequest {
 
         if (!params) this.Exception('Error: route "' + routeName + '" requires some parameters. None specified.');
 
-        let generatedURI = this.GenerateURL(targetRoute.path, params);
+        let generatedURI = this.generateURL(targetRoute.path, params);
 
         this.setURI(generatedURI);
     };
 
     /**
-     * @function GenerateURL
+     * @function generateURL
      *
      * Generate URL from route and parameters
      *
@@ -172,13 +173,13 @@ export default class leafeon extends RouterRequest {
      * @param params
      * @returns string
      */
-    private GenerateURL = (route: string, params: Array<string>): string => {
+    private generateURL = (route: string, params: Array<string>): string => {
         let generatedURI = route;
 
         for (let p in params) {
             if (!params.hasOwnProperty(p)) continue;
 
-            const paramInRoute = route.split('/').find((targetParam): string => {
+            const paramInRoute = route.split('/').find((targetParam): boolean => {
                 return targetParam === ':' + p;
             });
 
@@ -339,12 +340,4 @@ export default class leafeon extends RouterRequest {
     private Exception = (message: string): never => {
         throw new TypeError(message);
     };
-}
-
-interface route {
-    name: string,
-    path: string,
-    callback: void,
-    paramsEnabled?: boolean,
-    params?: Array<string>
 }
