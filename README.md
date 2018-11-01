@@ -5,8 +5,8 @@
 <p align="center">
   <a href="#"><img src="https://api.travis-ci.org/sundowndev/router.js.svg" alt="Build status"></a>
   <a href="#"><img src="https://img.shields.io/github/tag/Sundowndev/router.js.svg?style=flat-square" alt="Version"></a>
-  <a href="#"><img src="https://img.shields.io/badge/size-9.9kb-brightgreen.svg?style=flat-square" alt="Size"></a>
-  <a href="#"><img src="https://img.shields.io/badge/minified%20size-3.7kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
+  <a href="#"><img src="https://img.shields.io/badge/size-10kb-brightgreen.svg?style=flat-square" alt="Size"></a>
+  <a href="#"><img src="https://img.shields.io/badge/minified%20size-4kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
 </p>
 
 <p align="center">As light as a leaf, leafeon is a Javascript routing library that fits perfectly with client-side templating.</p>
