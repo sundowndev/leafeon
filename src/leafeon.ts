@@ -41,7 +41,7 @@ class RouterRequest {
  * @description Client-sided and dependency-free Javascript routing library
  * @license MIT
  */
-export class leafeon extends RouterRequest {
+export class router extends RouterRequest {
     private notfound: boolean;
     private routes: Array<route>;
     private paramsEnabled: boolean;
@@ -78,7 +78,7 @@ export class leafeon extends RouterRequest {
         return this.getURI();
     };
 
-    public setErrorCallback = (func): void => {
+    public setErrorCallback = (func: any): void => {
         this.notFoundCallback = func;
     };
 
@@ -134,7 +134,7 @@ export class leafeon extends RouterRequest {
      * @param routes    array
      */
     public map = (name: string, mount: string, routes = []): void => {
-        routes.forEach((route) => {
+        routes.forEach((route: route) => {
             this.add(name + route.name, mount + this.FormatPath(route.path, true), route.callback);
         });
     };
@@ -144,20 +144,25 @@ export class leafeon extends RouterRequest {
      *
      * Target a given route by name or path
      *
-     * @param routeName string
+     * @param Route string
      * @param params    array
      */
-    public fetchRoute = (routeName: string, params: Array<string>): void => {
+    public fetchRoute = (Route: string, params: Array<string>): void => {
         const targetRoute = this.routes.find((route: route) => {
-            return route.name === routeName || route.path === routeName;
+            return route.name === Route || route.path === Route;
         });
+
+        if (targetRoute == undefined){
+            this.Exception('Route ' + Route + ' does not exist.');
+            return;
+        }
 
         if (!targetRoute.paramsEnabled) {
             this.setURI(targetRoute.path);
             return;
         }
 
-        if (!params) this.Exception('Error: route "' + routeName + '" requires some parameters. None specified.');
+        if (!params) this.Exception('Error: route "' + Route + '" requires some parameters. None specified.');
 
         let generatedURI = this.generateURL(targetRoute.path, params);
 
@@ -182,6 +187,10 @@ export class leafeon extends RouterRequest {
             const paramInRoute = route.split('/').find((targetParam): boolean => {
                 return targetParam === ':' + p;
             });
+
+            if (paramInRoute == undefined) {
+                continue;
+            }
 
             generatedURI = generatedURI.replace(paramInRoute, params[p]);
         }
