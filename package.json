@@ -1,6 +1,6 @@
 {
   "name": "leafeon",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Client-sided and dependency-free Javascript routing library",
   "author": "Sundowndev",
   "main": "dist/leafeon",
@@ -15,7 +15,7 @@
     "cjs": "tsc -m commonjs",
     "umd": "rollup -i dist/leafeon.mjs -o dist/leafeon.umd.js -f umd -n leafeon",
     "test": "npm run build && webpack-cli test/routes.js -o test/bundle.js --mode=production",
-    "release": "npm version patch && git push --follow-tags && npm publish"
+    "release": "git push --follow-tags && npm publish"
   },
   "repository": {
     "type": "git",
