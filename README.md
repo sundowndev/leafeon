@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/635GXwp.png" />
+  <img src="https://i.imgur.com/oIbG1gB.png" />
 </p>
 
 <p align="center">
@@ -225,4 +225,4 @@ router.run();
 
 This repository is MIT licensed.
 
-Icon made by [Vitaly Gorbachev](https://www.flaticon.com/authors/vitaly-gorbachev) from [Flaticon](https://www.flaticon.com) under CC 3.0 BY license.
+Icon made by [Good Ware](https://www.flaticon.com/authors/good-ware) from [Flaticon](https://www.flaticon.com) under CC 3.0 BY license.
