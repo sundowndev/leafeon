@@ -1,31 +1,28 @@
-//var leafeon = require('../src/leafeon');
-import Leafeon from '../src/leafeon';
+import { router } from '../dist/leafeon';
 
-var router = new Leafeon();
+var leafeon = new router();
 
-router.before('*', () => { /* do something each time the route change */ });
+leafeon.before('*', () => { /* do something each time the route change */ });
 
-router.add('home', '/', () => document.write('hello world'));
+leafeon.add('home', '/', () => document.body.innerHTML = 'hello world');
 
-router.map('docs_', '/docs', [
+leafeon.map('tutorial_', '/tutorial', [
     {
-        name: 'intro',
-        route: '/',
-        callback: () => {
-            content.innerHTML = '' +
-                '<h1>Introduction</h1>'
-            ;
-        }
+        name: 'hello',
+        path: '/:name',
+        callback: (name) => document.body.innerHTML = 'Hey ' + name + ' !'
     },
     {
         name: 'get_started',
-        route: '/get-started',
-        callback: () => router.fetchRoute('hello', {name: 'Sundown'})
+        path: '/get-started',
+        callback: () => leafeon.fetchRoute('tutorial_hello', {name: 'Raphael'})
     }
 ]);
 
-router.setErrorCallback(() => {
-    throw new TypeError('I think there\'s a problem.');
+leafeon.setErrorCallback(() => {
+    document.body.innerHTML = 'Error: route not found';
+
+    throw new TypeError('I think we\'ve got a problem.');
 });
 
-router.run(() => { /* do something after running the router */ });
+leafeon.run(() => { console.log(leafeon.route); });
