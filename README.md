@@ -16,7 +16,7 @@
 ## Features
 
 - Static & dynamic routing
-- Custom 404 error handling
+- Custom error handling
 - Before and after router middleware
 - Prefixed route paths
 - URL generator
@@ -170,6 +170,18 @@ router.run();
 ```
 
 ## Browser ESM usage
+
+~~~html
+<script type="module">
+    import { router } from 'https://cdn.jsdelivr.net/gh/sundowndev/router.js@latest/dist/leafeon.mjs';
+
+    var leafeon = new router();
+
+    router.add('home', '/', function () {
+        document.write('hello world');
+    });
+</script>
+~~~
 
 ## Browser UMD usage
 
