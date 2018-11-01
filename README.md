@@ -11,7 +11,7 @@
 
 <p align="center">As light as a leaf, leafeon is a Javascript routing library that fits perfectly with client-side templating.</p>
 
-#### [Try the demo](https://sundowndev.github.io/router.js/demo)
+#### [Try the demo](https://sundowndev.github.io/leafeon/demo)
 
 ## Features
 
