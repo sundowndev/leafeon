@@ -152,7 +152,7 @@ router.add('project', '/projects/:title', (projectTitle) => {
 ## Installation (npm)
 
 ~~~bash
-$ npm i @sundowndev/router.js
+$ npm i leafeon
 ~~~
 
 #### Usage
