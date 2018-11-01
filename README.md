@@ -158,7 +158,7 @@ $ npm i leafeon
 #### Usage
 
 ```js
-import { leafeon } from 'leafeon';
+import { router } from 'leafeon';
 
 var leafeon = new router();
 
@@ -190,7 +190,7 @@ router.run();
 ~~~html
 <script src="leafeon.umd.js"></script>
 
-<!-- via jsdelivr CDN -->
+<!-- or via jsdelivr CDN -->
 <script src="https://cdn.jsdelivr.net/gh/sundowndev/router.js@latest/dist/leafeon.umd.js"></script>
 ~~~
 
