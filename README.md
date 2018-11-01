@@ -17,7 +17,7 @@
 
 - Static & dynamic routing
 - Custom 404 error handling
-- Before and after router middlewares
+- Before and after router middleware
 - Prefixed route paths
 - URL generator
 
@@ -71,7 +71,7 @@ router.map('docs_', '/docs', [
 
   - Register a route. Use the keyword **`:`** in path to create a parameter.
 
-- #### `router.map(prefixName: string, prefixPath: string, routes: array)`
+- #### `router.map(prefixName: string, prefixPath: string, routes: Array)`
 
   - Register several routes using a prefix name and path. Routes must be an array of object that follows this format :
   
@@ -112,6 +112,15 @@ router.fetchRoute('hello', {name: 'Sundown'});
 
   - Set the not found exception
 
+Example :
+
+~~~js
+// overwrite the default not found exception
+router.setErrorCallback(function () {
+    document.write('Oh no! Page not found.');
+});
+~~~
+
 - #### `router.notFoundException()`
 
   - Call the not found exception callback
@@ -120,11 +129,6 @@ Example :
 
 ~~~js
 var projects = [{title: 'routerjs', description: 'routing library'}];
-
-// overwrite the default not found exception
-router.setErrorCallback(function () {
-    document.write('Oh no! Page not found.');
-});
 
 router.add('project', '/projects/:title', (projectTitle) => {
     // search for the object in array
@@ -143,7 +147,7 @@ router.add('project', '/projects/:title', (projectTitle) => {
 
 - #### `router.run([callback: function])`
 
-  - Run the router with registered routes. Optionnaly, register a middleware that will be executed after every routes callback.
+  - Run the router with registered routes. Optionally, register a middleware that will be executed after every routes callback.
 
 ## Installation (npm)
 
@@ -154,9 +158,9 @@ $ npm i @sundowndev/router.js
 #### Usage
 
 ```js
-import leafeon from 'leafeon';
+import { leafeon } from 'leafeon';
 
-var router = leafeon();
+var leafeon = new router();
 
 router.add('home', '/', function () {
     document.write('hello world');
@@ -165,24 +169,25 @@ router.add('home', '/', function () {
 router.run();
 ```
 
-## Usage (browser)
+## Browser ESM usage
+
+## Browser UMD usage
 
 1. Include router.js in **<head>** or at the end of the **<body>**
 
 ~~~html
-<script src="router.min.js"></script>
+<script src="leafeon.umd.js"></script>
 
-<!-- or via jsdelivr CDN -->
-<script src="https://cdn.jsdelivr.net/gh/sundowndev/router.js@latest/dist/router.min.js"></script>
+<!-- via jsdelivr CDN -->
+<script src="https://cdn.jsdelivr.net/gh/sundowndev/router.js@latest/dist/leafeon.umd.js"></script>
 ~~~
 
 2. Init the router
 
 ~~~html
 <script>
-    var router = new router();
+    var router = new leafeon.router();
 </script>
-
 ~~~
 
 3. Create some routes
@@ -199,9 +204,10 @@ router.add('home', '/', function () {
 router.run();
 ~~~
 
-## Development : build process
+## Browser support
 
-*Sources files --> ESlint --> Typescript runtime --> Plain Javascript --> Minified Javascript*
+- UMD (.js) supports IE 11+, Chrome 43+, Opera 29+, and Firefox 41+
+- ESM (.mjs) supports Chrome 61+, Safari 10.1+, Edge 16+, and Firefox 60+
 
 ## License
 
