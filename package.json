@@ -1,40 +1,51 @@
 {
-  "name": "@sundowndev/router.js",
-  "version": "1.6.2",
-  "description": "Simple client sided Javascript routing library.",
-  "author": "Raphaël Cerveaux",
-  "main": "lib/router.js",
+  "name": "leafeon",
+  "version": "2.0.7",
+  "description": "Client-sided and dependency-free Javascript routing library",
+  "author": "Sundowndev",
+  "main": "dist/leafeon",
+  "types": "dist/leafeon.d.ts",
   "directories": {
     "doc": "docs",
-    "lib": "lib"
+    "src": "src"
   },
   "scripts": {
-    "minify": "./node_modules/babel-minify/bin/minify.js lib/router.js --out-file lib/router.min.js --mangle.keepClassName && ./node_modules/babel-minify/bin/minify.js dist/router.js --out-file dist/router.min.js --mangle.keepClassName",
-    "test": "./node_modules/babel-minify/bin/minify.js lib/router.js --out-file lib/router.min.js --mangle.keepClassName && webpack ./test/routes.js -o ./test/bundle.js --mode=development"
+    "build": "npm run mjs && npm run cjs && npm run umd",
+    "mjs": "tsc -d && mv dist/leafeon.js dist/leafeon.mjs",
+    "cjs": "tsc -m commonjs",
+    "umd": "rollup -i dist/leafeon.mjs -o dist/leafeon.umd.js -f umd -n leafeon",
+    "test": "npm run build && webpack-cli test/routes.js -o test/bundle.js --mode=production",
+    "release": "git push --follow-tags && npm publish"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SundownDEV/router.js.git"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "router",
     "javascript",
     "library",
     "front-end",
-    "route-middleware",
     "routing",
     "routerjs",
     "client-side-routing"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SundownDEV/router.js/issues"
+    "url": "https://github.com/SundownDEV/leafeon/issues"
   },
-  "homepage": "https://github.com/SundownDEV/router.js#readme",
+  "homepage": "https://github.com/SundownDEV/leafeon#readme",
   "dependencies": {},
   "devDependencies": {
-    "babel-minify": "^0.4.3",
-    "webpack": "^4.20.2",
+    "eslint": "^3.9.1",
+    "eslint-loader": "^1.6.1",
+    "rollup": "^0.66.6",
+    "typescript": "^3.1.4",
+    "typescript-eslint-parser": "^20.1.0",
+    "webpack": "^4.4.1",
     "webpack-cli": "^3.1.2"
   }
 }

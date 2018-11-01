@@ -1,0 +1,43 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Leafeon demo</title>
+</head>
+<body>
+    <script src="../dist/leafeon.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+
+    <script>
+        var router = new leafeon.router();
+
+        var source = "";
+        var data = {};
+
+        router.add('home', '/', function () {
+            source = "<p>Hi, I'm Raphael !</p>" +
+                "<p>I'm a french junior web developer. I started create websites at the age of 11, I first created websites using some CMS then I started learning code with Openclassrooms, a french coding courses website.</p>" +
+                "\n" +
+                "<p>During many years, I got into code and started working on some projects as a free lance developer. Now I'm studying at HETIC, a web school in France where I learn to translate users needs into a simple and beautiful experience.</p>" +
+                "<p><a href='#/contact'>Contact</a></p>";
+        });
+
+        router.add('contact', '/contact', function () {
+            source = "<p>You can contact me there : {{ email }}</p>" +
+                "<p><a href='#/'>Home</a></p>";
+            data = { "email": "raphael@crvx.fr" };
+        });
+
+        router.setErrorCallback(function () {
+            source = "Oups! Looks like that page does\'t exists.";
+        });
+
+        router.run(function () {
+            var template = Handlebars.compile(source);
+            document.body.innerHTML = template(data);
+        });
+    </script>
+</body>
+</html>
