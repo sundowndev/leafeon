@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "removeComments": true,
-    "preserveConstEnums": true,
+    "module": "es2015",
+    "target": "ES2017",
+    "strict": true,
+    "rootDir": "src",
+    "outDir": "dist",
     "sourceMap": false
   },
-  "files": [
-    "src/leafeon.ts"
-  ],
   "exclude": [
     "node_modules",
-    "**/*.spec.ts"
+    "dist/leafeon.d.ts"
   ]
 }
