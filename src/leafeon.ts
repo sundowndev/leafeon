@@ -37,7 +37,7 @@ class RouterRequest {
  * leafeon class
  *
  * @package leafeon
- * @version 2.0.4
+ * @version 2.0.7
  * @description Client-sided and dependency-free Javascript routing library
  * @license MIT
  */
