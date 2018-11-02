@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @class RouterRequest
  */
@@ -23,11 +25,11 @@ class RouterRequest {
  * leafeon class
  *
  * @package leafeon
- * @version 2.0.7
+ * @version 2.0.8
  * @description Client-sided and dependency-free Javascript routing library
  * @license MIT
  */
-export class router extends RouterRequest {
+class router extends RouterRequest {
     constructor() {
         super();
         this.getCurrentURI = () => {
@@ -283,3 +285,4 @@ export class router extends RouterRequest {
         });
     }
 }
+exports.router = router;
