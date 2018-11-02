@@ -1,43 +1,162 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Leafeon demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>leafeon demo</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://blackrockdigital.github.io/startbootstrap-bare/vendor/bootstrap/css/bootstrap.min.css"
+          rel="stylesheet">
 </head>
+
 <body>
-    <script src="../dist/leafeon.umd.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 
-    <script>
-        var router = new leafeon.router();
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="#/">leafeon demo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#/overview">Overview
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#/installation">Installation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#/api">API</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#/browser-usage">Browser usage</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-        var source = "";
-        var data = {};
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12" id="app"></div>
+    </div>
+</div>
 
-        router.add('home', '/', function () {
-            source = "<p>Hi, I'm Raphael !</p>" +
-                "<p>I'm a french junior web developer. I started create websites at the age of 11, I first created websites using some CMS then I started learning code with Openclassrooms, a french coding courses website.</p>" +
-                "\n" +
-                "<p>During many years, I got into code and started working on some projects as a free lance developer. Now I'm studying at HETIC, a web school in France where I learn to translate users needs into a simple and beautiful experience.</p>" +
-                "<p><a href='#/contact'>Contact</a></p>";
-        });
+<!-- Bootstrap core JavaScript -->
+<script src="https://blackrockdigital.github.io/startbootstrap-simple-sidebar/vendor/jquery/jquery.min.js"></script>
+<script src="https://blackrockdigital.github.io/startbootstrap-simple-sidebar/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        router.add('contact', '/contact', function () {
-            source = "<p>You can contact me there : {{ email }}</p>" +
-                "<p><a href='#/'>Home</a></p>";
-            data = { "email": "raphael@crvx.fr" };
-        });
+<!-- leafeon and Handlebars.js -->
+<script src="../dist/leafeon.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 
-        router.setErrorCallback(function () {
-            source = "Oups! Looks like that page does\'t exists.";
-        });
+<!-- Menu Toggle Script -->
+<script>
+    $('#menu-toggle').click(function (e) {
+        e.preventDefault();
+        $('#wrapper').toggleClass('toggled');
+    }).click();
+</script>
 
-        router.run(function () {
-            var template = Handlebars.compile(source);
-            document.body.innerHTML = template(data);
-        });
-    </script>
+<script>
+    var router = new leafeon.router();
+
+    var source = '';
+    var data = {};
+
+    router.add('home', '/', function () {
+        router.fetchRoute('overview');
+    });
+
+    router.add('overview', '/overview', function () {
+        source = '<p align="center">' +
+            '                <img src="https://i.imgur.com/oIbG1gB.png"/>' +
+            '            </p>' +
+            '' +
+            '            <p align="center">As light as a leaf, leafeon is a Javascript routing library that fits perfectly with' +
+            '                client-side templating.</p>' +
+            '            <hr>' +
+            '' +
+            '            <h3>Overview</h3>' +
+            '' +
+            '            <p>A simple route</p>' +
+            '' +
+            '            <code>' +
+            '                router.add(\'default\', \'/\', function () {' +
+            '                /* do something */' +
+            '                });' +
+            '            </code>' +
+            '' +
+            '            <p>A simple route using parameter</p>' +
+            '' +
+            '            <code>' +
+            '                router.add(\'single_category\', \'/category/:id\', function (id) {' +
+            '                console.log(\'You requested the category #\' + id);' +
+            '                });' +
+            '            </code>' +
+            '' +
+            '            <p>Register a callback when route is not found</p>' +
+            '' +
+            '            <code>' +
+            '                router.setErrorCallback(function () {' +
+            '                throw new TypeError(\'I think there\\\'s a problem.\');' +
+            '                });' +
+            '            </code>' +
+            '' +
+            '            <p>Mapping routes using a route prefix</p>' +
+            '' +
+            '            <code>' +
+            '                // This will create two routes under /docs prefix' +
+            '                router.map(\'docs_\', \'/docs\', [' +
+            '                {' +
+            '                name: \'intro\', // will be registered as docs_intro' +
+            '                path: \'/\',' +
+            '                callback: () => { document.write(\'Hey! Welcome.\') }' +
+            '                },' +
+            '                {' +
+            '                name: \'get_started\',' +
+            '                path: \'/get-started\', // will be registered as /#/docs/get-started' +
+            '                callback: getStartedAction()' +
+            '                }' +
+            '                ]);' +
+            '            </code>';
+    });
+
+    router.add('install', '/installation', function () {
+        source = '<p>You can contact me there : {{ email }}</p>' +
+            '<p><a href=\'#/\'>Home</a></p>';
+        data = {'email': 'raphael@crvx.fr'};
+    });
+
+    router.add('api', '/api', function () {
+        source = '<p>You can contact me there : {{ email }}</p>' +
+            '<p><a href=\'#/\'>Home</a></p>';
+        data = {'email': 'raphael@crvx.fr'};
+    });
+
+    router.add('browser', '/browser-usage', function () {
+        source = '<p>You can contact me there : {{ email }}</p>' +
+            '<p><a href=\'#/\'>Home</a></p>';
+        data = {'email': 'raphael@crvx.fr'};
+    });
+
+    router.setErrorCallback(function () {
+        source = 'Oups! Looks like that page does\'t exists.';
+    });
+
+    router.run(function () {
+        var template = Handlebars.compile(source);
+        $('#app').html(template(data));
+    });
+</script>
 </body>
 </html>
