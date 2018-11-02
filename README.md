@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/sundowndev/leafeon"><img src="https://api.travis-ci.org/sundowndev/router.js.svg" alt="Build status"></a>
+  <a href="https://travis-ci.org/sundowndev/leafeon"><img src="https://api.travis-ci.org/sundowndev/leafeon.svg" alt="Build status"></a>
   <a href="https://github.com/sundowndev/leafeon/releases"><img src="https://img.shields.io/github/tag/Sundowndev/router.js.svg?style=flat-square" alt="Version"></a>
   <a href="#"><img src="https://img.shields.io/badge/size-10kb-brightgreen.svg?style=flat-square" alt="Size"></a>
   <a href="#"><img src="https://img.shields.io/badge/minified%20size-4kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
