@@ -69,7 +69,7 @@ router.map('docs_', '/docs', [
 
 - #### `router.add(name: string, path: string, callback: function)`
 
-  - Register a route. Use the keyword **`:`** in path to create a parameter.
+  - Register a route. Use `:` in path to create a parameter.
 
 - #### `router.map(prefixName: string, prefixPath: string, routes: Array)`
 
@@ -91,7 +91,7 @@ router.map('docs_', '/docs', [
 router.fetchRoute('home'); // or router.fetchRoute('/');
 
 // with parameters
-router.fetchRoute('hello', {name: 'Sundown'});
+router.fetchRoute('/hello/:name', {name: 'Sundown'});
 ~~~
 
 - #### `router.route: object`
