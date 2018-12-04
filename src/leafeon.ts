@@ -13,45 +13,42 @@ class RouterRequest {
     URI: string;
 
     constructor() {
-        this.URI = '/' + location.hash;
+        this.URI = this.getURI();
     }
 
+    /**
+     * @function getURI
+     * @returns {string}
+     */
     public getURI = (): string => {
-        if (location.hash.substr(0, 2) === '#/') {
-            this.URI = location.hash.substr(1);
-        }
-
-        return this.URI;
+        return this.URI = window.location.href.split('#')[1] || '/';
     };
 
     /**
-     * @function    setURI set the current URI
+     * @function    setURI
      * @param route string
      */
     public setURI = (route: string): void => {
-        location.hash = route;
+        window.location.hash = route;
     };
 }
 
 /**
- * leafeon class
- *
  * @package leafeon
- * @version 2.0.8
  * @description Client-sided and dependency-free Javascript routing library
  * @license MIT
  */
 export class router extends RouterRequest {
     private notfound: boolean;
-    private routes: Array<route>;
-    private paramsEnabled: boolean;
     private routeCall: any;
     private params: Array<string>;
     private BeforeRouteMiddleware: string;
     private BeforeRouteMiddlewareFunc: any;
     private AfterRouteCallback: any;
-    private route: object;
     private notFoundCallback: any;
+    public route: object;
+    public routes: Array<route>;
+    public paramsEnabled: boolean;
 
     constructor() {
         super();
@@ -69,19 +66,22 @@ export class router extends RouterRequest {
             throw new TypeError('Route not found');
         };
 
-        window.addEventListener('hashchange', () => {
+        window.onpopstate = () => {
             this.run();
-        });
+        };
     }
 
-    private getCurrentURI = (): string => {
-        return this.getURI();
-    };
-
+    /**
+     * @function setErrorCallback
+     * @param func
+     */
     public setErrorCallback = (func: any): void => {
         this.notFoundCallback = func;
     };
 
+    /**
+     * @function notFoundException
+     */
     public notFoundException = (): void => {
         this.notFoundCallback.apply(null, []);
     };
@@ -91,16 +91,23 @@ export class router extends RouterRequest {
      *
      * Before route function
      *
-     * @param route   string
-     * @param func    object
+     * @param route
+     * @param func
      */
     public before = (route: string, func: any): void => {
         this.BeforeRouteMiddleware = route;
         this.BeforeRouteMiddlewareFunc = func;
     };
 
-    public add(name: string, path: string, callback: any): void {
+    /**
+     * @function add
+     * @param {string} name
+     * @param {string} path
+     * @param callback
+     */
+    public add = (name: string, path: string, callback: any): void => {
         const routeArray = path.split('/');
+
         let paramsEnabled = false,
             params: Array<string> = [];
 
@@ -129,11 +136,11 @@ export class router extends RouterRequest {
      *
      * Mapping routes into a specific path
      *
-     * @param name  string
-     * @param mount string
-     * @param routes    array
+     * @param name
+     * @param mount
+     * @param routes
      */
-    public map = (name: string, mount: string, routes = []): void => {
+    public map = (name: string, mount: string, routes: any[]): void => {
         routes.forEach((route: route) => {
             this.add(name + route.name, mount + this.FormatPath(route.path, true), route.callback);
         });
@@ -144,8 +151,8 @@ export class router extends RouterRequest {
      *
      * Target a given route by name or path
      *
-     * @param Route string
-     * @param params    array
+     * @param Route
+     * @param params
      */
     public fetchRoute = (Route: string, params: Array<string>): void => {
         const targetRoute = this.routes.find((route: route) => {
@@ -153,8 +160,7 @@ export class router extends RouterRequest {
         });
 
         if (targetRoute == undefined){
-            this.Exception('Route ' + Route + ' does not exist.');
-            return;
+            return this.Exception('Route ' + Route + ' does not exist.');
         }
 
         if (!targetRoute.paramsEnabled) {
@@ -182,8 +188,6 @@ export class router extends RouterRequest {
         let generatedURI = route;
 
         for (let p in params) {
-            if (!params.hasOwnProperty(p)) continue;
-
             const paramInRoute = route.split('/').find((targetParam): boolean => {
                 return targetParam === ':' + p;
             });
@@ -203,8 +207,8 @@ export class router extends RouterRequest {
      *
      * Format given path
      *
-     * @param path  string
-     * @param OnlySlash boolean
+     * @param path
+     * @param OnlySlash
      */
     private FormatPath = (path: string, OnlySlash = false): string => {
         if (OnlySlash && path === '/') {
@@ -224,7 +228,7 @@ export class router extends RouterRequest {
      * @param route
      * @param params
      */
-    private setRoute = (route: route, params = []): void => {
+    private setRoute = (route: route, params: Array<string> = []): void => {
         this.route = route;
         this.routeCall = route.callback;
         this.params = params;
@@ -236,97 +240,34 @@ export class router extends RouterRequest {
      *
      * Check route
      *
-     * @param routes    array
+     * @param routes
      */
-    private handle = (routes: Array<any>): void => {
-        const URI = this.getCurrentURI();
+    private handle = (routes: Array<route>): void => {
+        const URI = this.getURI();
 
-        routes.forEach((Route) => {
-            const RouteArray = Route.split('/');
+        routes.forEach((route) => {
+            const RouteArray = route.path.split('/');
             let URIarray: Array<string> = URI.split('/');
 
             if (URIarray.length !== RouteArray.length) {
                 return;
             }
 
-            const RouteOptions: any = this.handlingParams(Route);
+            const RouteOptions: any = this.handlingParams(route.path);
 
-            const URIstring: string = URIarray.join('');
-
-            if (RouteOptions.RouteString !== URIstring) {
-                return;
+            if (RouteOptions.RouteString === URI && this.notfound) {
+                return this.setRoute(route, RouteOptions.params);
             }
-
-            this.routes.forEach((route) => {
-                if (route.path === Route && this.notfound) {
-                    this.setRoute(route, RouteOptions.params);
-                }
-            });
         });
     };
 
     /**
-     * @function run
-     *
-     * Run the router and search for a route match
-     *
-     * @param AfterRouteCallback    function
+     * @function handlingParams
+     * @param {string} route
+     * @returns {object}
      */
-    public run = (AfterRouteCallback?: any): void => {
-        const URI = this.getCurrentURI();
-        let routes: Array<string> = [];
-
-        // While a route has not match the URI, page is not found
-        this.notfound = true;
-
-        this.BeforeMiddleware(this.BeforeRouteMiddleware, this.BeforeRouteMiddlewareFunc);
-
-        this.routes.forEach((route) => {
-            if (route.paramsEnabled) {
-                routes.push(route.path);
-                this.handle(routes);
-            } else if (route.path === URI) {
-                this.setRoute(route);
-            }
-        });
-
-        if (this.notfound) {
-            this.notFoundException();
-        } else {
-            this.routeCall.apply(null, this.params);
-        }
-
-        if (AfterRouteCallback != null) {
-            this.AfterRouteCallback = AfterRouteCallback;
-            this.AfterRouteCallback.apply(null, []);
-        } else if (this.AfterRouteCallback != null) {
-            this.AfterRouteCallback.apply(null, []);
-        }
-    };
-
-    private BeforeMiddleware = (route: string, callback: any) => {
-        const URI = this.getURI();
-
-        switch (route.substr(0, 2)) {
-            case '#/':
-                route = route.substr(1);
-                break;
-            case '/#':
-                route = route.substr(2);
-                break;
-        }
-
-        if (callback != null) {
-            if (route === '*') {
-                callback.apply(null, []);
-            } else if (route === URI) {
-                callback.apply(null, []);
-            }
-        }
-    };
-
     private handlingParams = (route: string): object => {
-        const URIarray = this.getCurrentURI().split('/');
+        const URIarray = this.getURI().split('/');
         const RouteArray = route.split('/');
         const params: Array<string> = [];
 
@@ -342,10 +283,74 @@ export class router extends RouterRequest {
 
         return {
             params: params,
-            RouteString: RouteArray.join('')
+            RouteString: RouteArray.join('/')
         };
     };
 
+    /**
+     * @function run
+     *
+     * Run the router and search for a route match
+     *
+     * @param AfterRouteCallback
+     */
+    public run = (AfterRouteCallback?: any): void => {
+        const URI = this.getURI();
+        let routes: Array<any> = [];
+
+        // While a route has not match the URI, set page as not found
+        this.notfound = true;
+
+        // Call before middleware
+        this.BeforeMiddleware(this.BeforeRouteMiddleware, this.BeforeRouteMiddlewareFunc);
+
+        this.routes.forEach((route) => {
+            if (route.paramsEnabled) {
+                routes.push(route);
+                this.handle(routes);
+            } else if (route.path === URI) {
+                this.setRoute(route);
+            }
+        });
+
+        // If there's a route match, execute the callback
+        if (this.notfound) {
+            this.notFoundException();
+        } else {
+            this.routeCall.apply(null, this.params);
+        }
+
+        // Call after middleware
+        if (AfterRouteCallback != null) {
+            this.AfterRouteCallback = AfterRouteCallback;
+            this.AfterRouteCallback.apply(null, []);
+        } else if (this.AfterRouteCallback != null) {
+            this.AfterRouteCallback.apply(null, []);
+        }
+    };
+
+    /**
+     * @function BeforeMiddleware
+     * @param {string} route
+     * @param callback
+     */
+    private BeforeMiddleware = (route: string, callback: any) => {
+        route = route.split('#')[1] || route;
+
+        if (callback != null) {
+            if (route === '*') {
+                return callback.apply(null, []);
+            } else if (route === this.getURI()) {
+                return callback.apply(null, []);
+            }
+        }
+    };
+
+    /**
+     * @function Exception
+     * @param {string} message
+     * @returns {never}
+     */
     private Exception = (message: string): never => {
         throw new TypeError(message);
     };
