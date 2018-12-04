@@ -1,20 +1,21 @@
 {
   "name": "leafeon",
-  "version": "2.0.8",
+  "version": "2.0.11",
   "description": "Client-sided and dependency-free Javascript routing library",
   "author": "Sundowndev",
   "main": "dist/leafeon",
-  "types": "dist/leafeon.d.ts",
+  "types": "lib/leafeon.d.ts",
   "directories": {
-    "doc": "docs",
     "src": "src"
   },
   "scripts": {
-    "build": "npm run mjs && npm run cjs && npm run umd",
-    "mjs": "tsc -d && mv dist/leafeon.js dist/leafeon.mjs",
-    "cjs": "tsc -m commonjs",
-    "umd": "rollup -i dist/leafeon.mjs -o dist/leafeon.umd.js -f umd -n leafeon",
-    "test": "npm run build && webpack-cli test/routes.js -o test/bundle.js --mode=production",
+    "build:ts": "rimraf lib dist && tsc",
+    "build:webpack": "rimraf dist && webpack && webpack --config webpack.config.min.js",
+    "build:examples": "rimraf examples/*.js && cd examples && tsc",
+    "build": "npm run build:ts && npm run build:webpack",
+    "test": "npm run lint && npm run test:unit",
+    "test:unit": "mocha --compilers ts:ts-node/register \"test/**/*.spec.ts\" --exit",
+    "lint": "tslint -c tslint.json --project tsconfig.json \"src/**/*.ts\"",
     "release": "git push --follow-tags && npm publish"
   },
   "repository": {
@@ -22,7 +23,8 @@
     "url": "git+https://github.com/SundownDEV/leafeon.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "lib"
   ],
   "keywords": [
     "router",
@@ -40,13 +42,23 @@
   "homepage": "https://github.com/SundownDEV/leafeon#readme",
   "dependencies": {},
   "devDependencies": {
-    "eslint": "^3.9.1",
-    "eslint-loader": "^1.6.1",
+    "@types/chai": "^3.4.34",
+    "@types/mocha": "^2.2.48",
+    "@types/node": "^6.0.113",
+    "@types/sinon": "^2.3.7",
+    "@types/sinon-chai": "^2.7.33",
+    "awesome-typescript-loader": "^3.5.0",
+    "chai": "^3.5.0",
     "mocha": "^5.2.0",
-    "rollup": "^0.66.6",
-    "typescript": "^3.1.4",
-    "typescript-eslint-parser": "^20.1.0",
-    "webpack": "^4.4.1",
-    "webpack-cli": "^3.1.2"
+    "rimraf": "^2.6.2",
+    "sinon": "^2.2.0",
+    "sinon-chai": "^2.14.0",
+    "ts-node": "^3.3.0",
+    "tslint": "^4.3.1",
+    "tslint-microsoft-contrib": "4.0.0",
+    "typedoc": "^0.11.1",
+    "typescript": "^2.9.2",
+    "webpack": "^2.2.1",
+    "webpack-bundle-analyzer": "^2.13.1"
   }
 }
