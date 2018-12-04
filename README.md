@@ -11,8 +11,6 @@
 
 <p align="center">As light as a leaf, leafeon is a Javascript routing library that fits perfectly with client-side templating.</p>
 
-#### [Try the demo](https://sundowndev.github.io/leafeon/demo)
-
 ## Features
 
 - Static & dynamic routing
@@ -74,7 +72,7 @@ router.map('docs_', '/docs', [
 - #### `router.map(prefixName: string, prefixPath: string, routes: Array)`
 
   - Register several routes using a prefix name and path. Routes must be an array of object that follows this format :
-  
+
 ~~~
 {
   name: string,
@@ -158,54 +156,38 @@ $ npm i leafeon
 #### Usage
 
 ```js
-import { router } from 'leafeon';
+const leafeon = require('../src/leafeon').router();
 
-var leafeon = new router();
-
-router.add('home', '/', function () {
+leafeon.add('home', '/', function () {
     document.write('hello world');
 });
 
-router.run();
+leafeon.run();
 ```
 
-## Browser ESM usage
-
-~~~html
-<script type="module">
-    import { router } from 'https://cdn.jsdelivr.net/gh/sundowndev/router.js@latest/dist/leafeon.mjs';
-
-    var leafeon = new router();
-
-    router.add('home', '/', function () {
-        document.write('hello world');
-    });
-</script>
-~~~
-
-## Browser UMD usage
+## Browser usage
 
 1. Include router.js in **<head>** or at the end of the **<body>**
 
 ~~~html
-<script src="leafeon.umd.js"></script>
+<script src="leafeon.min.js"></script>
 
 <!-- or via jsdelivr CDN -->
-<script src="https://cdn.jsdelivr.net/gh/sundowndev/router.js@latest/dist/leafeon.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/sundowndev/router.js@latest/dist/leafeon.min.js"></script>
 ~~~
 
 2. Init the router
 
 ~~~html
 <script>
-    var router = new leafeon.router();
+    const leafeon = leafeon.router();
 </script>
 ~~~
 
 3. Create some routes
 
 ~~~js
-router.add('home', '/', function () {
+leafeon.add('home', '/', function () {
     document.write('Hello!');
 });
 ~~~
@@ -213,13 +195,12 @@ router.add('home', '/', function () {
 4. Run the router
 
 ~~~js
-router.run();
+leafeon.run();
 ~~~
 
 ## Browser support
 
 - UMD (.js) supports IE 11+, Chrome 43+, Opera 29+, and Firefox 41+
-- ESM (.mjs) supports Chrome 61+, Safari 10.1+, Edge 16+, and Firefox 60+
 
 ## License
 
