@@ -65,13 +65,13 @@ router.map('docs_', '/docs', [
 
 ### API
 
-- #### `router.add(name: string, path: string, callback: function)`
+#### `router.add(name: string, path: string, callback: function)`
 
-  - Register a route. Use `:` in path to create a parameter.
+Register a route. Use `:` in path to create a parameter.
 
-- #### `router.map(prefixName: string, prefixPath: string, routes: Array)`
+#### `router.map(prefixName: string, prefixPath: string, routes: Array)`
 
-  - Register several routes using a prefix name and path. Routes must be an array of object that follows this format :
+Register several routes using a prefix name and path. Routes must be an array of object that follows this format :
 
 ~~~
 {
@@ -81,9 +81,9 @@ router.map('docs_', '/docs', [
 }
 ~~~
 
-- #### `router.fetchRoute(name: string[, parameters: object])`
+#### `router.fetchRoute(name: string[, parameters: object])`
 
-  - Fetch a registered route by name or path. For dynamic routes, It'll generate the path using given parameters.
+Fetch a registered route by name or path. For dynamic routes, It'll generate the path using given parameters.
 
 ~~~js
 router.fetchRoute('home'); // or router.fetchRoute('/');
@@ -92,9 +92,9 @@ router.fetchRoute('home'); // or router.fetchRoute('/');
 router.fetchRoute('/hello/:name', {name: 'Sundown'});
 ~~~
 
-- #### `router.route: object`
+#### `router.route: object`
 
-  - Get the current route :
+Get the current route :
 
 ~~~
 {
@@ -106,9 +106,9 @@ router.fetchRoute('/hello/:name', {name: 'Sundown'});
 }
 ~~~
 
-- #### `router.setErrorCallback(callback: function)`
+#### `router.setErrorCallback(callback: function)`
 
-  - Set the not found exception
+Set the not found exception
 
 Example :
 
@@ -119,17 +119,17 @@ router.setErrorCallback(function () {
 });
 ~~~
 
-- #### `router.notFoundException()`
+#### `router.notFoundException()`
 
-  - Call the not found exception callback
+Call the not found exception callback
 
-- #### `router.before(path: string, callback: function)`
+#### `router.before(path: string, callback: function)`
 
-  - Register a middleware that will be executed before given path. Type **`*`** to target every routes.
+Register a middleware that will be executed before given path. Type **`*`** to target every routes.
 
-- #### `router.run([callback: function])`
+#### `router.run([callback: function])`
 
-  - Run the router with registered routes. Optionally, register a middleware that will be executed after every routes callback.
+Run the router with registered routes. Optionally, register a middleware that will be executed after every routes callback.
 
 ## Installation (npm)
 
@@ -140,7 +140,7 @@ $ npm i leafeon
 #### Usage
 
 ```js
-const leafeon = require('../src/leafeon').router();
+const leafeon = require('leafeon').router();
 
 leafeon.add('home', '/', function () {
     document.write('hello world');
