@@ -144,9 +144,7 @@ const leafeon = require('leafeon').router();
 
 leafeon.add('home', '/', function () {
     document.write('hello world');
-});
-
-leafeon.run();
+}).run();
 ```
 
 ## Browser usage
@@ -168,18 +166,20 @@ leafeon.run();
 </script>
 ~~~
 
-3. Create some routes
+3. Create some routes and run the router
 
 ~~~js
-leafeon.add('home', '/', function () {
-    document.write('Hello!');
-});
-~~~
-
-4. Run the router
-
-~~~js
-leafeon.run();
+leafeon
+    .add('home', '/', function () {
+        document.write('hello world');
+    })
+    .add('contact', '/contact', function () {
+        document.write('contact me');
+    })
+    .setErrorCallback(function () {
+        document.write('Oups! Looks like that page does\'t exists.');
+    })
+    .run();
 ~~~
 
 ## Browser support
