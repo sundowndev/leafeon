@@ -1,14 +1,51 @@
 {
-  "compilerOptions": {
-    "module": "es2015",
-    "target": "ES2017",
-    "strict": true,
-    "rootDir": "src",
-    "outDir": "dist",
-    "sourceMap": false
-  },
-  "exclude": [
-    "node_modules",
-    "dist/leafeon.d.ts"
-  ]
+    "compilerOptions": {
+        "declaration": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strictNullChecks": false,
+        "suppressImplicitAnyIndexErrors": true,
+        "module": "commonjs",
+        "sourceMap": true,
+        "target": "es5",
+        "outDir": "lib",
+        "lib": [
+            "es5",
+            "dom",
+            "es2015.collection",
+            "es2015.promise",
+            "es2015.iterable",
+            "es2015.core"
+        ],
+        "types": [
+            "node",
+            "mocha",
+            "sinon",
+            "sinon-chai"
+        ],
+         "typeRoots": [
+            "node_modules/@types"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "./types/*"
+            ]
+        },
+        "skipLibCheck": true
+    },
+    "exclude": [
+        "node_modules",
+        "test",
+        "dist",
+        "lib",
+        "examples",
+        "**/*.spec.ts"
+    ]
 }
