@@ -123,22 +123,6 @@ router.setErrorCallback(function () {
 
   - Call the not found exception callback
 
-Example :
-
-~~~js
-var projects = [{title: 'routerjs', description: 'routing library'}];
-
-router.add('project', '/projects/:title', (projectTitle) => {
-    // search for the object in array
-    let project = projects.find((p) => { projectTitle === p.title });
-
-    // if the project does not exist
-    if (!project) {
-        router.notFoundException();
-    }
-});
-~~~
-
 - #### `router.before(path: string, callback: function)`
 
   - Register a middleware that will be executed before given path. Type **`*`** to target every routes.
@@ -180,7 +164,7 @@ leafeon.run();
 
 ~~~html
 <script>
-    const leafeon = leafeon.router();
+    const leafeon = new leafeon.router();
 </script>
 ~~~
 
