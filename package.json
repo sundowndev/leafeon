@@ -1,6 +1,6 @@
 {
   "name": "leafeon",
-  "version": "2.0.8",
+  "version": "2.0.13",
   "description": "Client-sided and dependency-free Javascript routing library",
   "author": "Sundowndev",
   "main": "dist/leafeon",
