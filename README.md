@@ -13,18 +13,17 @@
 
 ## Features
 
-- Static & dynamic routing
-- Custom error handling
+- Dynamic routing & URL generator
+- Error handling
 - Before and after router middleware
-- Prefixed route paths
-- URL generator
+- Route mapping
 
 ## Overview
 
 A simple route
 
 ~~~js
-router.add('default', '/', function () {
+leafeon.add('default', '/', function () {
     /* do something */
 });
 ~~~
@@ -32,7 +31,7 @@ router.add('default', '/', function () {
 A simple route using parameter
 
 ~~~js
-router.add('single_category', '/category/:id', function (id) {
+leafeon.add('single_category', '/category/:id', function (id) {
   console.log('You requested the category #' + id);
 });
 ~~~
@@ -40,7 +39,7 @@ router.add('single_category', '/category/:id', function (id) {
 Register a callback when route is not found
 
 ~~~js
-router.setErrorCallback(function () {
+leafeon.setErrorCallback(function () {
     throw new TypeError('I think there\'s a problem.');
 });
 ~~~
@@ -49,7 +48,7 @@ Mapping routes using a route prefix
 
 ~~~js
 // This will create two routes under /docs prefix
-router.map('docs_', '/docs', [
+leafeon.map('docs_', '/docs', [
     {
         name: 'intro', // will be registered as docs_intro
         path: '/',
@@ -65,13 +64,13 @@ router.map('docs_', '/docs', [
 
 ### API
 
-#### `router.add(name: string, path: string, callback: function)`
+#### `.add(name: string, path: string, callback: function)`
 
-Register a route. Use `:` in path to create a parameter.
+Register a route. Use `:` in path to create a parameter. It returns the router object.
 
-#### `router.map(prefixName: string, prefixPath: string, routes: Array)`
+#### `.map(prefixName: string, prefixPath: string, routes: Array)`
 
-Register several routes using a prefix name and path. Routes must be an array of object that follows this format :
+Register several routes using a prefix name and path. Routes must be an array of object that follows this schema :
 
 ~~~
 {
@@ -81,18 +80,18 @@ Register several routes using a prefix name and path. Routes must be an array of
 }
 ~~~
 
-#### `router.fetchRoute(name: string[, parameters: object])`
+#### `.fetchRoute(name: string[, parameters: object])`
 
 Fetch a registered route by name or path. For dynamic routes, It'll generate the path using given parameters.
 
 ~~~js
-router.fetchRoute('home'); // or router.fetchRoute('/');
+leafeon.fetchRoute('home'); // or .fetchRoute('/');
 
 // with parameters
-router.fetchRoute('/hello/:name', {name: 'Sundown'});
+leafeon.fetchRoute('/hello/:name', {name: 'Sundown'});
 ~~~
 
-#### `router.route: object`
+#### `.route: object`
 
 Get the current route :
 
@@ -106,28 +105,28 @@ Get the current route :
 }
 ~~~
 
-#### `router.setErrorCallback(callback: function)`
+#### `.setErrorCallback(callback: function)`
 
-Set the not found exception
+Set the not found exception. It returns the router object.
 
 Example :
 
 ~~~js
 // overwrite the default not found exception
-router.setErrorCallback(function () {
+leafeon.setErrorCallback(function () {
     document.write('Oh no! Page not found.');
 });
 ~~~
 
-#### `router.notFoundException()`
+#### `.notFoundException()`
 
-Call the not found exception callback
+Call the not found exception callback.
 
-#### `router.before(path: string, callback: function)`
+#### `.before(path: string, callback: function)`
 
-Register a middleware that will be executed before given path. Type **`*`** to target every routes.
+Register a middleware that will be executed before given path. Type **`*`** to target every routes. It returns the router object.
 
-#### `router.run([callback: function])`
+#### `.run([callback: function])`
 
 Run the router with registered routes. Optionally, register a middleware that will be executed after every routes callback.
 
@@ -149,13 +148,13 @@ leafeon.add('home', '/', function () {
 
 ## Browser usage
 
-1. Include router.js in **<head>** or at the end of the **<body>**
+1. Include leafeon.js in **<head>** or at the end of the **<body>**
 
 ~~~html
 <script src="leafeon.min.js"></script>
 
 <!-- or via jsdelivr CDN -->
-<script src="https://cdn.jsdelivr.net/gh/sundowndev/router.js@latest/dist/leafeon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/sundowndev/leafeon.js@latest/dist/leafeon.min.js"></script>
 ~~~
 
 2. Init the router
@@ -170,15 +169,9 @@ leafeon.add('home', '/', function () {
 
 ~~~js
 leafeon
-    .add('home', '/', function () {
-        document.write('hello world');
-    })
-    .add('contact', '/contact', function () {
-        document.write('contact me');
-    })
-    .setErrorCallback(function () {
-        document.write('Oups! Looks like that page does\'t exists.');
-    })
+    .add('home', '/', () => { /* ... */ })
+    .add('contact', '/contact', () => { /* ... */ })
+    .setErrorCallback(() => { /* ... */ })
     .run();
 ~~~
 
