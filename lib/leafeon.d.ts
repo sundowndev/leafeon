@@ -43,7 +43,7 @@ export declare class router extends RouterRequest {
      * @function setErrorCallback
      * @param func
      */
-    setErrorCallback: (func: any) => void;
+    setErrorCallback: (func: any) => this;
     /**
      * @function notFoundException
      */
@@ -56,14 +56,14 @@ export declare class router extends RouterRequest {
      * @param route
      * @param func
      */
-    before: (route: string, func: any) => void;
+    before: (route: string, func: any) => this;
     /**
      * @function add
      * @param {string} name
      * @param {string} path
      * @param callback
      */
-    add: (name: string, path: string, callback: any) => void;
+    add: (name: string, path: string, callback: any) => this;
     /**
      * @function map
      *
@@ -73,7 +73,7 @@ export declare class router extends RouterRequest {
      * @param mount
      * @param routes
      */
-    map: (name: string, mount: string, routes: any[]) => void;
+    map: (name: string, mount: string, routes: any[]) => this;
     /**
      * @function fetchRoute
      *

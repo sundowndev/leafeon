@@ -132,6 +132,7 @@ var router = /** @class */ (function (_super) {
          */
         _this.setErrorCallback = function (func) {
             _this.notFoundCallback = func;
+            return _this;
         };
         /**
          * @function notFoundException
@@ -150,6 +151,7 @@ var router = /** @class */ (function (_super) {
         _this.before = function (route, func) {
             _this.BeforeRouteMiddleware = route;
             _this.BeforeRouteMiddlewareFunc = func;
+            return _this;
         };
         /**
          * @function add
@@ -175,6 +177,7 @@ var router = /** @class */ (function (_super) {
                 paramsEnabled: paramsEnabled,
                 params: params
             });
+            return _this;
         };
         /**
          * @function map
@@ -189,6 +192,7 @@ var router = /** @class */ (function (_super) {
             routes.forEach(function (route) {
                 _this.add(name + route.name, mount + _this.FormatPath(route.path, true), route.callback);
             });
+            return _this;
         };
         /**
          * @function fetchRoute

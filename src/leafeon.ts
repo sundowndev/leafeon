@@ -75,8 +75,10 @@ export class router extends RouterRequest {
      * @function setErrorCallback
      * @param func
      */
-    public setErrorCallback = (func: any): void => {
+    public setErrorCallback = (func: any): this => {
         this.notFoundCallback = func;
+
+        return this;
     };
 
     /**
@@ -94,9 +96,11 @@ export class router extends RouterRequest {
      * @param route
      * @param func
      */
-    public before = (route: string, func: any): void => {
+    public before = (route: string, func: any): this => {
         this.BeforeRouteMiddleware = route;
         this.BeforeRouteMiddlewareFunc = func;
+
+        return this;
     };
 
     /**
@@ -105,7 +109,7 @@ export class router extends RouterRequest {
      * @param {string} path
      * @param callback
      */
-    public add = (name: string, path: string, callback: any): void => {
+    public add = (name: string, path: string, callback: any): this => {
         const routeArray = path.split('/');
 
         let paramsEnabled = false,
@@ -129,6 +133,8 @@ export class router extends RouterRequest {
             paramsEnabled: paramsEnabled,
             params: params
         });
+
+        return this;
     }
 
     /**
@@ -140,10 +146,12 @@ export class router extends RouterRequest {
      * @param mount
      * @param routes
      */
-    public map = (name: string, mount: string, routes: any[]): void => {
+    public map = (name: string, mount: string, routes: any[]): this => {
         routes.forEach((route: route) => {
             this.add(name + route.name, mount + this.FormatPath(route.path, true), route.callback);
         });
+
+        return this;
     };
 
     /**
