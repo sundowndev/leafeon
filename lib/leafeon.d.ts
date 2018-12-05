@@ -1,4 +1,4 @@
-interface route {
+interface Route {
     name: string;
     path: string;
     callback: void;
@@ -26,7 +26,7 @@ declare class RouterRequest {
      * @function    setURI
      * @param route string
      */
-    WindowListener: (callback: Function) => void;
+    windowListener: (callback: Function) => void;
 }
 /**
  * @package leafeon
@@ -42,7 +42,7 @@ export declare class router extends RouterRequest {
     private AfterRouteCallback;
     private notFoundCallback;
     route: object;
-    routes: Array<route>;
+    routes: Array<Route>;
     paramsEnabled: boolean;
     constructor();
     /**

@@ -1,20 +1,20 @@
-interface route {
-    name: string,
-    path: string,
-    callback: void,
-    paramsEnabled?: boolean,
-    params?: Array<string>
-}
+interface Route {
+    name: string;
+    path: string;
+    callback: void;
+    paramsEnabled?: boolean;
+    params?: Array<string>;
+};
 
 /**
  * @class RouterRequest
  */
 class RouterRequest {
     public URI: string;
-    windowObj: any;
+    public windowObj: any;
 
     constructor() {
-        this.windowObj = (typeof window == 'undefined') ? { location: { href: '/#/' } } : window;
+        this.windowObj = (typeof window === 'undefined') ? { location: { href: '/#/' } } : window;
         this.URI = this.getURI();
     }
 
@@ -24,7 +24,7 @@ class RouterRequest {
      */
     public getURI = (): string => {
         return this.URI = this.windowObj.location.href.split('#')[1] || '/';
-    };
+    }
 
     /**
      * @function    setURI
@@ -32,19 +32,19 @@ class RouterRequest {
      */
     public setURI = (route: string): void => {
         this.windowObj.location.hash = route;
-    };
+    }
 
     /**
      * @function    setURI
      * @param route string
      */
-    public WindowListener = (callback: Function): void => {
+    public windowListener = (callback: Function): void => {
       if (typeof window !== 'undefined') {
         window.onpopstate = () => {
           callback();
         };
       }
-    };
+    }
 }
 
 /**
@@ -61,7 +61,7 @@ export class router extends RouterRequest {
     private AfterRouteCallback: any;
     private notFoundCallback: any;
     public route: object;
-    public routes: Array<route>;
+    public routes: Array<Route>;
     public paramsEnabled: boolean;
 
     constructor() {
@@ -78,7 +78,7 @@ export class router extends RouterRequest {
         this.route = {};
         this.notFoundCallback = () => {};
 
-        this.WindowListener(this.run);
+        this.windowListener(this.run);
     }
 
     /**
@@ -89,14 +89,14 @@ export class router extends RouterRequest {
         this.notFoundCallback = func;
 
         return this;
-    };
+    }
 
     /**
      * @function notFoundException
      */
     public notFoundException = (): void => {
         this.notFoundCallback.apply(null, []);
-    };
+    }
 
     /**
      * @function before
@@ -111,7 +111,7 @@ export class router extends RouterRequest {
         this.BeforeRouteMiddlewareFunc = func;
 
         return this;
-    };
+    }
 
     /**
      * @function add
@@ -122,10 +122,10 @@ export class router extends RouterRequest {
     public add = (name: string, path: string, callback: any): this => {
         const routeArray = path.split('/');
 
-        let paramsEnabled = false,
-            params: Array<string> = [];
+        let paramsEnabled = false;
+        const params: Array<string> = [];
 
-        routeArray.forEach((r) => {
+        routeArray.forEach(r => {
             if (r.substr(0, 1) === ':') {
                 paramsEnabled = true;
                 params.push(r.substr(1, r.length));
@@ -157,12 +157,12 @@ export class router extends RouterRequest {
      * @param routes
      */
     public map = (name: string, mount: string, routes: any[]): this => {
-        routes.forEach((route: route) => {
+        routes.forEach((route: Route) => {
             this.add(name + route.name, mount + this.FormatPath(route.path, true), route.callback);
         });
 
         return this;
-    };
+    }
 
     /**
      * @function fetchRoute
@@ -173,11 +173,11 @@ export class router extends RouterRequest {
      * @param params
      */
     public fetchRoute = (Route: string, params: Array<string>): void => {
-        const targetRoute = this.routes.find((route: route) => {
+        const targetRoute = this.routes.find((route: Route) => {
             return route.name === Route || route.path === Route;
         });
 
-        if (targetRoute == undefined){
+        if (targetRoute === undefined){
             return this.Exception('Route ' + Route + ' does not exist.');
         }
 
@@ -188,10 +188,10 @@ export class router extends RouterRequest {
 
         if (!params) this.Exception('Error: route "' + Route + '" requires some parameters. None specified.');
 
-        let generatedURI = this.generateURL(targetRoute.path, params);
+        const generatedURI = this.generateURL(targetRoute.path, params);
 
         this.setURI(generatedURI);
-    };
+    }
 
     /**
      * @function generateURL
@@ -205,20 +205,18 @@ export class router extends RouterRequest {
     private generateURL = (route: string, params: Array<string>): string => {
         let generatedURI = route;
 
-        for (let p in params) {
+        for (const p in params) {
             const paramInRoute = route.split('/').find((targetParam): boolean => {
                 return targetParam === ':' + p;
             });
 
-            if (paramInRoute == undefined) {
-                continue;
+            if (paramInRoute !== undefined) {
+                generatedURI = generatedURI.replace(paramInRoute, params[p]);
             }
-
-            generatedURI = generatedURI.replace(paramInRoute, params[p]);
         }
 
         return generatedURI;
-    };
+    }
 
     /**
      * @function FormatPath
@@ -236,7 +234,7 @@ export class router extends RouterRequest {
         }
 
         return path;
-    };
+    }
 
     /**
      * @function setRoute
@@ -246,12 +244,12 @@ export class router extends RouterRequest {
      * @param route
      * @param params
      */
-    private setRoute = (route: route, params: Array<string> = []): void => {
+    private setRoute = (route: Route, params: Array<string> = []): void => {
         this.route = route;
         this.routeCall = route.callback;
         this.params = params;
         this.notfound = false;
-    };
+    }
 
     /**
      * @function handle
@@ -260,12 +258,12 @@ export class router extends RouterRequest {
      *
      * @param routes
      */
-    private handle = (routes: Array<route>): void => {
+    private handle = (routes: Array<Route>): void => {
         const URI = this.getURI();
 
-        routes.forEach((route) => {
+        routes.forEach(route => {
             const RouteArray = route.path.split('/');
-            let URIarray: Array<string> = URI.split('/');
+            const URIarray: Array<string> = URI.split('/');
 
             if (URIarray.length !== RouteArray.length) {
                 return;
@@ -277,7 +275,7 @@ export class router extends RouterRequest {
                 return this.setRoute(route, RouteOptions.params);
             }
         });
-    };
+    }
 
     /**
      * @function handlingParams
@@ -303,7 +301,7 @@ export class router extends RouterRequest {
             params: params,
             RouteString: RouteArray.join('/')
         };
-    };
+    }
 
     /**
      * @function run
@@ -314,7 +312,7 @@ export class router extends RouterRequest {
      */
     public run = (AfterRouteCallback?: any): void => {
         const URI = this.getURI();
-        let routes: Array<any> = [];
+        const routes: Array<any> = [];
 
         // While a route has not match the URI, set page as not found
         this.notfound = true;
@@ -322,7 +320,7 @@ export class router extends RouterRequest {
         // Call before middleware
         this.BeforeMiddleware(this.BeforeRouteMiddleware, this.BeforeRouteMiddlewareFunc);
 
-        this.routes.forEach((route) => {
+        this.routes.forEach(route => {
             if (route.paramsEnabled) {
                 routes.push(route);
                 this.handle(routes);
@@ -345,7 +343,7 @@ export class router extends RouterRequest {
         } else if (this.AfterRouteCallback != null) {
             this.AfterRouteCallback.apply(null, []);
         }
-    };
+    }
 
     /**
      * @function BeforeMiddleware
@@ -362,7 +360,7 @@ export class router extends RouterRequest {
                 return callback.apply(null, []);
             }
         }
-    };
+    }
 
     /**
      * @function Exception
@@ -371,5 +369,5 @@ export class router extends RouterRequest {
      */
     private Exception = (message: string): never => {
         throw new TypeError(message);
-    };
+    }
 }

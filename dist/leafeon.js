@@ -93,6 +93,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+;
 /**
  * @class RouterRequest
  */
@@ -117,15 +118,14 @@ var RouterRequest = /** @class */ (function () {
          * @function    setURI
          * @param route string
          */
-        this.WindowListener = function (callback) {
+        this.windowListener = function (callback) {
             if (typeof window !== 'undefined') {
                 window.onpopstate = function () {
                     callback();
                 };
             }
         };
-        this.windowObj = (typeof window == 'undefined') ? { location: { href: '/#/' } } : window;
-        //this.URI = this.windowObj.location.href.split('#')[1] || '/';
+        this.windowObj = (typeof window === 'undefined') ? { location: { href: '/#/' } } : window;
         this.URI = this.getURI();
     }
     return RouterRequest;
@@ -174,7 +174,8 @@ var router = /** @class */ (function (_super) {
          */
         _this.add = function (name, path, callback) {
             var routeArray = path.split('/');
-            var paramsEnabled = false, params = [];
+            var paramsEnabled = false;
+            var params = [];
             routeArray.forEach(function (r) {
                 if (r.substr(0, 1) === ':') {
                     paramsEnabled = true;
@@ -219,7 +220,7 @@ var router = /** @class */ (function (_super) {
             var targetRoute = _this.routes.find(function (route) {
                 return route.name === Route || route.path === Route;
             });
-            if (targetRoute == undefined) {
+            if (targetRoute === undefined) {
                 return _this.Exception('Route ' + Route + ' does not exist.');
             }
             if (!targetRoute.paramsEnabled) {
@@ -246,10 +247,9 @@ var router = /** @class */ (function (_super) {
                 var paramInRoute = route.split('/').find(function (targetParam) {
                     return targetParam === ':' + p;
                 });
-                if (paramInRoute == undefined) {
-                    return "continue";
+                if (paramInRoute !== undefined) {
+                    generatedURI = generatedURI.replace(paramInRoute, params[p]);
                 }
-                generatedURI = generatedURI.replace(paramInRoute, params[p]);
             };
             for (var p in params) {
                 _loop_1(p);
@@ -405,7 +405,7 @@ var router = /** @class */ (function (_super) {
         _this.AfterRouteCallback = function () { };
         _this.route = {};
         _this.notFoundCallback = function () { };
-        _this.WindowListener(_this.run);
+        _this.windowListener(_this.run);
         return _this;
     }
     return router;
