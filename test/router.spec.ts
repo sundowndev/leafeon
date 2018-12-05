@@ -3,8 +3,8 @@ const sinon = require('sinon');
 
 const leafeon = require('../src/leafeon');
 
-const MockBrowser = require('mock-browser').mocks.MockBrowser;
-const mock = new MockBrowser();
+//const MockBrowser = require('mock-browser').mocks.MockBrowser;
+//const mock = new MockBrowser();
 
 before(() => {});
 after(() => {});

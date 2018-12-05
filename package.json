@@ -11,7 +11,6 @@
   "scripts": {
     "build:ts": "rimraf lib dist && tsc",
     "build:webpack": "rimraf dist && webpack && webpack --config webpack.config.min.js",
-    "build:examples": "rimraf examples/*.js && cd examples && tsc",
     "build": "npm run build:ts && npm run build:webpack",
     "test": "npm run lint && npm run test:unit",
     "test:unit": "mocha --compilers ts:ts-node/register \"test/**/*.spec.ts\" --exit",
@@ -51,7 +50,7 @@
     "chai": "^3.5.0",
     "mocha": "^5.2.0",
     "rimraf": "^2.6.2",
-    "sinon": "^2.2.0",
+    "sinon": "^2.4.1",
     "sinon-chai": "^2.14.0",
     "ts-node": "^3.3.0",
     "tslint": "^4.3.1",
