@@ -10,6 +10,7 @@ interface route {
  */
 declare class RouterRequest {
     URI: string;
+    windowObj: any;
     constructor();
     /**
      * @function getURI
@@ -21,6 +22,11 @@ declare class RouterRequest {
      * @param route string
      */
     setURI: (route: string) => void;
+    /**
+     * @function    setURI
+     * @param route string
+     */
+    WindowListener: (callback: Function) => void;
 }
 /**
  * @package leafeon
