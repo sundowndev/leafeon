@@ -10,9 +10,11 @@ interface route {
  * @class RouterRequest
  */
 class RouterRequest {
-    URI: string;
+    public URI: string;
+    windowObj: any;
 
     constructor() {
+        this.windowObj = (typeof window == 'undefined') ? { location: { href: '/#/' } } : window;
         this.URI = this.getURI();
     }
 
@@ -21,7 +23,7 @@ class RouterRequest {
      * @returns {string}
      */
     public getURI = (): string => {
-        return this.URI = window.location.href.split('#')[1] || '/';
+        return this.URI = this.windowObj.location.href.split('#')[1] || '/';
     };
 
     /**
@@ -29,7 +31,19 @@ class RouterRequest {
      * @param route string
      */
     public setURI = (route: string): void => {
-        window.location.hash = route;
+        this.windowObj.location.hash = route;
+    };
+
+    /**
+     * @function    setURI
+     * @param route string
+     */
+    public WindowListener = (callback: Function): void => {
+      if (typeof window !== 'undefined') {
+        window.onpopstate = () => {
+          callback();
+        };
+      }
     };
 }
 
@@ -62,13 +76,9 @@ export class router extends RouterRequest {
         this.BeforeRouteMiddlewareFunc = () => {};
         this.AfterRouteCallback = () => {};
         this.route = {};
-        this.notFoundCallback = () => {
-            throw new TypeError('Route not found');
-        };
+        this.notFoundCallback = () => {};
 
-        window.onpopstate = () => {
-            this.run();
-        };
+        this.WindowListener(this.run);
     }
 
     /**
