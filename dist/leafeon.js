@@ -1,285 +1,406 @@
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["leafeon"] = factory();
+	else
+		root["leafeon"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @class RouterRequest
  */
-class RouterRequest {
-    constructor() {
-        this.getURI = () => {
-            if (location.hash.substr(0, 2) === '#/') {
-                this.URI = location.hash.substr(1);
-            }
-            return this.URI;
+var RouterRequest = /** @class */ (function () {
+    function RouterRequest() {
+        var _this = this;
+        /**
+         * @function getURI
+         * @returns {string}
+         */
+        this.getURI = function () {
+            return _this.URI = _this.windowObj.location.href.split('#')[1] || '/';
         };
         /**
-         * @function    setURI set the current URI
+         * @function    setURI
          * @param route string
          */
-        this.setURI = (route) => {
-            location.hash = route;
+        this.setURI = function (route) {
+            if (typeof window !== 'undefined') {
+                window.location.hash = route;
+            }
+            else {
+                _this.windowObj.location.hash = route;
+            }
         };
-        this.URI = '/' + location.hash;
+        /**
+         * @function    setURI
+         * @param route string
+         */
+        this.windowListener = function (callback) {
+            if (typeof window !== 'undefined') {
+                window.onpopstate = function () {
+                    callback();
+                };
+            }
+        };
+        var fakeLocation = {
+            location: {
+                href: '/#/',
+                hash: '#/',
+            },
+        };
+        this.windowObj = (typeof window === 'undefined') ? fakeLocation : window;
+        this.URI = this.getURI();
     }
-}
+    return RouterRequest;
+}());
 /**
- * leafeon class
- *
  * @package leafeon
- * @version 2.0.7
  * @description Client-sided and dependency-free Javascript routing library
  * @license MIT
  */
-export class router extends RouterRequest {
-    constructor() {
-        super();
-        this.getCurrentURI = () => {
-            return this.getURI();
+var Router = /** @class */ (function (_super) {
+    __extends(Router, _super);
+    function Router() {
+        var _this = _super.call(this) || this;
+        /**
+         * @function setErrorCallback
+         * @param func
+         */
+        _this.setErrorCallback = function (func) {
+            _this.notFoundCallback = func;
+            return _this;
         };
-        this.setErrorCallback = (func) => {
-            this.notFoundCallback = func;
-        };
-        this.notFoundException = () => {
-            this.notFoundCallback.apply(null, []);
+        /**
+         * @function notFoundException
+         */
+        _this.notFoundException = function () {
+            _this.notFoundCallback.apply(null, []);
         };
         /**
          * @function before
-         *
-         * Before route function
-         *
-         * @param route   string
-         * @param func    object
+         * @description Before route function
+         * @param route
+         * @param func
          */
-        this.before = (route, func) => {
-            this.BeforeRouteMiddleware = route;
-            this.BeforeRouteMiddlewareFunc = func;
+        _this.before = function (route, func) {
+            _this.beforeRouteMiddleware = route;
+            _this.beforeRouteMiddlewareFunc = func;
+            return _this;
+        };
+        /**
+         * @function add
+         * @param {string} name
+         * @param {string} path
+         * @param callback
+         */
+        _this.add = function (name, path, callback) {
+            var routeArray = path.split('/');
+            var paramsEnabled = false;
+            var params = [];
+            routeArray.forEach(function (r) {
+                if (r.substr(0, 1) === ':') {
+                    paramsEnabled = true;
+                    params.push(r.substr(1, r.length));
+                }
+            });
+            _this.paramsEnabled = paramsEnabled;
+            path = path.split('#')[1] || path;
+            _this.routes.push({
+                name: name,
+                path: path,
+                callback: callback,
+                paramsEnabled: paramsEnabled,
+                params: params,
+            });
+            return _this;
         };
         /**
          * @function map
-         *
-         * Mapping routes into a specific path
-         *
-         * @param name  string
-         * @param mount string
-         * @param routes    array
+         * @description Mapping routes into a specific path
+         * @param name
+         * @param mount
+         * @param routes
          */
-        this.map = (name, mount, routes = []) => {
-            routes.forEach((route) => {
-                this.add(name + route.name, mount + this.FormatPath(route.path, true), route.callback);
+        _this.map = function (name, mount, routes) {
+            routes.forEach(function (route) {
+                _this.add(name + route.name, mount + _this.formatPath(route.path), route.callback);
             });
+            return _this;
         };
         /**
          * @function fetchRoute
-         *
-         * Target a given route by name or path
-         *
-         * @param Route string
-         * @param params    array
+         * @description Target a given route by name or path
+         * @param route
+         * @param params
          */
-        this.fetchRoute = (Route, params) => {
-            const targetRoute = this.routes.find((route) => {
-                return route.name === Route || route.path === Route;
+        _this.fetchRoute = function (route, params) {
+            var targetRoute = _this.routes.find(function (targetedRoute) {
+                return targetedRoute.name === route || targetedRoute.path === route;
             });
-            if (targetRoute == undefined) {
-                this.Exception('Route ' + Route + ' does not exist.');
-                return;
+            if (targetRoute === undefined) {
+                return _this.exception('Route ' + route + ' does not exist.');
             }
             if (!targetRoute.paramsEnabled) {
-                this.setURI(targetRoute.path);
+                _this.setURI(targetRoute.path);
                 return;
             }
-            if (!params)
-                this.Exception('Error: route "' + Route + '" requires some parameters. None specified.');
-            let generatedURI = this.generateURL(targetRoute.path, params);
-            this.setURI(generatedURI);
+            if (!params) {
+                _this.exception('Error: route "' + route + '" requires some parameters. None specified.');
+            }
+            var generatedURI = _this.generateURL(targetRoute.path, params);
+            _this.setURI(generatedURI);
         };
         /**
          * @function generateURL
-         *
-         * Generate URL from route and parameters
-         *
+         * @description Generate URL from route and parameters
          * @param route
          * @param params
          * @returns string
          */
-        this.generateURL = (route, params) => {
-            let generatedURI = route;
-            for (let p in params) {
-                if (!params.hasOwnProperty(p))
-                    continue;
-                const paramInRoute = route.split('/').find((targetParam) => {
+        _this.generateURL = function (route, params) {
+            var generatedURI = route;
+            Object.keys(params).forEach(function (p) {
+                var paramInRoute = route.split('/').find(function (targetParam) {
                     return targetParam === ':' + p;
                 });
-                if (paramInRoute == undefined) {
-                    continue;
+                if (paramInRoute !== undefined) {
+                    generatedURI = generatedURI.replace(paramInRoute, params[p]);
                 }
-                generatedURI = generatedURI.replace(paramInRoute, params[p]);
-            }
+            });
             return generatedURI;
         };
         /**
-         * @function FormatPath
-         *
-         * Format given path
-         *
-         * @param path  string
-         * @param OnlySlash boolean
+         * @function formatPath
+         * @description Format given path
+         * @param path
          */
-        this.FormatPath = (path, OnlySlash = false) => {
-            if (OnlySlash && path === '/') {
-                path = '';
+        _this.formatPath = function (path) {
+            if (path.match(/^(?:\/)?(?:\#)?(?:\/)?[a-zA-Z\-_\/:]+/)[0] !== path) {
+                _this.exception('Path is not formated correctly.');
             }
-            else if (!OnlySlash && path.substr(0, 1) === '/') {
-                path = path.substr(1);
-            }
-            return path;
+            return path.replace(/^(?:\/)?(?:\#)?(?:\/)/, '/');
         };
         /**
          * @function setRoute
-         *
-         * Set the route callback if it match
-         *
+         * @description Set the route callback if it match
          * @param route
          * @param params
          */
-        this.setRoute = (route, params = []) => {
-            this.route = route;
-            this.routeCall = route.callback;
-            this.params = params;
-            this.notfound = false;
+        _this.setRoute = function (route, params) {
+            if (params === void 0) { params = []; }
+            _this.route = route;
+            _this.routeCall = route.callback;
+            _this.params = params;
+            _this.notfound = false;
         };
         /**
          * @function handle
-         *
-         * Check route
-         *
-         * @param routes    array
+         * @description Check route
+         * @param routes
          */
-        this.handle = (routes) => {
-            const URI = this.getCurrentURI();
-            routes.forEach((Route) => {
-                const RouteArray = Route.split('/');
-                let URIarray = URI.split('/');
-                if (URIarray.length !== RouteArray.length) {
+        _this.handle = function (routes) {
+            var URI = _this.getURI();
+            routes.forEach(function (route) {
+                var routeArray = route.path.split('/');
+                var uriArray = URI.split('/');
+                if (uriArray.length !== routeArray.length) {
                     return;
                 }
-                const RouteOptions = this.handlingParams(Route);
-                const URIstring = URIarray.join('');
-                if (RouteOptions.RouteString !== URIstring) {
-                    return;
+                var routeOptions = _this.handlingParams(route.path);
+                if (routeOptions.RouteString === URI && _this.notfound) {
+                    return _this.setRoute(route, routeOptions.params);
                 }
-                this.routes.forEach((route) => {
-                    if (route.path === Route && this.notfound) {
-                        this.setRoute(route, RouteOptions.params);
-                    }
-                });
             });
         };
         /**
-         * @function run
-         *
-         * Run the router and search for a route match
-         *
-         * @param AfterRouteCallback    function
+         * @function handlingParams
+         * @param {string} route
+         * @returns {object}
          */
-        this.run = (AfterRouteCallback) => {
-            const URI = this.getCurrentURI();
-            let routes = [];
-            // While a route has not match the URI, page is not found
-            this.notfound = true;
-            this.BeforeMiddleware(this.BeforeRouteMiddleware, this.BeforeRouteMiddlewareFunc);
-            this.routes.forEach((route) => {
-                if (route.paramsEnabled) {
-                    routes.push(route.path);
-                    this.handle(routes);
-                }
-                else if (route.path === URI) {
-                    this.setRoute(route);
-                }
-            });
-            if (this.notfound) {
-                this.notFoundException();
-            }
-            else {
-                this.routeCall.apply(null, this.params);
-            }
-            if (AfterRouteCallback != null) {
-                this.AfterRouteCallback = AfterRouteCallback;
-                this.AfterRouteCallback.apply(null, []);
-            }
-            else if (this.AfterRouteCallback != null) {
-                this.AfterRouteCallback.apply(null, []);
-            }
-        };
-        this.BeforeMiddleware = (route, callback) => {
-            const URI = this.getURI();
-            switch (route.substr(0, 2)) {
-                case '#/':
-                    route = route.substr(1);
-                    break;
-                case '/#':
-                    route = route.substr(2);
-                    break;
-            }
-            if (callback != null) {
-                if (route === '*') {
-                    callback.apply(null, []);
-                }
-                else if (route === URI) {
-                    callback.apply(null, []);
-                }
-            }
-        };
-        this.handlingParams = (route) => {
-            const URIarray = this.getCurrentURI().split('/');
-            const RouteArray = route.split('/');
-            const params = [];
-            for (let i = 0; i < RouteArray.length; i++) {
-                if (RouteArray[i].substr(0, 1) === ':') {
-                    if (URIarray[i] !== '') {
-                        params.push(URIarray[i]);
+        _this.handlingParams = function (route) {
+            var uriArray = _this.getURI().split('/');
+            var routeArray = route.split('/');
+            var params = [];
+            for (var i = 0; i < routeArray.length; i++) {
+                if (routeArray[i].substr(0, 1) === ':') {
+                    if (uriArray[i] !== '') {
+                        params.push(uriArray[i]);
                     }
-                    RouteArray[i] = URIarray[i];
+                    routeArray[i] = uriArray[i];
                 }
             }
             return {
                 params: params,
-                RouteString: RouteArray.join('')
+                RouteString: routeArray.join('/'),
             };
         };
-        this.Exception = (message) => {
+        /**
+         * @function run
+         * @description Run the router and search for a route match
+         * @param afterRouteCallback
+         */
+        _this.run = function (afterRouteCallback) {
+            var URI = _this.getURI();
+            var routes = [];
+            // While a route has not match the URI, set page as not found
+            _this.notfound = true;
+            // Call before middleware
+            _this.beforeMiddleware(_this.beforeRouteMiddleware, _this.beforeRouteMiddlewareFunc);
+            _this.routes.forEach(function (route) {
+                if (route.paramsEnabled) {
+                    routes.push(route);
+                    _this.handle(routes);
+                }
+                else if (route.path === URI) {
+                    _this.setRoute(route);
+                }
+            });
+            // If there's a route match, execute the callback
+            if (_this.notfound) {
+                _this.notFoundException();
+            }
+            else {
+                _this.routeCall.apply(null, _this.params);
+            }
+            // Call after middleware
+            if (afterRouteCallback != null) {
+                _this.afterRouteCallback = afterRouteCallback;
+                _this.afterRouteCallback.apply(null, []);
+            }
+            else if (_this.afterRouteCallback != null) {
+                _this.afterRouteCallback.apply(null, []);
+            }
+        };
+        /**
+         * @function beforeMiddleware
+         * @param {string} route
+         * @param callback
+         */
+        _this.beforeMiddleware = function (route, callback) {
+            route = route.split('#')[1] || route;
+            if (callback != null) {
+                if (route === '*') {
+                    return callback.apply(null, []);
+                }
+                else if (route === _this.getURI()) {
+                    return callback.apply(null, []);
+                }
+            }
+        };
+        /**
+         * @function exception
+         * @param {string} message
+         * @returns {never}
+         */
+        _this.exception = function (message) {
             throw new TypeError(message);
         };
-        this.notfound = false;
-        this.routes = [];
-        this.paramsEnabled = false;
-        this.params = [];
-        this.BeforeRouteMiddleware = '*';
-        this.routeCall = () => { };
-        this.BeforeRouteMiddlewareFunc = () => { };
-        this.AfterRouteCallback = () => { };
-        this.route = {};
-        this.notFoundCallback = () => {
-            throw new TypeError('Route not found');
-        };
-        window.addEventListener('hashchange', () => {
-            this.run();
-        });
+        _this.notfound = false;
+        _this.routes = [];
+        _this.paramsEnabled = false;
+        _this.params = [];
+        _this.beforeRouteMiddleware = '*';
+        _this.routeCall = function () { };
+        _this.beforeRouteMiddlewareFunc = function () { };
+        _this.afterRouteCallback = function () { };
+        _this.route = {};
+        _this.notFoundCallback = function () { };
+        _this.windowListener(_this.run);
+        return _this;
     }
-    add(name, path, callback) {
-        const routeArray = path.split('/');
-        let paramsEnabled = false, params = [];
-        routeArray.forEach((r) => {
-            if (r.substr(0, 1) === ':') {
-                paramsEnabled = true;
-                params.push(r.substr(1, r.length));
-            }
-        });
-        this.paramsEnabled = paramsEnabled;
-        path = path.split('#')[1] || path;
-        this.routes.push({
-            name: name,
-            path: path,
-            callback: callback,
-            paramsEnabled: paramsEnabled,
-            params: params
-        });
-    }
-}
+    return Router;
+}(RouterRequest));
+exports.Router = Router;
+
+
+/***/ })
+/******/ ]);
+});
+//# sourceMappingURL=leafeon.js.map
