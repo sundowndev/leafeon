@@ -59,7 +59,7 @@ class RouterRequest {
           return '/';
         }
 
-        if (path.match(/^(?:\/)?(?:\#)?(?:\/)?[a-zA-Z\-_\/:]+/)[0] !== path) {
+        if (path.match(/^(?:\/)?(?:\#)?(?:\/)?[a-zA-Z0-9\-_\/:]+/)[0] !== path) {
           this.exception('Path is not formated correctly.');
         }
 
@@ -108,7 +108,7 @@ export class Router extends RouterRequest {
     constructor() {
         super();
 
-        this.notfound = false;
+        this.notfound = true; // While a route has not match the URI, set page as not found
         this.routes = [];
         this.paramsEnabled = false;
         this.params = [];
@@ -324,9 +324,6 @@ export class Router extends RouterRequest {
     public run = (afterRouteCallback?: any): void => {
         const URI = this.getURI();
         const routes: Array<any> = [];
-
-        // While a route has not match the URI, set page as not found
-        this.notfound = true;
 
         // Execute before middleware
         this.beforeMiddleware(this.beforeRouteMiddleware, this.beforeRouteMiddlewareFunc);
