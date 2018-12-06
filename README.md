@@ -36,7 +36,7 @@ leafeon.add('single_category', '/category/:id', function (id) {
 });
 ~~~
 
-Register a callback when route is not found
+Register a callback when route is not found. It returns router object.
 
 ~~~js
 leafeon.setErrorCallback(function () {
@@ -139,7 +139,7 @@ $ npm i leafeon
 #### Usage
 
 ```js
-const leafeon = require('leafeon').router();
+const leafeon = require('leafeon').Router();
 
 leafeon.add('home', '/', function () {
     document.write('hello world');
@@ -161,7 +161,7 @@ leafeon.add('home', '/', function () {
 
 ~~~html
 <script>
-    const leafeon = new leafeon.router();
+    const leafeon = new leafeon.Router();
 </script>
 ~~~
 
@@ -177,7 +177,7 @@ leafeon
 
 ## Browser support
 
-- UMD (.js) supports IE 11+, Chrome 43+, Opera 29+, and Firefox 41+
+Supports IE 11+, Chrome 43+, Opera 29+, and Firefox 41+
 
 ## License
 
