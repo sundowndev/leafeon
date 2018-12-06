@@ -30,7 +30,11 @@ class RouterRequest {
      * @returns {string}
      */
     public getURI = (): string => {
-        return this.URI = this.windowObj.location.href.split('#')[1] || '/';
+        if (typeof window !== 'undefined') {
+          return this.URI = this.formatPath(window.location.hash);
+        } else {
+          return this.URI = this.formatPath(this.windowObj.location.hash);
+        }
     }
 
     /**
@@ -43,6 +47,32 @@ class RouterRequest {
         } else {
           this.windowObj.location.hash = route;
         }
+    }
+
+    /**
+     * @function formatPath
+     * @description Format given path
+     * @param path
+     */
+    public formatPath = (path: string): string => {
+        if (path === '') {
+          return '/';
+        }
+
+        if (path.match(/^(?:\/)?(?:\#)?(?:\/)?[a-zA-Z\-_\/:]+/)[0] !== path) {
+          this.exception('Path is not formated correctly.');
+        }
+
+        return path.replace(/^(?:\/)?(?:\#)?(?:\/)/, '/');
+    }
+
+    /**
+     * @function exception
+     * @param {string} message
+     * @returns {never}
+     */
+    public exception = (message: string): never => {
+        throw new TypeError(message);
     }
 
     /**
@@ -224,19 +254,6 @@ export class Router extends RouterRequest {
     }
 
     /**
-     * @function formatPath
-     * @description Format given path
-     * @param path
-     */
-    private formatPath = (path: string): string => {
-        if (path.match(/^(?:\/)?(?:\#)?(?:\/)?[a-zA-Z\-_\/:]+/)[0] !== path) {
-          this.exception('Path is not formated correctly.');
-        }
-
-        return path.replace(/^(?:\/)?(?:\#)?(?:\/)/, '/');
-    }
-
-    /**
      * @function setRoute
      * @description Set the route callback if it match
      * @param route
@@ -311,7 +328,7 @@ export class Router extends RouterRequest {
         // While a route has not match the URI, set page as not found
         this.notfound = true;
 
-        // Call before middleware
+        // Execute before middleware
         this.beforeMiddleware(this.beforeRouteMiddleware, this.beforeRouteMiddlewareFunc);
 
         this.routes.forEach(route => {
@@ -354,14 +371,5 @@ export class Router extends RouterRequest {
                 return callback.apply(null, []);
             }
         }
-    }
-
-    /**
-     * @function exception
-     * @param {string} message
-     * @returns {never}
-     */
-    private exception = (message: string): never => {
-        throw new TypeError(message);
     }
 }
