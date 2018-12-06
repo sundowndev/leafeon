@@ -11,10 +11,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 
     <script>
-        var router = new leafeon.router();
+        const router = new leafeon.Router();
 
-        var source = "";
-        var data = {};
+        let source = "";
+        let data = {};
 
         router.add('home', '/', function () {
             source = "<p>Hi, I'm Raphael !</p>" +
@@ -35,7 +35,7 @@
         });
 
         router.run(function () {
-            var template = Handlebars.compile(source);
+            let template = Handlebars.compile(source);
             document.body.innerHTML = template(data);
         });
     </script>
