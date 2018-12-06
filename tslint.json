@@ -4,6 +4,8 @@
         "node_modules/tslint-microsoft-contrib"
     ],
     "rules": {
+        "no-empty": false,
+        "prefer-array-literal": false,
         "align": [true],
         "no-multiline-string": false,
         "arrow-parens": [true, "ban-single-arg-parens"],
