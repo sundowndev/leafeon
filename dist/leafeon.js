@@ -104,7 +104,12 @@ var RouterRequest = /** @class */ (function () {
          * @returns {string}
          */
         this.getURI = function () {
-            return _this.URI = _this.windowObj.location.href.split('#')[1] || '/';
+            if (typeof window !== 'undefined') {
+                return _this.URI = _this.formatPath(window.location.hash);
+            }
+            else {
+                return _this.URI = _this.formatPath(_this.windowObj.location.hash);
+            }
         };
         /**
          * @function    setURI
@@ -117,6 +122,28 @@ var RouterRequest = /** @class */ (function () {
             else {
                 _this.windowObj.location.hash = route;
             }
+        };
+        /**
+         * @function formatPath
+         * @description Format given path
+         * @param path
+         */
+        this.formatPath = function (path) {
+            if (path === '') {
+                return '/';
+            }
+            if (path.match(/^(?:\/)?(?:\#)?(?:\/)?[a-zA-Z\-_\/:]+/)[0] !== path) {
+                _this.exception('Path is not formated correctly.');
+            }
+            return path.replace(/^(?:\/)?(?:\#)?(?:\/)/, '/');
+        };
+        /**
+         * @function exception
+         * @param {string} message
+         * @returns {never}
+         */
+        this.exception = function (message) {
+            throw new TypeError(message);
         };
         /**
          * @function    setURI
@@ -257,17 +284,6 @@ var Router = /** @class */ (function (_super) {
             return generatedURI;
         };
         /**
-         * @function formatPath
-         * @description Format given path
-         * @param path
-         */
-        _this.formatPath = function (path) {
-            if (path.match(/^(?:\/)?(?:\#)?(?:\/)?[a-zA-Z\-_\/:]+/)[0] !== path) {
-                _this.exception('Path is not formated correctly.');
-            }
-            return path.replace(/^(?:\/)?(?:\#)?(?:\/)/, '/');
-        };
-        /**
          * @function setRoute
          * @description Set the route callback if it match
          * @param route
@@ -331,7 +347,7 @@ var Router = /** @class */ (function (_super) {
             var routes = [];
             // While a route has not match the URI, set page as not found
             _this.notfound = true;
-            // Call before middleware
+            // Execute before middleware
             _this.beforeMiddleware(_this.beforeRouteMiddleware, _this.beforeRouteMiddlewareFunc);
             _this.routes.forEach(function (route) {
                 if (route.paramsEnabled) {
@@ -373,14 +389,6 @@ var Router = /** @class */ (function (_super) {
                     return callback.apply(null, []);
                 }
             }
-        };
-        /**
-         * @function exception
-         * @param {string} message
-         * @returns {never}
-         */
-        _this.exception = function (message) {
-            throw new TypeError(message);
         };
         _this.notfound = false;
         _this.routes = [];

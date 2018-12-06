@@ -23,6 +23,18 @@ declare class RouterRequest {
      */
     setURI: (route: string) => void;
     /**
+     * @function formatPath
+     * @description Format given path
+     * @param path
+     */
+    formatPath: (path: string) => string;
+    /**
+     * @function exception
+     * @param {string} message
+     * @returns {never}
+     */
+    exception: (message: string) => never;
+    /**
      * @function    setURI
      * @param route string
      */
@@ -92,12 +104,6 @@ export declare class Router extends RouterRequest {
      */
     private generateURL;
     /**
-     * @function formatPath
-     * @description Format given path
-     * @param path
-     */
-    private formatPath;
-    /**
      * @function setRoute
      * @description Set the route callback if it match
      * @param route
@@ -128,11 +134,5 @@ export declare class Router extends RouterRequest {
      * @param callback
      */
     private beforeMiddleware;
-    /**
-     * @function exception
-     * @param {string} message
-     * @returns {never}
-     */
-    private exception;
 }
 export {};
