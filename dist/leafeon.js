@@ -93,7 +93,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-;
 /**
  * @class RouterRequest
  */
@@ -112,7 +111,12 @@ var RouterRequest = /** @class */ (function () {
          * @param route string
          */
         this.setURI = function (route) {
-            _this.windowObj.location.hash = route;
+            if (typeof window !== 'undefined') {
+                window.location.hash = route;
+            }
+            else {
+                _this.windowObj.location.hash = route;
+            }
         };
         /**
          * @function    setURI
@@ -125,7 +129,13 @@ var RouterRequest = /** @class */ (function () {
                 };
             }
         };
-        this.windowObj = (typeof window === 'undefined') ? { location: { href: '/#/' } } : window;
+        var fakeLocation = {
+            location: {
+                href: '/#/',
+                hash: '#/',
+            },
+        };
+        this.windowObj = (typeof window === 'undefined') ? fakeLocation : window;
         this.URI = this.getURI();
     }
     return RouterRequest;
@@ -135,9 +145,9 @@ var RouterRequest = /** @class */ (function () {
  * @description Client-sided and dependency-free Javascript routing library
  * @license MIT
  */
-var router = /** @class */ (function (_super) {
-    __extends(router, _super);
-    function router() {
+var Router = /** @class */ (function (_super) {
+    __extends(Router, _super);
+    function Router() {
         var _this = _super.call(this) || this;
         /**
          * @function setErrorCallback
@@ -155,15 +165,13 @@ var router = /** @class */ (function (_super) {
         };
         /**
          * @function before
-         *
-         * Before route function
-         *
+         * @description Before route function
          * @param route
          * @param func
          */
         _this.before = function (route, func) {
-            _this.BeforeRouteMiddleware = route;
-            _this.BeforeRouteMiddlewareFunc = func;
+            _this.beforeRouteMiddleware = route;
+            _this.beforeRouteMiddlewareFunc = func;
             return _this;
         };
         /**
@@ -189,96 +197,79 @@ var router = /** @class */ (function (_super) {
                 path: path,
                 callback: callback,
                 paramsEnabled: paramsEnabled,
-                params: params
+                params: params,
             });
             return _this;
         };
         /**
          * @function map
-         *
-         * Mapping routes into a specific path
-         *
+         * @description Mapping routes into a specific path
          * @param name
          * @param mount
          * @param routes
          */
         _this.map = function (name, mount, routes) {
             routes.forEach(function (route) {
-                _this.add(name + route.name, mount + _this.FormatPath(route.path, true), route.callback);
+                _this.add(name + route.name, mount + _this.formatPath(route.path), route.callback);
             });
             return _this;
         };
         /**
          * @function fetchRoute
-         *
-         * Target a given route by name or path
-         *
-         * @param Route
+         * @description Target a given route by name or path
+         * @param route
          * @param params
          */
-        _this.fetchRoute = function (Route, params) {
-            var targetRoute = _this.routes.find(function (route) {
-                return route.name === Route || route.path === Route;
+        _this.fetchRoute = function (route, params) {
+            var targetRoute = _this.routes.find(function (targetedRoute) {
+                return targetedRoute.name === route || targetedRoute.path === route;
             });
             if (targetRoute === undefined) {
-                return _this.Exception('Route ' + Route + ' does not exist.');
+                return _this.exception('Route ' + route + ' does not exist.');
             }
             if (!targetRoute.paramsEnabled) {
                 _this.setURI(targetRoute.path);
                 return;
             }
-            if (!params)
-                _this.Exception('Error: route "' + Route + '" requires some parameters. None specified.');
+            if (!params) {
+                _this.exception('Error: route "' + route + '" requires some parameters. None specified.');
+            }
             var generatedURI = _this.generateURL(targetRoute.path, params);
             _this.setURI(generatedURI);
         };
         /**
          * @function generateURL
-         *
-         * Generate URL from route and parameters
-         *
+         * @description Generate URL from route and parameters
          * @param route
          * @param params
          * @returns string
          */
         _this.generateURL = function (route, params) {
             var generatedURI = route;
-            var _loop_1 = function (p) {
+            Object.keys(params).forEach(function (p) {
                 var paramInRoute = route.split('/').find(function (targetParam) {
                     return targetParam === ':' + p;
                 });
                 if (paramInRoute !== undefined) {
                     generatedURI = generatedURI.replace(paramInRoute, params[p]);
                 }
-            };
-            for (var p in params) {
-                _loop_1(p);
-            }
+            });
             return generatedURI;
         };
         /**
-         * @function FormatPath
-         *
-         * Format given path
-         *
+         * @function formatPath
+         * @description Format given path
          * @param path
-         * @param OnlySlash
          */
-        _this.FormatPath = function (path, OnlySlash) {
-            if (OnlySlash === void 0) { OnlySlash = false; }
-            if (OnlySlash && path === '/') {
-                path = '';
+        _this.formatPath = function (path) {
+            if (path.match(/^(?:\/)?(?:\#)?(?:\/)?[a-zA-Z\-_\/:]+/)[0] !== path) {
+                _this.exception('Path is not formated correctly.');
             }
-            else if (!OnlySlash && path.substr(0, 1) === '/') {
-                path = path.substr(1);
-            }
-            return path;
+            return path.replace(/^(?:\/)?(?:\#)?(?:\/)/, '/');
         };
         /**
          * @function setRoute
-         *
-         * Set the route callback if it match
-         *
+         * @description Set the route callback if it match
          * @param route
          * @param params
          */
@@ -291,22 +282,20 @@ var router = /** @class */ (function (_super) {
         };
         /**
          * @function handle
-         *
-         * Check route
-         *
+         * @description Check route
          * @param routes
          */
         _this.handle = function (routes) {
             var URI = _this.getURI();
             routes.forEach(function (route) {
-                var RouteArray = route.path.split('/');
-                var URIarray = URI.split('/');
-                if (URIarray.length !== RouteArray.length) {
+                var routeArray = route.path.split('/');
+                var uriArray = URI.split('/');
+                if (uriArray.length !== routeArray.length) {
                     return;
                 }
-                var RouteOptions = _this.handlingParams(route.path);
-                if (RouteOptions.RouteString === URI && _this.notfound) {
-                    return _this.setRoute(route, RouteOptions.params);
+                var routeOptions = _this.handlingParams(route.path);
+                if (routeOptions.RouteString === URI && _this.notfound) {
+                    return _this.setRoute(route, routeOptions.params);
                 }
             });
         };
@@ -316,36 +305,34 @@ var router = /** @class */ (function (_super) {
          * @returns {object}
          */
         _this.handlingParams = function (route) {
-            var URIarray = _this.getURI().split('/');
-            var RouteArray = route.split('/');
+            var uriArray = _this.getURI().split('/');
+            var routeArray = route.split('/');
             var params = [];
-            for (var i = 0; i < RouteArray.length; i++) {
-                if (RouteArray[i].substr(0, 1) === ':') {
-                    if (URIarray[i] !== '') {
-                        params.push(URIarray[i]);
+            for (var i = 0; i < routeArray.length; i++) {
+                if (routeArray[i].substr(0, 1) === ':') {
+                    if (uriArray[i] !== '') {
+                        params.push(uriArray[i]);
                     }
-                    RouteArray[i] = URIarray[i];
+                    routeArray[i] = uriArray[i];
                 }
             }
             return {
                 params: params,
-                RouteString: RouteArray.join('/')
+                RouteString: routeArray.join('/'),
             };
         };
         /**
          * @function run
-         *
-         * Run the router and search for a route match
-         *
-         * @param AfterRouteCallback
+         * @description Run the router and search for a route match
+         * @param afterRouteCallback
          */
-        _this.run = function (AfterRouteCallback) {
+        _this.run = function (afterRouteCallback) {
             var URI = _this.getURI();
             var routes = [];
             // While a route has not match the URI, set page as not found
             _this.notfound = true;
             // Call before middleware
-            _this.BeforeMiddleware(_this.BeforeRouteMiddleware, _this.BeforeRouteMiddlewareFunc);
+            _this.beforeMiddleware(_this.beforeRouteMiddleware, _this.beforeRouteMiddlewareFunc);
             _this.routes.forEach(function (route) {
                 if (route.paramsEnabled) {
                     routes.push(route);
@@ -363,20 +350,20 @@ var router = /** @class */ (function (_super) {
                 _this.routeCall.apply(null, _this.params);
             }
             // Call after middleware
-            if (AfterRouteCallback != null) {
-                _this.AfterRouteCallback = AfterRouteCallback;
-                _this.AfterRouteCallback.apply(null, []);
+            if (afterRouteCallback != null) {
+                _this.afterRouteCallback = afterRouteCallback;
+                _this.afterRouteCallback.apply(null, []);
             }
-            else if (_this.AfterRouteCallback != null) {
-                _this.AfterRouteCallback.apply(null, []);
+            else if (_this.afterRouteCallback != null) {
+                _this.afterRouteCallback.apply(null, []);
             }
         };
         /**
-         * @function BeforeMiddleware
+         * @function beforeMiddleware
          * @param {string} route
          * @param callback
          */
-        _this.BeforeMiddleware = function (route, callback) {
+        _this.beforeMiddleware = function (route, callback) {
             route = route.split('#')[1] || route;
             if (callback != null) {
                 if (route === '*') {
@@ -388,29 +375,29 @@ var router = /** @class */ (function (_super) {
             }
         };
         /**
-         * @function Exception
+         * @function exception
          * @param {string} message
          * @returns {never}
          */
-        _this.Exception = function (message) {
+        _this.exception = function (message) {
             throw new TypeError(message);
         };
         _this.notfound = false;
         _this.routes = [];
         _this.paramsEnabled = false;
         _this.params = [];
-        _this.BeforeRouteMiddleware = '*';
+        _this.beforeRouteMiddleware = '*';
         _this.routeCall = function () { };
-        _this.BeforeRouteMiddlewareFunc = function () { };
-        _this.AfterRouteCallback = function () { };
+        _this.beforeRouteMiddlewareFunc = function () { };
+        _this.afterRouteCallback = function () { };
         _this.route = {};
         _this.notFoundCallback = function () { };
         _this.windowListener(_this.run);
         return _this;
     }
-    return router;
+    return Router;
 }(RouterRequest));
-exports.router = router;
+exports.Router = Router;
 
 
 /***/ })
