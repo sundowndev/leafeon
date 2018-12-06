@@ -90,4 +90,93 @@ describe('Router.generateURL', () => {
 });
 
 // -------------------------------- HANDLE FUNCTION -------------------------------- //
+
+describe('Router.handle', () => {
+  it('should set proper route', () => {
+    r.routes = []; // reset registered routes
+    r.setURI('#/hello/world'); // set fake URI
+
+    r.routes = [
+      {
+        name: 'name',
+        path: '/:name',
+        callback: () => {},
+        paramsEnabled: true,
+        params: ['name'],
+      },
+      {
+        name: 'hello',
+        path: '/hello/:name',
+        callback: () => {},
+        paramsEnabled: true,
+        params: ['name'],
+      },
+      {
+        name: 'foo',
+        path: '/foo/:id/bar',
+        callback: () => {},
+        paramsEnabled: true,
+        params: ['id'],
+      },
+    ];
+
+    r.handle(r.routes);
+
+    assert.equal(r.route, r.routes[1]);
+    assert.equal(r.routeCall, r.routes[1].callback);
+    assert.deepEqual(r.params, ['world']);
+  });
+
+  it('should not set any route', () => {
+    r.route = {}; // reset route
+    r.routes = []; // reset registered routes
+    r.setURI('#/hi/world'); // set fake URI
+
+    r.routes = [
+      {
+        name: 'name',
+        path: '/:name',
+        callback: () => {},
+        paramsEnabled: true,
+        params: ['name'],
+      },
+      {
+        name: 'hello',
+        path: '/hello/:name',
+        callback: () => {},
+        paramsEnabled: true,
+        params: ['name'],
+      },
+      {
+        name: 'foo',
+        path: '/foo/:id/bar',
+        callback: () => {},
+        paramsEnabled: true,
+        params: ['id'],
+      },
+    ];
+
+    r.handle(r.routes);
+
+    assert.deepEqual(r.route, {});
+  });
+});
+
 // -------------------------------- HANDLINGPARAMS FUNCTION -------------------------------- //
+
+describe('Router.handlingParams', () => {
+  it('should return route with params', () => {
+    r.route = {}; // reset route
+    r.routes = []; // reset registered routes
+    r.setURI('#/user/1/delete'); // set fake URI
+
+    const route = '/user/:id/:action';
+
+    const params = r.handlingParams(route);
+
+    assert.deepEqual(params, {
+      params: ['1', 'delete'],
+      RouteString: '/user/1/delete',
+    });
+  });
+});
