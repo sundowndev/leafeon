@@ -4,8 +4,8 @@
 
 <p align="center">
   <a href="https://travis-ci.org/sundowndev/leafeon"><img src="https://api.travis-ci.org/sundowndev/leafeon.svg?branch=master" alt="Build status"></a>
+  <a href="https://coveralls.io/github/sundowndev/leafeon?branch=master"><img src="https://coveralls.io/repos/github/sundowndev/leafeon/badge.svg?branch=master" alt="Code coverage"></a>
   <a href="https://github.com/sundowndev/leafeon/releases"><img src="https://img.shields.io/github/tag/Sundowndev/router.js.svg?style=flat-square" alt="Version"></a>
-  <a href="#"><img src="https://img.shields.io/badge/size-10kb-brightgreen.svg?style=flat-square" alt="Size"></a>
   <a href="#"><img src="https://img.shields.io/badge/minified%20size-4kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
 </p>
 
