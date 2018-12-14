@@ -12,9 +12,9 @@
     "build:ts": "rimraf lib dist && tsc",
     "build:webpack": "rimraf dist && webpack && webpack --config webpack.config.min.js",
     "build": "npm run build:ts && npm run build:webpack",
-    "test": "npm run lint && npm run test:coverage",
+    "test": "npm run lint && npm run test:unit",
     "test:unit": "mocha --compilers ts:ts-node/register \"test/**/*.spec.ts\" --exit",
-    "test:coverage": "nyc npm run test:unit",
+    "test:coverage": "nyc npm test",
     "lint": "tslint -c tslint.json --project tsconfig.json \"src/**/*.ts\"",
     "release": "git push --follow-tags && npm publish"
   },
