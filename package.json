@@ -1,6 +1,6 @@
 {
   "name": "leafeon",
-  "version": "2.1.15",
+  "version": "2.1.16",
   "description": "Client-sided and dependency-free Javascript routing library",
   "author": "Sundowndev",
   "main": "dist/leafeon",
@@ -48,6 +48,7 @@
     "@types/sinon-chai": "^2.7.33",
     "awesome-typescript-loader": "^3.5.0",
     "chai": "^3.5.0",
+    "coveralls": "^3.0.2",
     "mocha": "^5.2.0",
     "rimraf": "^2.6.2",
     "sinon": "^2.4.1",
