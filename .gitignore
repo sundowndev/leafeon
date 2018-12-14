@@ -1,2 +1,8 @@
-.idea/
-node_modules/
+.DS_Store
+.idea
+node_modules
+.nyc_output
+reports
+*.log
+npm-debug.log*
+.vscode
