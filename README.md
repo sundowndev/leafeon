@@ -154,7 +154,7 @@ leafeon.add('home', '/', function () {
 <script src="leafeon.min.js"></script>
 
 <!-- or via jsdelivr CDN -->
-<script src="https://cdn.jsdelivr.net/gh/sundowndev/leafeon.js@latest/dist/leafeon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/sundowndev/leafeon@latest/dist/leafeon.min.js"></script>
 ~~~
 
 2. Init the router
