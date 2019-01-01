@@ -160,9 +160,7 @@ leafeon.add('home', '/', function () {
 2. Init the router
 
 ~~~html
-<script>
-    const leafeon = new leafeon.Router();
-</script>
+const leafeon = new leafeon.Router();
 ~~~
 
 3. Create some routes and run the router
