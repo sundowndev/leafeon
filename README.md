@@ -4,8 +4,8 @@
 
 <p align="center">
   <a href="https://travis-ci.org/sundowndev/leafeon"><img src="https://api.travis-ci.org/sundowndev/leafeon.svg?branch=master" alt="Build status"></a>
-  <a href="https://github.com/sundowndev/leafeon/releases"><img src="https://img.shields.io/github/tag/Sundowndev/router.js.svg?style=flat-square" alt="Version"></a>
-  <a href="#"><img src="https://img.shields.io/badge/size-10kb-brightgreen.svg?style=flat-square" alt="Size"></a>
+  <a href="https://coveralls.io/github/sundowndev/leafeon?branch=master"><img src="https://coveralls.io/repos/github/sundowndev/leafeon/badge.svg?branch=master" alt="Code coverage"></a>
+  <a href="https://github.com/sundowndev/leafeon/releases"><img src="https://img.shields.io/github/tag/Sundowndev/leafeon.svg?style=flat-square" alt="Version"></a>
   <a href="#"><img src="https://img.shields.io/badge/minified%20size-4kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
 </p>
 
@@ -36,7 +36,7 @@ leafeon.add('single_category', '/category/:id', function (id) {
 });
 ~~~
 
-Register a callback when route is not found
+Register a callback when route is not found. It returns router object.
 
 ~~~js
 leafeon.setErrorCallback(function () {
@@ -139,7 +139,7 @@ $ npm i leafeon
 #### Usage
 
 ```js
-const leafeon = require('leafeon').router();
+const leafeon = require('leafeon').Router();
 
 leafeon.add('home', '/', function () {
     document.write('hello world');
@@ -154,15 +154,13 @@ leafeon.add('home', '/', function () {
 <script src="leafeon.min.js"></script>
 
 <!-- or via jsdelivr CDN -->
-<script src="https://cdn.jsdelivr.net/gh/sundowndev/leafeon.js@latest/dist/leafeon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/sundowndev/leafeon@latest/dist/leafeon.min.js"></script>
 ~~~
 
 2. Init the router
 
 ~~~html
-<script>
-    const leafeon = new leafeon.router();
-</script>
+const leafeon = new leafeon.Router();
 ~~~
 
 3. Create some routes and run the router
@@ -177,7 +175,7 @@ leafeon
 
 ## Browser support
 
-- UMD (.js) supports IE 11+, Chrome 43+, Opera 29+, and Firefox 41+
+Supports IE 11+, Chrome 43+, Opera 29+, and Firefox 41+
 
 ## License
 

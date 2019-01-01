@@ -1,4 +1,4 @@
-interface Route {
+interface IRoute {
     name: string;
     path: string;
     callback: void;
@@ -23,6 +23,18 @@ declare class RouterRequest {
      */
     setURI: (route: string) => void;
     /**
+     * @function formatPath
+     * @description Format given path
+     * @param path
+     */
+    formatPath: (path: string) => string;
+    /**
+     * @function exception
+     * @param {string} message
+     * @returns {never}
+     */
+    exception: (message: string) => never;
+    /**
      * @function    setURI
      * @param route string
      */
@@ -33,16 +45,16 @@ declare class RouterRequest {
  * @description Client-sided and dependency-free Javascript routing library
  * @license MIT
  */
-export declare class router extends RouterRequest {
+export declare class Router extends RouterRequest {
     private notfound;
     private routeCall;
     private params;
-    private BeforeRouteMiddleware;
-    private BeforeRouteMiddlewareFunc;
-    private AfterRouteCallback;
+    private beforeRouteMiddleware;
+    private beforeRouteMiddlewareFunc;
+    private afterRouteCallback;
     private notFoundCallback;
     route: object;
-    routes: Array<Route>;
+    routes: Array<IRoute>;
     paramsEnabled: boolean;
     constructor();
     /**
@@ -56,9 +68,7 @@ export declare class router extends RouterRequest {
     notFoundException: () => void;
     /**
      * @function before
-     *
-     * Before route function
-     *
+     * @description Before route function
      * @param route
      * @param func
      */
@@ -72,9 +82,7 @@ export declare class router extends RouterRequest {
     add: (name: string, path: string, callback: any) => this;
     /**
      * @function map
-     *
-     * Mapping routes into a specific path
-     *
+     * @description Mapping routes into a specific path
      * @param name
      * @param mount
      * @param routes
@@ -82,46 +90,29 @@ export declare class router extends RouterRequest {
     map: (name: string, mount: string, routes: any[]) => this;
     /**
      * @function fetchRoute
-     *
-     * Target a given route by name or path
-     *
-     * @param Route
+     * @description Target a given route by name or path
+     * @param route
      * @param params
      */
-    fetchRoute: (Route: string, params: string[]) => void;
+    fetchRoute: (route: string, params: string[]) => void;
     /**
      * @function generateURL
-     *
-     * Generate URL from route and parameters
-     *
+     * @description Generate URL from route and parameters
      * @param route
      * @param params
      * @returns string
      */
     private generateURL;
     /**
-     * @function FormatPath
-     *
-     * Format given path
-     *
-     * @param path
-     * @param OnlySlash
-     */
-    private FormatPath;
-    /**
      * @function setRoute
-     *
-     * Set the route callback if it match
-     *
+     * @description Set the route callback if it match
      * @param route
      * @param params
      */
     private setRoute;
     /**
      * @function handle
-     *
-     * Check route
-     *
+     * @description Check route
      * @param routes
      */
     private handle;
@@ -133,23 +124,15 @@ export declare class router extends RouterRequest {
     private handlingParams;
     /**
      * @function run
-     *
-     * Run the router and search for a route match
-     *
-     * @param AfterRouteCallback
+     * @description Run the router and search for a route match
+     * @param afterRouteCallback
      */
-    run: (AfterRouteCallback?: any) => void;
+    run: (afterRouteCallback?: any) => void;
     /**
-     * @function BeforeMiddleware
+     * @function beforeMiddleware
      * @param {string} route
      * @param callback
      */
-    private BeforeMiddleware;
-    /**
-     * @function Exception
-     * @param {string} message
-     * @returns {never}
-     */
-    private Exception;
+    private beforeMiddleware;
 }
 export {};
