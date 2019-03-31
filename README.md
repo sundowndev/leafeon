@@ -3,13 +3,26 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/sundowndev/leafeon"><img src="https://img.shields.io/travis/sundowndev/leafeon/master.svg?style=flat-square" alt="Build status"></a>
-  <a href="https://coveralls.io/github/sundowndev/leafeon?branch=master"><img src="https://img.shields.io/coveralls/sundowndev/leafeon/master.svg?style=flat-square" alt="Code coverage"></a>
-  <a href="https://github.com/sundowndev/leafeon/releases"><img src="https://img.shields.io/github/tag/Sundowndev/leafeon.svg?style=flat-square" alt="Version"></a>
-  <a href="#"><img src="https://img.shields.io/badge/minified%20size-4kb-brightgreen.svg?style=flat-square" alt="Size minified"></a>
+  <a href="https://travis-ci.org/sundowndev/leafeon">
+    <img src="https://img.shields.io/travis/sundowndev/leafeon/master.svg?style=flat-square" alt="build status">
+  </a>
+  <a href="https://coveralls.io/github/sundowndev/leafeon?branch=master">
+    <img src="https://img.shields.io/coveralls/sundowndev/leafeon/master.svg?style=flat-square" alt="code coverage">
+  </a>
+  <a href="https://github.com/sundowndev/leafeon/releases">
+    <img src="https://img.shields.io/github/release/Sundowndev/leafeon.svg?style=flat-square" alt="release">
+  </a>
+  <a href="https://www.npmjs.com/package/leafeon">
+    <img src="https://img.shields.io/npm/v/leafeon.svg?style=flat-square" alt="npm release">
+  </a>
+  <a href="https://github.com/sundowndev/leafeon/blob/master/dist/leafeon.min.js">
+    <img src="https://img.shields.io/bundlephobia/min/leafeon.svg?style=flat-square" alt="minified size">
+  </a>
 </p>
 
-<p align="center">As light as a leaf, leafeon is a Javascript routing library that fits perfectly with client-side templating.</p>
+<p align="center">
+  <strong>As light as a leaf, leafeon is a Javascript routing library that fits perfectly with client-side templating.</strong>
+</p>
 
 ## Features
 
