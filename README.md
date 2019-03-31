@@ -21,7 +21,7 @@
 </p>
 
 <p align="center">
-  <strong>As light as a leaf, leafeon is a Javascript routing library that fits perfectly with client-side templating.</strong>
+  As light as a leaf, leafeon is a Javascript routing library that fits perfectly with client-side templating.
 </p>
 
 ## Features
@@ -30,6 +30,7 @@
 - Error handling
 - Before and after router middleware
 - Route mapping
+- Browser & npm usage
 
 ## Overview
 
@@ -77,8 +78,8 @@ leafeon.map('docs_', '/docs', [
 
 ## Installation (npm)
 
-~~~bash
-$ npm i leafeon
+~~~shell
+npm install leafeon
 ~~~
 
 #### Usage
