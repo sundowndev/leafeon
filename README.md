@@ -24,6 +24,10 @@
   As light as a leaf, leafeon is a Javascript routing library that fits perfectly with client-side templating.
 </p>
 
+<p align="center">
+  <img src="https://i.imgur.com/DKcKGvP.png" alt="">
+</p>
+
 ## Features
 
 - Dynamic routing & URL generator
