@@ -30,11 +30,7 @@ class RouterRequest {
      * @returns {string}
      */
     public getURI = (): string => {
-        if (typeof window !== 'undefined') {
-          return this.URI = this.formatPath(window.location.hash);
-        } else {
-          return this.URI = this.formatPath(this.windowObj.location.hash);
-        }
+        return this.URI = this.formatPath(this.windowObj.location.hash);
     }
 
     /**
@@ -42,11 +38,7 @@ class RouterRequest {
      * @param route string
      */
     public setURI = (route: string): void => {
-        if (typeof window !== 'undefined') {
-          window.location.hash = route;
-        } else {
-          this.windowObj.location.hash = route;
-        }
+        this.windowObj.location.hash = route;
     }
 
     /**
@@ -76,12 +68,12 @@ class RouterRequest {
     }
 
     /**
-     * @function    setURI
+     * @function    windowListener
      * @param route string
      */
     public windowListener = (callback: Function): void => {
       if (typeof window !== 'undefined') {
-        window.onpopstate = () => {
+        window.onhashchange = () => {
           callback();
         };
       }
@@ -111,13 +103,13 @@ export class Router extends RouterRequest {
         this.notfound = true; // While a route has not match the URI, set page as not found
         this.routes = [];
         this.paramsEnabled = false;
+        this.route = null;
         this.params = [];
         this.beforeRouteMiddleware = '*';
-        this.routeCall = () => {};
-        this.beforeRouteMiddlewareFunc = () => {};
-        this.afterRouteCallback = () => {};
-        this.route = {};
-        this.notFoundCallback = () => {};
+        this.routeCall = null;
+        this.beforeRouteMiddlewareFunc = null;
+        this.afterRouteCallback = null;
+        this.notFoundCallback = null;
 
         this.windowListener(this.run);
     }
@@ -322,6 +314,11 @@ export class Router extends RouterRequest {
      * @param afterRouteCallback
      */
     public run = (afterRouteCallback?: any): void => {
+        this.route = null;
+        this.routeCall = null;
+        this.params = [];
+        this.notfound = true;
+
         const URI = this.getURI();
         const routes: Array<any> = [];
 

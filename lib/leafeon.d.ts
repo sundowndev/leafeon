@@ -35,7 +35,7 @@ declare class RouterRequest {
      */
     exception: (message: string) => never;
     /**
-     * @function    setURI
+     * @function    windowListener
      * @param route string
      */
     windowListener: (callback: Function) => void;
