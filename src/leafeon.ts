@@ -103,13 +103,13 @@ export class Router extends RouterRequest {
         this.notfound = true; // While a route has not match the URI, set page as not found
         this.routes = [];
         this.paramsEnabled = false;
+        this.route = null;
         this.params = [];
         this.beforeRouteMiddleware = '*';
-        this.routeCall = () => {};
-        this.beforeRouteMiddlewareFunc = () => {};
-        this.afterRouteCallback = () => {};
-        this.route = {};
-        this.notFoundCallback = () => {};
+        this.routeCall = null;
+        this.beforeRouteMiddlewareFunc = null;
+        this.afterRouteCallback = null;
+        this.notFoundCallback = null;
 
         this.windowListener(this.run);
     }
@@ -314,6 +314,11 @@ export class Router extends RouterRequest {
      * @param afterRouteCallback
      */
     public run = (afterRouteCallback?: any): void => {
+        this.route = null;
+        this.routeCall = null;
+        this.params = [];
+        this.notfound = true;
+
         const URI = this.getURI();
         const routes: Array<any> = [];
 
