@@ -30,11 +30,7 @@ class RouterRequest {
      * @returns {string}
      */
     public getURI = (): string => {
-        if (typeof window !== 'undefined') {
-          return this.URI = this.formatPath(window.location.hash);
-        } else {
-          return this.URI = this.formatPath(this.windowObj.location.hash);
-        }
+        return this.URI = this.formatPath(this.windowObj.location.hash);
     }
 
     /**
@@ -42,11 +38,7 @@ class RouterRequest {
      * @param route string
      */
     public setURI = (route: string): void => {
-        if (typeof window !== 'undefined') {
-          window.location.hash = route;
-        } else {
-          this.windowObj.location.hash = route;
-        }
+        this.windowObj.location.hash = route;
     }
 
     /**
@@ -76,12 +68,12 @@ class RouterRequest {
     }
 
     /**
-     * @function    setURI
+     * @function    windowListener
      * @param route string
      */
     public windowListener = (callback: Function): void => {
       if (typeof window !== 'undefined') {
-        window.onpopstate = () => {
+        window.onhashchange = () => {
           callback();
         };
       }
