@@ -28,6 +28,26 @@
   <img src="https://i.imgur.com/DKcKGvP.png" alt="">
 </p>
 
+## Table of Content
+
+- [Features](#features)
+- [Overview](#overview)
+- [Usage](#usage)
+    - [npm](#npm)
+  - [Browser](#browser)
+- [Browser support](#browser-support)
+- [API](#api)
+    - [`.add(name: string, path: string, callback: function)`](#addname-string-path-string-callback-function)
+    - [`.map(prefixName: string, prefixPath: string, routes: Array)`](#mapprefixname-string-prefixpath-string-routes-array)
+    - [`.fetchRoute(name: string[, parameters: object])`](#fetchroutename-string-parameters-object)
+    - [`.route: object`](#route-object)
+    - [`.setErrorCallback(callback: function)`](#seterrorcallbackcallback-function)
+    - [`.notFoundException()`](#notfoundexception)
+    - [`.before(path: string, callback: function)`](#beforepath-string-callback-function)
+    - [`.run([callback: function])`](#runcallback-function)
+- [License](#license)
+
+
 ## Features
 
 - Dynamic routing & URL generator
@@ -37,6 +57,8 @@
 - Browser & npm usage
 
 ## Overview
+
+[![Edit leafeon](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/53xwl9120l?fontsize=14)
 
 A simple route
 
@@ -80,23 +102,30 @@ leafeon.map('docs_', '/docs', [
 ]);
 ~~~
 
-## Installation (npm)
+## Usage
+
+#### npm
+
+Install the package :
 
 ~~~shell
-npm install leafeon
+npm i leafeon --save
 ~~~
-
-#### Usage
 
 ```js
 const leafeon = require('leafeon').Router();
+// or using ES6
+// import * as leafeon from 'leafeon';
+// const router = leafeon.Router();
 
-leafeon.add('home', '/', function () {
+leafeon.add('home', '/', () => {
     document.write('hello world');
-}).run();
+})
+
+leafeon.run();
 ```
 
-## Browser usage
+### Browser
 
 1. Include leafeon.js in **<head>** or at the end of the **<body>**
 

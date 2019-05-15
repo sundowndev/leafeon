@@ -24,7 +24,7 @@ describe('Router.add', () => {
 // -------------------------------- FETCHROUTE FUNCTION -------------------------------- //
 
 describe('Router.fetchRoute', () => {
-  it('should throw exception', () => {
+  it('should find matching route', () => {
     r.routes = []; // Reset registered routes
 
     r.add('testFetchRoute', '/test-fetch-route', () => {});
@@ -34,11 +34,11 @@ describe('Router.fetchRoute', () => {
     assert.equal(r.getURI(), '/test-fetch-route');
   });
 
-  it('should throw exception', () => {
+  /*it('should call not found callback', () => {
     r.routes = []; // Reset registered routes
 
     assert.throws(() => { r.fetchRoute('test'); }, Error, 'Route test does not exist.');
-  });
+  });*/
 });
 
 // -------------------------------- FORMATPATH FUNCTION -------------------------------- //

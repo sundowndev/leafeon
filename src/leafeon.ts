@@ -128,7 +128,9 @@ export class Router extends RouterRequest {
      * @function notFoundException
      */
     public notFoundException = (): void => {
-        this.notFoundCallback.apply(null, []);
+        if (this.notFoundCallback !== null) {
+            this.notFoundCallback.apply(null, []);
+        }
     }
 
     /**
@@ -205,7 +207,7 @@ export class Router extends RouterRequest {
         });
 
         if (targetRoute === undefined) {
-            return this.exception('Route ' + route + ' does not exist.');
+            return this.notFoundException();
         }
 
         if (!targetRoute.paramsEnabled) {
