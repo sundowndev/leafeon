@@ -28,6 +28,10 @@
   <img src="https://i.imgur.com/DKcKGvP.png" alt="">
 </p>
 
+## Unmaintained notice
+
+This is project is **unmaintained** and dependencies might be **deprecated**. Feel free to fork and update it.
+
 ## Table of Content
 
 - [Features](#features)
